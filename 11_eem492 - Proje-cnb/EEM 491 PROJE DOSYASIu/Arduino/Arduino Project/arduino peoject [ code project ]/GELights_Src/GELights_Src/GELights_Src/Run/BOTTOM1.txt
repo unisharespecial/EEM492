@@ -1,0 +1,3 @@
+#define string=bottom1
+
+#common.txt

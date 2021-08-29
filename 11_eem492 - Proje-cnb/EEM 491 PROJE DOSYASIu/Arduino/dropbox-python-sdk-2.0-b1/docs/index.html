@@ -1,0 +1,2128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dropbox.client &mdash; Dropbox  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Dropbox  documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">Dropbox  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="module-dropbox.client">
+<span id="dropbox-client"></span><h1>dropbox.client<a class="headerlink" href="#module-dropbox.client" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dropbox.client.DropboxClient">
+<em class="property">class </em><tt class="descclassname">dropbox.client.</tt><tt class="descname">DropboxClient</tt><big>(</big><em>oauth2_access_token</em>, <em>locale=None</em>, <em>rest_client=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>The class that lets you make Dropbox API calls.  You&#8217;ll need to obtain an
+OAuth 2 access token first.  You can get an access token using either
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow" title="dropbox.client.DropboxOAuth2Flow"><tt class="xref py py-class docutils literal"><span class="pre">DropboxOAuth2Flow</span></tt></a> or <a class="reference internal" href="#dropbox.client.DropboxOAuth2FlowNoRedirect" title="dropbox.client.DropboxOAuth2FlowNoRedirect"><tt class="xref py py-class docutils literal"><span class="pre">DropboxOAuth2FlowNoRedirect</span></tt></a>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">oauth2_access_token</span></tt>: An OAuth 2 access token (string).</li>
+<li><tt class="docutils literal"><span class="pre">rest_client</span></tt>: A <a class="reference internal" href="#dropbox.rest.RESTClient" title="dropbox.rest.RESTClient"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.RESTClient</span></tt></a>-like object to use for making
+requests. [optional]</li>
+</ul>
+</dd>
+</dl>
+<p>All of the API call methods can raise a <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> exception if
+the server returns a non-200 or invalid HTTP response. Note that a 401
+return status at any point indicates that the access token you&#8217;re using
+is no longer valid and the user must be put through the OAuth 2
+authorization flow again.</p>
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.request">
+<tt class="descname">request</tt><big>(</big><em>target</em>, <em>params=None</em>, <em>method='POST'</em>, <em>content_server=False</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>An internal method that builds the url, headers, and params for a Dropbox API request.
+It is exposed if you need to make API calls not implemented in this library or if you
+need to debug requests.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">target</span></tt>: The target URL with leading slash (e.g. &#8216;/files&#8217;)</li>
+<li><tt class="docutils literal"><span class="pre">params</span></tt>: A dictionary of parameters to add to the request</li>
+<li><tt class="docutils literal"><span class="pre">method</span></tt>: An HTTP method (e.g. &#8216;GET&#8217; or &#8216;POST&#8217;)</li>
+<li><tt class="docutils literal"><span class="pre">content_server</span></tt>: A boolean indicating whether the request is to the
+API content server, for example to fetch the contents of a file
+rather than its metadata.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A tuple of <tt class="docutils literal"><span class="pre">(url,</span> <span class="pre">params,</span> <span class="pre">headers)</span></tt> that should be used to make the request.
+OAuth will be added as needed within these fields.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.account_info">
+<tt class="descname">account_info</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.account_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve information about the user&#8217;s account.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing account information.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#account-info">https://www.dropbox.com/developers/reference/api#account-info</a></p>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.get_chunked_uploader">
+<tt class="descname">get_chunked_uploader</tt><big>(</big><em>file_obj</em>, <em>length</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.get_chunked_uploader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a ChunkedUploader to upload the given file-like object.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">file_obj</span></tt>: The file-like object which is the source of the data
+being uploaded.</li>
+<li><tt class="docutils literal"><span class="pre">length</span></tt>: The number of bytes to upload.</li>
+</ul>
+</dd>
+</dl>
+<p>The expected use of this function is as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">bigFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;data.txt&quot;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+
+<span class="n">uploader</span> <span class="o">=</span> <span class="n">myclient</span><span class="o">.</span><span class="n">get_chunked_uploader</span><span class="p">(</span><span class="n">bigFile</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;uploading: &quot;</span><span class="p">,</span> <span class="n">size</span>
+<span class="k">while</span> <span class="n">uploader</span><span class="o">.</span><span class="n">offset</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">upload</span> <span class="o">=</span> <span class="n">uploader</span><span class="o">.</span><span class="n">upload_chunked</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">rest</span><span class="o">.</span><span class="n">ErrorResponse</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c"># perform error handling and retry logic</span>
+<span class="n">uploader</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="s">&#39;/bigFile.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The SDK leaves the error handling and retry logic to the developer
+to implement, as the exact requirements will depend on the application
+involved.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.client.DropboxClient.ChunkedUploader">
+<em class="property">class </em><tt class="descname">ChunkedUploader</tt><big>(</big><em>client</em>, <em>file_obj</em>, <em>length</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.ChunkedUploader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the logic around a chunked upload, which uploads a
+large file to Dropbox via the /chunked_upload endpoint</p>
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.ChunkedUploader.upload_chunked">
+<tt class="descname">upload_chunked</tt><big>(</big><em>chunk_size=4194304</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.ChunkedUploader.upload_chunked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads data from this ChunkedUploader&#8217;s file_obj in chunks, until
+an error occurs. Throws an exception when an error occurs, and can
+be called again to resume the upload.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">chunk_size</span></tt>: The number of bytes to put in each chunk. [default 4 MB]</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.ChunkedUploader.finish">
+<tt class="descname">finish</tt><big>(</big><em>path</em>, <em>overwrite=False</em>, <em>parent_rev=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.ChunkedUploader.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Commits the bytes uploaded by this ChunkedUploader to a file
+in the users dropbox.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The full path of the file in the Dropbox.</li>
+<li><tt class="docutils literal"><span class="pre">overwrite</span></tt>: Whether to overwrite an existing file at the given path. [default False]
+If overwrite is False and a file already exists there, Dropbox
+will rename the upload to make sure it doesn&#8217;t overwrite anything.
+You need to check the metadata returned for the new name.
+This field should only be True if your intent is to potentially
+clobber changes to a file that you don&#8217;t know about.</li>
+<li><tt class="docutils literal"><span class="pre">parent_rev</span></tt>: The rev field from the &#8216;parent&#8217; of this upload. [optional]
+If your intent is to update the file at the given path, you should
+pass the parent_rev parameter set to the rev value from the most recent
+metadata you have of the existing file at that path. If the server
+has a more recent version of the file at the specified path, it will
+automatically rename your uploaded file, spinning off a conflict.
+Using this parameter effectively causes the overwrite parameter to be ignored.
+The file will always be overwritten if you send the most-recent parent_rev,
+and it will never be overwritten if you send a less-recent one.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.upload_chunk">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">upload_chunk</tt><big>(</big><em>file_obj</em>, <em>length</em>, <em>offset=0</em>, <em>upload_id=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.upload_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads a single chunk of data from the given file like object. The majority of users
+should use the ChunkedUploader object, which provides a simpler interface to the
+chunked_upload API endpoint.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">file_obj</span></tt>: The source of the data to upload</li>
+<li><tt class="docutils literal"><span class="pre">length</span></tt>: The number of bytes to upload in one chunk.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>The reply from the server, as a dictionary</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.put_file">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">put_file</tt><big>(</big><em>full_path</em>, <em>file_obj</em>, <em>overwrite=False</em>, <em>parent_rev=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.put_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file.</p>
+<p>A typical use case would be as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;working-draft.txt&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">put_file</span><span class="p">(</span><span class="s">&#39;/magnum-opus.txt&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;uploaded:&quot;</span><span class="p">,</span> <span class="n">response</span>
+</pre></div>
+</div>
+<p>which would return the metadata of the uploaded file, similar to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;bytes&#39;</span><span class="p">:</span> <span class="mi">77</span><span class="p">,</span>
+    <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="s">&#39;page_white_text&#39;</span><span class="p">,</span>
+    <span class="s">&#39;is_dir&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s">&#39;mime_type&#39;</span><span class="p">:</span> <span class="s">&#39;text/plain&#39;</span><span class="p">,</span>
+    <span class="s">&#39;modified&#39;</span><span class="p">:</span> <span class="s">&#39;Wed, 20 Jul 2011 22:04:50 +0000&#39;</span><span class="p">,</span>
+    <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;/magnum-opus.txt&#39;</span><span class="p">,</span>
+    <span class="s">&#39;rev&#39;</span><span class="p">:</span> <span class="s">&#39;362e2029684fe&#39;</span><span class="p">,</span>
+    <span class="s">&#39;revision&#39;</span><span class="p">:</span> <span class="mi">221922</span><span class="p">,</span>
+    <span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="s">&#39;dropbox&#39;</span><span class="p">,</span>
+    <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;77 bytes&#39;</span><span class="p">,</span>
+    <span class="s">&#39;thumb_exists&#39;</span><span class="p">:</span> <span class="bp">False</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">full_path</span></tt>: The full path to upload the file to, <em>including the file name</em>.
+If the destination directory does not yet exist, it will be created.</li>
+<li><tt class="docutils literal"><span class="pre">file_obj</span></tt>: A file-like object to upload. If you would like, you can pass a string as file_obj.</li>
+<li><tt class="docutils literal"><span class="pre">overwrite</span></tt>: Whether to overwrite an existing file at the given path. [default False]
+If overwrite is False and a file already exists there, Dropbox
+will rename the upload to make sure it doesn&#8217;t overwrite anything.
+You need to check the metadata returned for the new name.
+This field should only be True if your intent is to potentially
+clobber changes to a file that you don&#8217;t know about.</li>
+<li><tt class="docutils literal"><span class="pre">parent_rev</span></tt>: The rev field from the &#8216;parent&#8217; of this upload. [optional]
+If your intent is to update the file at the given path, you should
+pass the parent_rev parameter set to the rev value from the most recent
+metadata you have of the existing file at that path. If the server
+has a more recent version of the file at the specified path, it will
+automatically rename your uploaded file, spinning off a conflict.
+Using this parameter effectively causes the overwrite parameter to be ignored.
+The file will always be overwritten if you send the most-recent parent_rev,
+and it will never be overwritten if you send a less-recent one.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the newly uploaded file.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#files-put">https://www.dropbox.com/developers/reference/api#files-put</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>503: User over quota</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p>Note: In Python versions below version 2.6, httplib doesn&#8217;t handle file-like objects.
+In that case, this code will read the entire file into memory (!).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.get_file">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">get_file</tt><big>(</big><em>from_path</em>, <em>rev=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.get_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file.</p>
+<p>Unlike most other calls, get_file returns a raw HTTPResponse with the connection open.
+You should call .read() and perform any processing you need, then close the HTTPResponse.</p>
+<p>A typical usage looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;magnum-opus.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_file</span><span class="p">(</span><span class="s">&#39;/magnum-opus.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>which would download the file <tt class="docutils literal"><span class="pre">magnum-opus.txt</span></tt> and write the contents into
+the file <tt class="docutils literal"><span class="pre">magnum-opus.txt</span></tt> on the local filesystem.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">from_path</span></tt>: The path to the file to be downloaded.</li>
+<li><tt class="docutils literal"><span class="pre">rev</span></tt>: A previous rev value of the file to be downloaded. [optional]</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A RESTResponse that is the result of the request. The RESTResponse
+can be treated as a file descriptor on the socket.</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at the given path, or the file that was there was deleted.</li>
+<li>200: Request was okay but response was malformed in some way.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.get_file_and_metadata">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">get_file_and_metadata</tt><big>(</big><em>from_path</em>, <em>rev=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.get_file_and_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file alongwith its metadata.</p>
+<p>Acts as a thin wrapper around get_file() (see <a class="reference internal" href="#dropbox.client.DropboxClient.get_file" title="dropbox.client.DropboxClient.get_file"><tt class="xref py py-meth docutils literal"><span class="pre">get_file()</span></tt></a> comments for
+more details)</p>
+<p>A typical usage looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;magnum-opus.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_file_and_metadata</span><span class="p">(</span><span class="s">&#39;/magnum-opus.txt&#39;</span><span class="p">)</span>
+<span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">from_path</span></tt>: The path to the file to be downloaded.</li>
+<li><tt class="docutils literal"><span class="pre">rev</span></tt>: A previous rev value of the file to be downloaded. [optional]</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A RESTResponse that is the result of the request. The RESTResponse
+can be treated as a file descriptor on the socket.</li>
+<li>A dictionary containing the metadata of the file (see
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#metadata">https://www.dropbox.com/developers/reference/api#metadata</a> for details).</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at the given path, or the file that was there was deleted.</li>
+<li>200: Request was okay but response was malformed in some way.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.delta">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">delta</tt><big>(</big><em>cursor=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>A way of letting you keep up with changes to files and folders in a
+user&#8217;s Dropbox.  You can periodically call delta() to get a list of &#8220;delta
+entries&#8221;, which are instructions on how to update your local state to
+match the server&#8217;s state.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">cursor</span></tt>: On the first call, omit this argument (or pass in <tt class="docutils literal"><span class="pre">None</span></tt>).  On
+subsequent calls, pass in the <tt class="docutils literal"><span class="pre">cursor</span></tt> string returned by the previous
+call.</li>
+</ul>
+</dd>
+<dt>Returns: A dict with three fields.</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">entries</span></tt>: A list of &#8220;delta entries&#8221; (described below)</li>
+<li><tt class="docutils literal"><span class="pre">reset</span></tt>: If <tt class="docutils literal"><span class="pre">True</span></tt>, you should your local state to be an empty folder
+before processing the list of delta entries.  This is only <tt class="docutils literal"><span class="pre">True</span></tt> only
+in rare situations.</li>
+<li><tt class="docutils literal"><span class="pre">cursor</span></tt>: A string that is used to keep track of your current state.
+On the next call to delta(), pass in this value to return entries
+that were recorded since the cursor was returned.</li>
+<li><tt class="docutils literal"><span class="pre">has_more</span></tt>: If <tt class="docutils literal"><span class="pre">True</span></tt>, then there are more entries available; you can
+call delta() again immediately to retrieve those entries.  If <tt class="docutils literal"><span class="pre">False</span></tt>,
+then wait at least 5 minutes (preferably longer) before checking again.</li>
+</ul>
+</dd>
+<dt>Delta Entries: Each entry is a 2-item list of one of following forms:</dt>
+<dd><ul class="first last simple">
+<li>[<em>path</em>, <em>metadata</em>]: Indicates that there is a file/folder at the given
+path.  You should add the entry to your local path.  (The <em>metadata</em>
+value is the same as what would be returned by the <tt class="docutils literal"><span class="pre">metadata()</span></tt> call.)<ul>
+<li>If the new entry includes parent folders that don&#8217;t yet exist in your
+local state, create those parent folders in your local state.  You
+will eventually get entries for those parent folders.</li>
+<li>If the new entry is a file, replace whatever your local state has at
+<em>path</em> with the new entry.</li>
+<li>If the new entry is a folder, check what your local state has at
+<em>path</em>.  If it&#8217;s a file, replace it with the new entry.  If it&#8217;s a
+folder, apply the new <em>metadata</em> to the folder, but do not modify
+the folder&#8217;s children.</li>
+</ul>
+</li>
+<li>[<em>path</em>, <tt class="docutils literal"><span class="pre">nil</span></tt>]: Indicates that there is no file/folder at the <em>path</em> on
+Dropbox.  To update your local state to match, delete whatever is at <em>path</em>,
+including any children (you will sometimes also get &#8220;delete&#8221; delta entries
+for the children, but this is not guaranteed).  If your local state doesn&#8217;t
+have anything at <em>path</em>, ignore this entry.</li>
+</ul>
+</dd>
+</dl>
+<p>Remember: Dropbox treats file names in a case-insensitive but case-preserving
+way.  To facilitate this, the <em>path</em> strings above are lower-cased versions of
+the actual path.  The <em>metadata</em> dicts have the original, case-preserved path.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.create_copy_ref">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">create_copy_ref</tt><big>(</big><em>from_path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.create_copy_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and returns a copy ref for a specific file.  The copy ref can be
+used to instantly copy that file to the Dropbox of another account.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The path to the file for a copy ref to be created on.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary that looks like the following example:</p>
+<p><tt class="docutils literal"><span class="pre">{&quot;expires&quot;:&quot;Fri,</span> <span class="pre">31</span> <span class="pre">Jan</span> <span class="pre">2042</span> <span class="pre">21:01:05</span> <span class="pre">+0000&quot;,</span> <span class="pre">&quot;copy_ref&quot;:&quot;z1X6ATl6aWtzOGq0c3g5Ng&quot;}</span></tt></p>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.add_copy_ref">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">add_copy_ref</tt><big>(</big><em>copy_ref</em>, <em>to_path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.add_copy_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the file referenced by the copy ref to the specified path</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">copy_ref</span></tt>: A copy ref string that was returned from a create_copy_ref call.
+The copy_ref can be created from any other Dropbox account, or from the same account.</li>
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The path to where the file will be created.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A dictionary containing the metadata of the new copy of the file.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.file_copy">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">file_copy</tt><big>(</big><em>from_path</em>, <em>to_path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.file_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy a file or folder to a new location.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">from_path</span></tt>: The path to the file or folder to be copied.</li>
+<li><tt class="docutils literal"><span class="pre">to_path</span></tt>: The destination path of the file or folder to be copied.
+This parameter should include the destination filename (e.g.
+from_path: &#8216;/test.txt&#8217;, to_path: &#8216;/dir/test.txt&#8217;). If there&#8217;s
+already a file at the to_path it will raise an ErrorResponse.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the new copy of the file or folder.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#fileops-copy">https://www.dropbox.com/developers/reference/api#fileops-copy</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of:<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>403: An invalid move operation was attempted (e.g. there is already a file at the given destination, or moving a shared folder into a shared folder).</li>
+<li>404: No file was found at given from_path.</li>
+<li>503: User over storage quota.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.file_create_folder">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">file_create_folder</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.file_create_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a folder.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The path of the new folder.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the newly created folder.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#fileops-create-folder">https://www.dropbox.com/developers/reference/api#fileops-create-folder</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>403: A folder at that path already exists.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.file_delete">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">file_delete</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.file_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a file or folder.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The path of the file or folder.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the just deleted file.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#fileops-delete">https://www.dropbox.com/developers/reference/api#fileops-delete</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at the given path.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.file_move">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">file_move</tt><big>(</big><em>from_path</em>, <em>to_path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.file_move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a file or folder to a new location.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">from_path</span></tt>: The path to the file or folder to be moved.</li>
+<li><tt class="docutils literal"><span class="pre">to_path</span></tt>: The destination path of the file or folder to be moved.
+This parameter should include the destination filename (e.g. if
+<tt class="docutils literal"><span class="pre">from_path</span></tt> is <tt class="docutils literal"><span class="pre">'/test.txt'</span></tt>, <tt class="docutils literal"><span class="pre">to_path</span></tt> might be
+<tt class="docutils literal"><span class="pre">'/dir/test.txt'</span></tt>). If there&#8217;s already a file at the
+<tt class="docutils literal"><span class="pre">to_path</span></tt>, this file or folder will be renamed to be unique.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the new copy of the file or folder.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#fileops-move">https://www.dropbox.com/developers/reference/api#fileops-move</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at given from_path.</li>
+<li>503: User over storage quota.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.metadata">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">metadata</tt><big>(</big><em>path</em>, <em>list=True</em>, <em>file_limit=25000</em>, <em>hash=None</em>, <em>rev=None</em>, <em>include_deleted=False</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve metadata for a file or folder.</p>
+<p>A typical use would be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">folder_metadata</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">metadata</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;metadata:&quot;</span><span class="p">,</span> <span class="n">folder_metadata</span>
+</pre></div>
+</div>
+<p>which would return the metadata of the root directory. This
+will look something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;bytes&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">&#39;contents&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+           <span class="s">&#39;bytes&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+           <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="s">&#39;folder&#39;</span><span class="p">,</span>
+           <span class="s">&#39;is_dir&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+           <span class="s">&#39;modified&#39;</span><span class="p">:</span> <span class="s">&#39;Thu, 25 Aug 2011 00:03:15 +0000&#39;</span><span class="p">,</span>
+           <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;/Sample Folder&#39;</span><span class="p">,</span>
+           <span class="s">&#39;rev&#39;</span><span class="p">:</span> <span class="s">&#39;803beb471&#39;</span><span class="p">,</span>
+           <span class="s">&#39;revision&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+           <span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="s">&#39;dropbox&#39;</span><span class="p">,</span>
+           <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;0 bytes&#39;</span><span class="p">,</span>
+           <span class="s">&#39;thumb_exists&#39;</span><span class="p">:</span> <span class="bp">False</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+           <span class="s">&#39;bytes&#39;</span><span class="p">:</span> <span class="mi">77</span><span class="p">,</span>
+           <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="s">&#39;page_white_text&#39;</span><span class="p">,</span>
+           <span class="s">&#39;is_dir&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+           <span class="s">&#39;mime_type&#39;</span><span class="p">:</span> <span class="s">&#39;text/plain&#39;</span><span class="p">,</span>
+           <span class="s">&#39;modified&#39;</span><span class="p">:</span> <span class="s">&#39;Wed, 20 Jul 2011 22:04:50 +0000&#39;</span><span class="p">,</span>
+           <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;/magnum-opus.txt&#39;</span><span class="p">,</span>
+           <span class="s">&#39;rev&#39;</span><span class="p">:</span> <span class="s">&#39;362e2029684fe&#39;</span><span class="p">,</span>
+           <span class="s">&#39;revision&#39;</span><span class="p">:</span> <span class="mi">221922</span><span class="p">,</span>
+           <span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="s">&#39;dropbox&#39;</span><span class="p">,</span>
+           <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;77 bytes&#39;</span><span class="p">,</span>
+           <span class="s">&#39;thumb_exists&#39;</span><span class="p">:</span> <span class="bp">False</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">&#39;hash&#39;</span><span class="p">:</span> <span class="s">&#39;efdac89c4da886a9cece1927e6c22977&#39;</span><span class="p">,</span>
+    <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="s">&#39;folder&#39;</span><span class="p">,</span>
+    <span class="s">&#39;is_dir&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;/&#39;</span><span class="p">,</span>
+    <span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="s">&#39;app_folder&#39;</span><span class="p">,</span>
+    <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;0 bytes&#39;</span><span class="p">,</span>
+    <span class="s">&#39;thumb_exists&#39;</span><span class="p">:</span> <span class="bp">False</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, the root directory contains two things: <tt class="docutils literal"><span class="pre">Sample</span> <span class="pre">Folder</span></tt>,
+which is a folder, and <tt class="docutils literal"><span class="pre">/magnum-opus.txt</span></tt>, which is a text file 77 bytes long</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The path to the file or folder.</li>
+<li><tt class="docutils literal"><span class="pre">list</span></tt>: Whether to list all contained files (only applies when
+path refers to a folder).</li>
+<li><tt class="docutils literal"><span class="pre">file_limit</span></tt>: The maximum number of file entries to return within
+a folder. If the number of files in the directory exceeds this
+limit, an exception is raised. The server will return at max
+25,000 files within a folder.</li>
+<li><tt class="docutils literal"><span class="pre">hash</span></tt>: Every directory listing has a hash parameter attached that
+can then be passed back into this function later to save on
+bandwidth. Rather than returning an unchanged folder&#8217;s contents,
+the server will instead return a 304.</li>
+<li><tt class="docutils literal"><span class="pre">rev</span></tt>: The revision of the file to retrieve the metadata for. [optional]
+This parameter only applies for files. If omitted, you&#8217;ll receive
+the most recent revision metadata.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the file or folder
+(and contained files if appropriate).</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#metadata">https://www.dropbox.com/developers/reference/api#metadata</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>304: Current directory hash matches hash parameters, so contents are unchanged.</li>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at given path.</li>
+<li>406: Too many file entries to return.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.thumbnail">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">thumbnail</tt><big>(</big><em>from_path</em>, <em>size='large'</em>, <em>format='JPEG'</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.thumbnail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a thumbnail for an image.</p>
+<p>Unlike most other calls, thumbnail returns a raw RESTResponse with the connection open.
+You should call .read() and perform any processing you need, then call .close()</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">from_path</span></tt>: The path to the file to be thumbnailed.</li>
+<li><tt class="docutils literal"><span class="pre">size</span></tt>: A string describing the desired thumbnail size.
+At this time, &#8216;small&#8217;, &#8216;medium&#8217;, and &#8216;large&#8217; are
+officially supported sizes (32x32, 64x64, and 128x128
+respectively), though others may be available. Check
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#thumbnails">https://www.dropbox.com/developers/reference/api#thumbnails</a> for
+more details.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A RESTResponse that is the result of the request. The RESTResponse
+can be treated as a file descriptor on the socket.</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at the given from_path, or files of that type cannot be thumbnailed.</li>
+<li>415: Image is invalid and cannot be thumbnailed.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.thumbnail_and_metadata">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">thumbnail_and_metadata</tt><big>(</big><em>from_path</em>, <em>size='large'</em>, <em>format='JPEG'</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.thumbnail_and_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a thumbnail for an image alongwith its metadata.</p>
+<p>Acts as a thin wrapper around thumbnail() (see <a class="reference internal" href="#dropbox.client.DropboxClient.thumbnail" title="dropbox.client.DropboxClient.thumbnail"><tt class="xref py py-meth docutils literal"><span class="pre">thumbnail()</span></tt></a> comments for
+more details)</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last">
+<li><p class="first"><tt class="docutils literal"><span class="pre">from_path</span></tt>: The path to the file to be thumbnailed.</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">size</span></tt>: A string describing the desired thumbnail size. See <a class="reference internal" href="#dropbox.client.DropboxClient.thumbnail" title="dropbox.client.DropboxClient.thumbnail"><tt class="xref py py-meth docutils literal"><span class="pre">thumbnail()</span></tt></a></dt>
+<dd><p class="first last">for details.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A RESTResponse that is the result of the request. The RESTResponse
+can be treated as a file descriptor on the socket.</li>
+<li>A dictionary containing the metadata of the file whose thumbnail
+was downloaded (see <a class="reference external" href="https://www.dropbox.com/developers/reference/api#metadata">https://www.dropbox.com/developers/reference/api#metadata</a>
+for details).</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No file was found at the given from_path, or files of that type cannot be thumbnailed.</li>
+<li>415: Image is invalid and cannot be thumbnailed.</li>
+<li>200: Request was okay but response was malformed in some way.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.search">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">search</tt><big>(</big><em>path</em>, <em>query</em>, <em>file_limit=1000</em>, <em>include_deleted=False</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search directory for filenames matching query.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The directory to search within.</li>
+<li><tt class="docutils literal"><span class="pre">query</span></tt>: The query to search on (minimum 3 characters).</li>
+<li><tt class="docutils literal"><span class="pre">file_limit</span></tt>: The maximum number of file entries to return within a folder.
+The server will return at max 1,000 files.</li>
+<li><tt class="docutils literal"><span class="pre">include_deleted</span></tt>: Whether to include deleted files in search results.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>A list of the metadata of all matching files (up to
+file_limit entries).  For a detailed description of what
+this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#search">https://www.dropbox.com/developers/reference/api#search</a></li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.revisions">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">revisions</tt><big>(</big><em>path</em>, <em>rev_limit=1000</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.revisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve revisions of a file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The file to fetch revisions for. Note that revisions
+are not available for folders.</li>
+<li><tt class="docutils literal"><span class="pre">rev_limit</span></tt>: The maximum number of file entries to return within
+a folder. The server will return at max 1,000 revisions.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A list of the metadata of all matching files (up to rev_limit entries).</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#revisions">https://www.dropbox.com/developers/reference/api#revisions</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: No revisions were found at the given path.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.restore">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">restore</tt><big>(</big><em>path</em>, <em>rev</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore a file to a previous revision.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The file to restore. Note that folders can&#8217;t be restored.</li>
+<li><tt class="docutils literal"><span class="pre">rev</span></tt>: A previous rev value of the file to be restored to.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary containing the metadata of the newly restored file.</p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#restore">https://www.dropbox.com/developers/reference/api#restore</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: Unable to find the file at the given revision.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.media">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">media</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a temporary unauthenticated URL for a media file.</p>
+<p>All of Dropbox&#8217;s API methods require OAuth, which may cause problems in
+situations where an application expects to be able to hit a URL multiple times
+(for example, a media player seeking around a video file). This method
+creates a time-limited URL that can be accessed without any authentication,
+and returns that to you, along with an expiration time.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The file to return a URL for. Folders are not supported.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary that looks like the following example:</p>
+<p><tt class="docutils literal"><span class="pre">{'url':</span> <span class="pre">'https://dl.dropboxusercontent.com/1/view/abcdefghijk/example',</span> <span class="pre">'expires':</span> <span class="pre">'Thu,</span> <span class="pre">16</span> <span class="pre">Sep</span> <span class="pre">2011</span> <span class="pre">01:01:25</span> <span class="pre">+0000'}</span></tt></p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#media">https://www.dropbox.com/developers/reference/api#media</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: Unable to find the file at the given path.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxClient.share">
+<tt class="descclassname">DropboxClient.</tt><tt class="descname">share</tt><big>(</big><em>path</em>, <em>short_url=True</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxClient.share" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a shareable link to a file or folder.</p>
+<p>Shareable links created on Dropbox are time-limited, but don&#8217;t require any
+authentication, so they can be given out freely. The time limit should allow
+at least a day of shareability, though users have the ability to disable
+a link from their account if they like.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">path</span></tt>: The file or folder to share.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><p class="first">A dictionary that looks like the following example:</p>
+<p><tt class="docutils literal"><span class="pre">{'url':</span> <span class="pre">u'https://db.tt/c0mFuu1Y',</span> <span class="pre">'expires':</span> <span class="pre">'Tue,</span> <span class="pre">01</span> <span class="pre">Jan</span> <span class="pre">2030</span> <span class="pre">00:00:00</span> <span class="pre">+0000'}</span></tt></p>
+<p>For a detailed description of what this call returns, visit:
+<a class="reference external" href="https://www.dropbox.com/developers/reference/api#shares">https://www.dropbox.com/developers/reference/api#shares</a></p>
+</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>A <a class="reference internal" href="#dropbox.rest.ErrorResponse" title="dropbox.rest.ErrorResponse"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.rest.ErrorResponse</span></tt></a> with an HTTP status of<ul>
+<li>400: Bad request (may be due to many things; check e.error for details)</li>
+<li>404: Unable to find the file at the given path.</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.client.DropboxOAuth2Flow">
+<em class="property">class </em><tt class="descclassname">dropbox.client.</tt><tt class="descname">DropboxOAuth2Flow</tt><big>(</big><em>consumer_key</em>, <em>consumer_secret</em>, <em>redirect_uri</em>, <em>session</em>, <em>csrf_token_session_key</em>, <em>locale=None</em>, <em>rest_client=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>OAuth 2 authorization helper.  Use this for web apps.</p>
+<p>OAuth 2 has a two-step authorization process.  The first step is having the user authorize
+your app.  The second involves getting an OAuth 2 access token from Dropbox.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">consumer_key</span></tt>: Your API app&#8217;s &#8220;app key&#8221;.</li>
+<li><tt class="docutils literal"><span class="pre">consumer_secret</span></tt>: Your API app&#8217;s &#8220;app secret&#8221;.</li>
+<li><tt class="docutils literal"><span class="pre">redirect_uri</span></tt>: The URI that the Dropbox server will redirect the user to after the user
+finishes authorizing your app.  This URI  must be HTTPS-based and pre-registered with
+the Dropbox servers, though localhost URIs are allowed without pre-registration and can
+be either HTTP or HTTPS.</li>
+<li><tt class="docutils literal"><span class="pre">session</span></tt>: A dict-like object that represents the current user&#8217;s web session (will be
+used to save the CSRF token).</li>
+<li><tt class="docutils literal"><span class="pre">csrf_token_key</span></tt>: The key to use when storing the CSRF token in the session (for
+example: &#8220;dropbox-auth-csrf-token&#8221;).</li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dropbox.client</span> <span class="kn">import</span> <span class="n">DropboxOAuth2Flow</span><span class="p">,</span> <span class="n">DropboxClient</span>
+
+<span class="k">def</span> <span class="nf">get_dropbox_auth_flow</span><span class="p">(</span><span class="n">web_app_session</span><span class="p">):</span>
+    <span class="n">redirect_uri</span> <span class="o">=</span> <span class="s">&quot;https://my-web-server.org/dropbox-auth-finish&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">DropboxOAuth2Flow</span><span class="p">(</span><span class="n">APP_KEY</span><span class="p">,</span> <span class="n">APP_SECRET</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">,</span>
+                             <span class="n">web_app_session</span><span class="p">,</span> <span class="s">&quot;dropbox-auth-csrf-token&quot;</span><span class="p">)</span>
+
+<span class="c"># URL handler for /dropbox-auth-start</span>
+<span class="k">def</span> <span class="nf">dropbox_auth_start</span><span class="p">(</span><span class="n">web_app_session</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="n">authorize_url</span> <span class="o">=</span> <span class="n">get_dropbox_auth_flow</span><span class="p">(</span><span class="n">web_app_session</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">redirect_to</span><span class="p">(</span><span class="n">authorize_url</span><span class="p">)</span>
+
+<span class="c"># URL handler for /dropbox-auth-finish</span>
+<span class="k">def</span> <span class="nf">dropbox_auth_finish</span><span class="p">(</span><span class="n">web_app_session</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">access_token</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">url_state</span> <span class="o">=</span> \
+                <span class="n">get_dropbox_auth_flow</span><span class="p">(</span><span class="n">web_app_session</span><span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DropboxOAuth2Flow</span><span class="o">.</span><span class="n">BadRequestException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">http_status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DropboxOAuth2Flow</span><span class="o">.</span><span class="n">BadStateException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c"># Start the auth flow again.</span>
+        <span class="n">redirect_to</span><span class="p">(</span><span class="s">&quot;/dropbox-auth-start&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DropboxOAuth2Flow</span><span class="o">.</span><span class="n">CsrfException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">http_status</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DropboxOAuth2Flow</span><span class="o">.</span><span class="n">NotApprovedException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">flash</span><span class="p">(</span><span class="s">&#39;Not approved?  Why not?&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect_to</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DropboxOAuth2Flow</span><span class="o">.</span><span class="n">ProviderException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Auth error: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="p">,))</span>
+        <span class="n">http_status</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="dropbox.client.DropboxOAuth2Flow.start">
+<tt class="descname">start</tt><big>(</big><em>url_state=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the OAuth 2 authorization process.</p>
+<p>This function builds an &#8220;authorization URL&#8221;.  You should redirect your user&#8217;s browser to
+this URL, which will give them an opportunity to grant your app access to their Dropbox
+account.  When the user completes this process, they will be automatically redirected to
+the <tt class="docutils literal"><span class="pre">redirect_uri</span></tt> you passed in to the constructor.</p>
+<p>This function will also save a CSRF token to <tt class="docutils literal"><span class="pre">session[csrf_token_session_key]</span></tt> (as
+provided to the constructor).  This CSRF token will be checked on <a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.finish" title="dropbox.client.DropboxOAuth2Flow.finish"><tt class="xref py py-meth docutils literal"><span class="pre">finish()</span></tt></a> to
+prevent request forgery.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">url_state</span></tt>: Any data that you would like to keep in the URL through the
+authorization process.  This exact value will be returned to you by <a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.finish" title="dropbox.client.DropboxOAuth2Flow.finish"><tt class="xref py py-meth docutils literal"><span class="pre">finish()</span></tt></a>.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxOAuth2Flow.finish">
+<tt class="descname">finish</tt><big>(</big><em>query_params</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this after the user has visited the authorize URL (see <a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.start" title="dropbox.client.DropboxOAuth2Flow.start"><tt class="xref py py-meth docutils literal"><span class="pre">start()</span></tt></a>), approved your
+app and was redirected to your redirect URI.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">query_params</span></tt>: The query parameters on the GET request to your redirect URI.</li>
+</ul>
+<p>Returns a tuple of <tt class="docutils literal"><span class="pre">(access_token,</span> <span class="pre">user_id,</span> <span class="pre">url_state)</span></tt>.  <tt class="docutils literal"><span class="pre">access_token</span></tt> can be used to
+construct a <a class="reference internal" href="#dropbox.client.DropboxClient" title="dropbox.client.DropboxClient"><tt class="xref py py-class docutils literal"><span class="pre">DropboxClient</span></tt></a>.  <tt class="docutils literal"><span class="pre">user_id</span></tt> is the Dropbox user ID (string) of the user
+that just approved your app.  <tt class="docutils literal"><span class="pre">url_state</span></tt> is the value you originally passed in to
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.start" title="dropbox.client.DropboxOAuth2Flow.start"><tt class="xref py py-meth docutils literal"><span class="pre">start()</span></tt></a>.</p>
+<p>Can throw
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.BadRequestException" title="dropbox.client.DropboxOAuth2Flow.BadRequestException"><tt class="xref py py-class docutils literal"><span class="pre">BadRequestException</span></tt></a>,
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.BadStateException" title="dropbox.client.DropboxOAuth2Flow.BadStateException"><tt class="xref py py-class docutils literal"><span class="pre">BadStateException</span></tt></a>,
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.CsrfException" title="dropbox.client.DropboxOAuth2Flow.CsrfException"><tt class="xref py py-class docutils literal"><span class="pre">CsrfException</span></tt></a>,
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.NotApprovedException" title="dropbox.client.DropboxOAuth2Flow.NotApprovedException"><tt class="xref py py-class docutils literal"><span class="pre">NotApprovedException</span></tt></a>,
+<a class="reference internal" href="#dropbox.client.DropboxOAuth2Flow.ProviderException" title="dropbox.client.DropboxOAuth2Flow.ProviderException"><tt class="xref py py-class docutils literal"><span class="pre">ProviderException</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.client.DropboxOAuth2Flow.BadRequestException">
+<em class="property">exception </em><tt class="descname">BadRequestException</tt><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.BadRequestException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thrown if the redirect URL was missing parameters or if the given parameters were not valid.</p>
+<p>The recommended action is to show an HTTP 400 error page.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.client.DropboxOAuth2Flow.BadStateException">
+<em class="property">exception </em><tt class="descclassname">DropboxOAuth2Flow.</tt><tt class="descname">BadStateException</tt><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.BadStateException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thrown if all the parameters are correct, but there&#8217;s no CSRF token in the session.  This
+probably means that the session expired.</p>
+<p>The recommended action is to redirect the user&#8217;s browser to try the approval process again.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.client.DropboxOAuth2Flow.CsrfException">
+<em class="property">exception </em><tt class="descclassname">DropboxOAuth2Flow.</tt><tt class="descname">CsrfException</tt><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.CsrfException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thrown if the given &#8216;state&#8217; parameter doesn&#8217;t contain the CSRF token from the user&#8217;s session.
+This is blocked to prevent CSRF attacks.</p>
+<p>The recommended action is to respond with an HTTP 403 error page.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.client.DropboxOAuth2Flow.NotApprovedException">
+<em class="property">exception </em><tt class="descclassname">DropboxOAuth2Flow.</tt><tt class="descname">NotApprovedException</tt><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.NotApprovedException" title="Permalink to this definition">¶</a></dt>
+<dd><p>The user chose not to approve your app.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.client.DropboxOAuth2Flow.ProviderException">
+<em class="property">exception </em><tt class="descclassname">DropboxOAuth2Flow.</tt><tt class="descname">ProviderException</tt><a class="headerlink" href="#dropbox.client.DropboxOAuth2Flow.ProviderException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dropbox redirected to your redirect URI with some unexpected error identifier and error
+message.</p>
+<p>The recommended action is to log the error, tell the user something went wrong, and let
+them try again.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.client.DropboxOAuth2FlowNoRedirect">
+<em class="property">class </em><tt class="descclassname">dropbox.client.</tt><tt class="descname">DropboxOAuth2FlowNoRedirect</tt><big>(</big><em>consumer_key</em>, <em>consumer_secret</em>, <em>locale=None</em>, <em>rest_client=None</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxOAuth2FlowNoRedirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>OAuth 2 authorization helper for apps that can&#8217;t provide a redirect URI
+(such as the command-line example apps).</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">consumer_key</span></tt>: Your API app&#8217;s &#8220;app key&#8221;</li>
+<li><tt class="docutils literal"><span class="pre">consumer_secret</span></tt>: Your API app&#8217;s &#8220;app secret&#8221;</li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dropbox.client</span> <span class="kn">import</span> <span class="n">DropboxOAuth2FlowNoRedirect</span><span class="p">,</span> <span class="n">DropboxClient</span>
+<span class="kn">from</span> <span class="nn">dropbox</span> <span class="kn">import</span> <span class="n">rest</span> <span class="k">as</span> <span class="n">dbrest</span>
+
+<span class="n">auth_flow</span> <span class="o">=</span> <span class="n">DropboxOAuth2FlowNoRedirect</span><span class="p">(</span><span class="n">APP_KEY</span><span class="p">,</span> <span class="n">APP_SECRET</span><span class="p">)</span>
+
+<span class="n">authorize_url</span> <span class="o">=</span> <span class="n">auth_flow</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&quot;1. Go to: &quot;</span> <span class="o">+</span> <span class="n">authorize_url</span>
+<span class="k">print</span> <span class="s">&quot;2. Click </span><span class="se">\&quot;</span><span class="s">Allow</span><span class="se">\&quot;</span><span class="s"> (you might have to log in first).&quot;</span>
+<span class="k">print</span> <span class="s">&quot;3. Copy the authorization code.&quot;</span>
+<span class="n">auth_code</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Enter the authorization code here: &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">access_token</span><span class="p">,</span> <span class="n">user_id</span> <span class="o">=</span> <span class="n">auth_flow</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="n">auth_code</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">dbrest</span><span class="o">.</span><span class="n">ErrorResponse</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Error: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="p">,))</span>
+    <span class="k">return</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">DropboxClient</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="dropbox.client.DropboxOAuth2FlowNoRedirect.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.client.DropboxOAuth2FlowNoRedirect.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the URL for a page on Dropbox&#8217;s website.  This page will let the user &#8220;approve&#8221;
+your app, which gives your app permission to access the user&#8217;s Dropbox account.
+Tell the user to visit this URL and approve your app.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.client.DropboxOAuth2FlowNoRedirect.finish">
+<tt class="descname">finish</tt><big>(</big><em>code</em><big>)</big><a class="headerlink" href="#dropbox.client.DropboxOAuth2FlowNoRedirect.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the user approves your app, they will be presented with an &#8220;authorization code&#8221;.  Have
+the user copy/paste that authorization code into your app and then call this method to
+get an access token.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">code</span></tt>: The authorization code shown to the user when they approved your app.</li>
+</ul>
+</dd>
+</dl>
+<p>Returns a pair of <tt class="docutils literal"><span class="pre">(access_token,</span> <span class="pre">user_id)</span></tt>.  <tt class="docutils literal"><span class="pre">access_token</span></tt> is a string that
+can be passed to DropboxClient.  <tt class="docutils literal"><span class="pre">user_id</span></tt> is the Dropbox user ID (string) of the user that
+just approved your app.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dropbox.datastore">
+<span id="dropbox-datastore"></span><h1>dropbox.datastore<a class="headerlink" href="#module-dropbox.datastore" title="Permalink to this headline">¶</a></h1>
+<p>Datastores are an easy way to keep an app&#8217;s per-user data &#8211; like
+settings, bookmarks, or game state &#8211; in sync across multiple devices
+and operating systems.  Datastores are simple embedded databases,
+which are synced to Dropbox.</p>
+<p>This reference details the full set of classes needed when working
+with datastores.  You can also read the Datastore API tutorial for a
+detailed example of how to use them.</p>
+<p>Unlike the client-side datastore APIs (for e.g. iOS, Android and
+JavaScript), the Python datastore API does not implement automatic
+conflict resolution.  Instead, if commit() fails, you must start over.
+You can use the transaction() method for this, which allows you to
+retry the transaction several times before giving up.</p>
+<p>The Python API is not thread-safe.  If you want to use the same
+Datastore object from multiple threads you should manage your own
+locking.</p>
+<dl class="class">
+<dt id="dropbox.datastore.DatastoreManager">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">DatastoreManager</tt><big>(</big><em>client</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>A manager for datastores.</p>
+<p>In order to work with datastores you must first create an instance
+of this class, passing its constructor a
+<a class="reference internal" href="#dropbox.client.DropboxClient" title="dropbox.client.DropboxClient"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.client.DropboxClient</span></tt></a> instance.</p>
+<p>The methods here let you open or create datastores and retrieve
+the list of datastores.</p>
+<p>This class has no state except for a reference to the
+<a class="reference internal" href="#dropbox.client.DropboxClient" title="dropbox.client.DropboxClient"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.client.DropboxClient</span></tt></a>, which itself is threadsafe.</p>
+<dl class="attribute">
+<dt id="dropbox.datastore.DatastoreManager.DEFAULT_DATASTORE_ID">
+<tt class="descname">DEFAULT_DATASTORE_ID</tt><em class="property"> = 'default'</em><a class="headerlink" href="#dropbox.datastore.DatastoreManager.DEFAULT_DATASTORE_ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default datastore ID.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.get_client">
+<tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.get_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <a class="reference internal" href="#dropbox.client.DropboxClient" title="dropbox.client.DropboxClient"><tt class="xref py py-class docutils literal"><span class="pre">dropbox.client.DropboxClient</span></tt></a> object used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.open_default_datastore">
+<tt class="descname">open_default_datastore</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.open_default_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the default datastore for this account, creating it if needed.</p>
+<p>This is a shorthand for <a class="reference internal" href="#dropbox.datastore.DatastoreManager.open_or_create_datastore" title="dropbox.datastore.DatastoreManager.open_or_create_datastore"><tt class="xref py py-meth docutils literal"><span class="pre">open_or_create_datastore()</span></tt></a>(<a class="reference internal" href="#dropbox.datastore.DatastoreManager.DEFAULT_DATASTORE_ID" title="dropbox.datastore.DatastoreManager.DEFAULT_DATASTORE_ID"><tt class="xref py py-const docutils literal"><span class="pre">DEFAULT_DATASTORE_ID</span></tt></a>).</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-class docutils literal"><span class="pre">Datastore</span></tt></a> instance.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.open_datastore">
+<tt class="descname">open_datastore</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.open_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open an existing datastore given its ID (a string).</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-class docutils literal"><span class="pre">Datastore</span></tt></a> instance.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.open_or_create_datastore">
+<tt class="descname">open_or_create_datastore</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.open_or_create_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a local datastore, creating it if it does not yet exist.</p>
+<p>The ID must not start with a dot.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-class docutils literal"><span class="pre">Datastore</span></tt></a> instance.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.open_datastore_from_info">
+<tt class="descname">open_datastore_from_info</tt><big>(</big><em>dsinfo</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.open_datastore_from_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open an existing datastore given a <a class="reference internal" href="#dropbox.datastore.DatastoreInfo" title="dropbox.datastore.DatastoreInfo"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreInfo</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.create_datastore">
+<tt class="descname">create_datastore</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.create_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new datastore with a randomly assigned ID.</p>
+<p>The assigned ID will start with a dot.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-class docutils literal"><span class="pre">Datastore</span></tt></a> instance.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.delete_datastore">
+<tt class="descname">delete_datastore</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.delete_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a datastore given its ID.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.list_datastores">
+<tt class="descname">list_datastores</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.list_datastores" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the existing datastores for this account.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A list of <a class="reference internal" href="#dropbox.datastore.DatastoreInfo" title="dropbox.datastore.DatastoreInfo"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreInfo</span></tt></a> objects.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.DatastoreManager.await">
+<tt class="descname">await</tt><big>(</big><em>token=None</em>, <em>datastores=None</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreManager.await" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until certain changes occur.</p>
+<p>This methods implements a flexible and efficient long-polling
+mechanism that can be used to be notified of changes to
+specific datastores and/or to the list of datastores itself
+(for the current account).</p>
+<dl class="docutils">
+<dt>Parameters</dt>
+<dd><dl class="first last docutils">
+<dt>token</dt>
+<dd>An optional token that represents a hash of the list of
+datastores, computed by the server.  If this parameter is
+present and non-empty, <tt class="docutils literal"><span class="pre">await()</span></tt> will return when the
+list of datastores has changed in a way that would cause a
+different token to be computed, such as when a datastore
+is created or deleted.  The token should be obtained from
+the previous <tt class="docutils literal"><span class="pre">await()</span></tt> call; as a special case, the
+value <tt class="docutils literal"><span class="pre">'.'</span></tt> forces the call to return immediately with a
+fresh token (as does any outdated token).</dd>
+<dt>datastores</dt>
+<dd>An optional list of <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-class docutils literal"><span class="pre">Datastore</span></tt></a> instances.  The
+list represents currently open datastores for which you
+are interested in receiving updates.  If this parameter is
+present and non-empty, <tt class="docutils literal"><span class="pre">await()</span></tt> will return whenever a
+new revision is available for any of those datastores.</dd>
+</dl>
+</dd>
+</dl>
+<p>The call also returns after a certain amount of time passes
+without activity.  The timeout is controlled by the server; it
+is currently approximately one minute.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd><p class="first">A <tt class="docutils literal"><span class="pre">(token,</span> <span class="pre">dsinfos,</span> <span class="pre">deltamap)</span></tt> tuple.</p>
+<p>The <tt class="docutils literal"><span class="pre">token</span></tt> value is a new token, or the value of the
+<tt class="docutils literal"><span class="pre">token</span></tt> parameter if there are no changes to the list of
+datastores.  You should pass this to the next <tt class="docutils literal"><span class="pre">await()</span></tt>
+call.</p>
+<p>The <tt class="docutils literal"><span class="pre">dsinfos</span></tt> value is the full list of
+<a class="reference internal" href="#dropbox.datastore.DatastoreInfo" title="dropbox.datastore.DatastoreInfo"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreInfo</span></tt></a> objects (as returned by
+<a class="reference internal" href="#dropbox.datastore.DatastoreManager.list_datastores" title="dropbox.datastore.DatastoreManager.list_datastores"><tt class="xref py py-meth docutils literal"><span class="pre">list_datastores()</span></tt></a>) if there is a new token,
+otherwise <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">deltamap</span></tt> value is either a mapping indicating
+which of the given datastores were changed, or <tt class="docutils literal"><span class="pre">None</span></tt> if
+there are no changes to datastores to report.  If it is a
+mapping, each key is a <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-meth docutils literal"><span class="pre">Datastore()</span></tt></a>, and the
+corresponding value is either a non-empty list of deltas,
+or <tt class="docutils literal"><span class="pre">None</span></tt> if that datastore is deleted or is otherwise
+invalid.</p>
+</dd>
+</dl>
+<p>Unlike <a class="reference internal" href="#dropbox.datastore.Datastore.load_deltas" title="dropbox.datastore.Datastore.load_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">Datastore.load_deltas()</span></tt></a>, <tt class="docutils literal"><span class="pre">await()</span></tt> does not
+apply the deltas returned in <tt class="docutils literal"><span class="pre">deltamap</span></tt> to the respective
+datastores; that is the caller&#8217;s responsibility.  For
+example:</p>
+<div class="highlight-python"><pre>for ds, deltas in deltamap.items():
+    if deltas is not None:
+        ds.apply_deltas(deltas)
+    else:
+        # ds has been deleted</pre>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.DatastoreInfo">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">DatastoreInfo</tt><a class="headerlink" href="#dropbox.datastore.DatastoreInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>DatastoreInfo(id, handle, rev, title, mtime)</p>
+<dl class="attribute">
+<dt id="dropbox.datastore.DatastoreInfo.handle">
+<tt class="descname">handle</tt><em class="property"> None</em><a class="headerlink" href="#dropbox.datastore.DatastoreInfo.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dropbox.datastore.DatastoreInfo.id">
+<tt class="descname">id</tt><em class="property"> None</em><a class="headerlink" href="#dropbox.datastore.DatastoreInfo.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dropbox.datastore.DatastoreInfo.mtime">
+<tt class="descname">mtime</tt><em class="property"> None</em><a class="headerlink" href="#dropbox.datastore.DatastoreInfo.mtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dropbox.datastore.DatastoreInfo.rev">
+<tt class="descname">rev</tt><em class="property"> None</em><a class="headerlink" href="#dropbox.datastore.DatastoreInfo.rev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dropbox.datastore.DatastoreInfo.title">
+<tt class="descname">title</tt><em class="property"> None</em><a class="headerlink" href="#dropbox.datastore.DatastoreInfo.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.Datastore">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">Datastore</tt><big>(</big><em>manager</em>, <em>id=None</em>, <em>handle=None</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object representing a datastore.</p>
+<p>A datastore holds a set of tables identified by table IDs, each of
+which holds a set of records identified by record IDs.  A record
+holds a set of field values identified by field names.  The
+<tt class="docutils literal"><span class="pre">Datastore</span></tt> object keeps a snapshot of the current content (all
+tables, records and fields) in memory and supports simple queries.</p>
+<p>Changes to a datastore are made through methods on the
+<a class="reference internal" href="#dropbox.datastore.Table" title="dropbox.datastore.Table"><tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt></a> and <a class="reference internal" href="#dropbox.datastore.Record" title="dropbox.datastore.Record"><tt class="xref py py-class docutils literal"><span class="pre">Record</span></tt></a> classes, as well as the
+<a class="reference internal" href="#dropbox.datastore.List" title="dropbox.datastore.List"><tt class="xref py py-class docutils literal"><span class="pre">List</span></tt></a> class (which represents a composite field value).</p>
+<p>Changes are not immediately sent to the server.  Instead, the
+datastore keeps a list of changes in memory; these are sent to the
+server by the <a class="reference internal" href="#dropbox.datastore.Datastore.commit" title="dropbox.datastore.Datastore.commit"><tt class="xref py py-meth docutils literal"><span class="pre">commit()</span></tt></a> method.  The <a class="reference internal" href="#dropbox.datastore.Datastore.load_deltas" title="dropbox.datastore.Datastore.load_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">load_deltas()</span></tt></a>
+method retrieves new changes from the server and incorporates them
+into the current snapshot.  Those changes that have not yet been
+sent to the server can be undone using the <a class="reference internal" href="#dropbox.datastore.Datastore.rollback" title="dropbox.datastore.Datastore.rollback"><tt class="xref py py-meth docutils literal"><span class="pre">rollback()</span></tt></a>
+method.  Finally, the <a class="reference internal" href="#dropbox.datastore.Datastore.transaction" title="dropbox.datastore.Datastore.transaction"><tt class="xref py py-meth docutils literal"><span class="pre">transaction()</span></tt></a> method combines the
+functionality of these into a more powerful operation that can
+retry sets of changes specified by a callback function.</p>
+<p><strong>Do not instantiate this class directly</strong>.  Use the methods on
+<a class="reference internal" href="#dropbox.datastore.DatastoreManager" title="dropbox.datastore.DatastoreManager"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreManager</span></tt></a> instead.</p>
+<dl class="staticmethod">
+<dt id="dropbox.datastore.Datastore.is_valid_id">
+<em class="property">static </em><tt class="descname">is_valid_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.is_valid_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper method to check for a valid datastore ID.</p>
+<p>There are actually two types of datastore IDs, which (for want
+of better terminology) are called local IDs and global IDs.</p>
+<p>Local datastores are created with
+<a class="reference internal" href="#dropbox.datastore.DatastoreManager.open_default_datastore" title="dropbox.datastore.DatastoreManager.open_default_datastore"><tt class="xref py py-meth docutils literal"><span class="pre">DatastoreManager.open_default_datastore()</span></tt></a> or
+<a class="reference internal" href="#dropbox.datastore.DatastoreManager.open_or_create_datastore" title="dropbox.datastore.DatastoreManager.open_or_create_datastore"><tt class="xref py py-meth docutils literal"><span class="pre">DatastoreManager.open_or_create_datastore()</span></tt></a>,
+and the app has control over the name.
+Valid local datastore IDs are 1-32 characters long and
+may contain the following characters: <tt class="docutils literal"><span class="pre">a-z</span> <span class="pre">0-9</span> <span class="pre">.</span> <span class="pre">-</span> <span class="pre">_</span></tt> .
+However the first and last character cannot be dots.  Note
+that upper case is not allowed.</p>
+<p>Global datastores are created with
+<a class="reference internal" href="#dropbox.datastore.DatastoreManager.create_datastore" title="dropbox.datastore.DatastoreManager.create_datastore"><tt class="xref py py-meth docutils literal"><span class="pre">DatastoreManager.create_datastore()</span></tt></a>; the
+name is a dot followed by a random-looking sequence of
+characters assigned by the SDK.  Valid global datastore IDs
+are a dot followed by 1-100 dbase64 characters (which are
+<tt class="docutils literal"><span class="pre">a-z</span> <span class="pre">A-Z</span> <span class="pre">0-9</span> <span class="pre">-</span> <span class="pre">_</span></tt>).  Note that upper case <em>is</em> allowed.</p>
+<p>The <a class="reference internal" href="#dropbox.datastore.DatastoreManager.open_datastore" title="dropbox.datastore.DatastoreManager.open_datastore"><tt class="xref py py-meth docutils literal"><span class="pre">DatastoreManager.open_datastore()</span></tt></a> and
+:meth:DatastoreManager.open_datastore_from_info()`` methods
+can open either type of datastores.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.get_id">
+<tt class="descname">get_id</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ID of this datastore (a string).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.get_manager">
+<tt class="descname">get_manager</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.get_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <a class="reference internal" href="#dropbox.datastore.DatastoreManager" title="dropbox.datastore.DatastoreManager"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreManager</span></tt></a> to which this datastore belongs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.load_snapshot">
+<tt class="descname">load_snapshot</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.load_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the datastore with a snapshot retrieved from the server.</p>
+<p>All previously loaded content of the datastore is discarded,
+including pending changes.</p>
+<p>This is automatically called by all of the <tt class="docutils literal"><span class="pre">open_*()</span></tt>
+methods, so there is normally no reason to call this.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.await_deltas">
+<tt class="descname">await_deltas</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.await_deltas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for and incorporate changes to this datastore.</p>
+<p>It is an error to call this method if the datastore has
+pending changes.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A dict mapping table IDs to lists of records,
+see <a class="reference internal" href="#dropbox.datastore.Datastore.apply_deltas" title="dropbox.datastore.Datastore.apply_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">apply_deltas()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.load_deltas">
+<tt class="descname">load_deltas</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.load_deltas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load new changes retrieved from the server into the datastore.</p>
+<p>All previously loaded content is preserved, unless explicitly
+deleted or modified by one of the loaded changes.</p>
+<p>It is an error to call this method if the datastore has
+pending changes.</p>
+<p>Calling <tt class="docutils literal"><span class="pre">ds.load_deltas()</span></tt> is equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">deltas</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">fetch_deltas</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">apply_deltas</span><span class="p">(</span><span class="n">deltas</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A dict mapping table IDs to lists of records,
+see <a class="reference internal" href="#dropbox.datastore.Datastore.apply_deltas" title="dropbox.datastore.Datastore.apply_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">apply_deltas()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.fetch_deltas">
+<tt class="descname">fetch_deltas</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.fetch_deltas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve new changes from the server without applying them.</p>
+<p>This is one of the building blocks of <a class="reference internal" href="#dropbox.datastore.Datastore.load_deltas" title="dropbox.datastore.Datastore.load_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">load_deltas()</span></tt></a>;
+you probably want to use that instead.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A list of deltas suitable to be passed directly to
+<a class="reference internal" href="#dropbox.datastore.Datastore.apply_deltas" title="dropbox.datastore.Datastore.apply_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">apply_deltas()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.apply_deltas">
+<tt class="descname">apply_deltas</tt><big>(</big><em>deltas</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.apply_deltas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply deltas retrieved by some other means.</p>
+<p>It is an error to call this method if the datastore has
+pending changes.</p>
+<p>The deltas should be received from the server.  Normally this
+is called internally by <a class="reference internal" href="#dropbox.datastore.Datastore.await_deltas" title="dropbox.datastore.Datastore.await_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">await_deltas()</span></tt></a> or
+<a class="reference internal" href="#dropbox.datastore.Datastore.load_deltas" title="dropbox.datastore.Datastore.load_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">load_deltas()</span></tt></a>.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A dict mapping table IDs to lists of records,
+indicating the records that were inserted, updated or deleted
+by the loaded deltas.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.get_table">
+<tt class="descname">get_table</tt><big>(</big><em>tid</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.get_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <a class="reference internal" href="#dropbox.datastore.Table" title="dropbox.datastore.Table"><tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt></a> object with the given table ID.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.list_table_ids">
+<tt class="descname">list_table_ids</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.list_table_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the non-empty tables for this datastore.</p>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd>A set of strings table IDs (strings).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.rollback">
+<tt class="descname">rollback</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discard all pending changes since the last successful <a class="reference internal" href="#dropbox.datastore.Datastore.commit" title="dropbox.datastore.Datastore.commit"><tt class="xref py py-meth docutils literal"><span class="pre">commit()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.commit">
+<tt class="descname">commit</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to commit all pending changes.</p>
+<p>Pending changes are all mutations to a datastore made through
+<a class="reference internal" href="#dropbox.datastore.Table.insert" title="dropbox.datastore.Table.insert"><tt class="xref py py-meth docutils literal"><span class="pre">Table.insert()</span></tt></a>, <a class="reference internal" href="#dropbox.datastore.Record.set" title="dropbox.datastore.Record.set"><tt class="xref py py-meth docutils literal"><span class="pre">Record.set()</span></tt></a> and similar
+methods (inluding mutating <a class="reference internal" href="#dropbox.datastore.List" title="dropbox.datastore.List"><tt class="xref py py-class docutils literal"><span class="pre">List</span></tt></a> methods).</p>
+<p>To upload pending changes to the server you must use
+<a class="reference internal" href="#dropbox.datastore.Datastore.commit" title="dropbox.datastore.Datastore.commit"><tt class="xref py py-meth docutils literal"><span class="pre">commit()</span></tt></a>, or <a class="reference internal" href="#dropbox.datastore.Datastore.transaction" title="dropbox.datastore.Datastore.transaction"><tt class="xref py py-meth docutils literal"><span class="pre">transaction()</span></tt></a>, which calls it.</p>
+<p>This method raises <a class="reference internal" href="#dropbox.datastore.DatastoreConflictError" title="dropbox.datastore.DatastoreConflictError"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreConflictError</span></tt></a> when the
+server detects a conflict and refuses to accept the changes.
+The proper response to this exception is to call
+<a class="reference internal" href="#dropbox.datastore.Datastore.rollback" title="dropbox.datastore.Datastore.rollback"><tt class="xref py py-meth docutils literal"><span class="pre">rollback()</span></tt></a>, then <a class="reference internal" href="#dropbox.datastore.Datastore.load_deltas" title="dropbox.datastore.Datastore.load_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">load_deltas()</span></tt></a>, and then retry
+the transaction from the top, or give up and report an error
+to the user.  (The <a class="reference internal" href="#dropbox.datastore.Datastore.transaction" title="dropbox.datastore.Datastore.transaction"><tt class="xref py py-meth docutils literal"><span class="pre">transaction()</span></tt></a> method implements
+this higher-level control flow.)</p>
+<p>If there are any changes, this method adds a change that
+updates the datastore&#8217;s mtime.  If there are no changes, this
+method is a no-op (and no empty delta will be sent to the
+server).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.transaction">
+<tt class="descname">transaction</tt><big>(</big><em>callback</em>, <em>*args</em>, <em>max_tries=1</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a callback function and commit changes, with retries.</p>
+<p>When multiple clients try to update a datastore concurrently,
+it is possible for <a class="reference internal" href="#dropbox.datastore.Datastore.commit" title="dropbox.datastore.Datastore.commit"><tt class="xref py py-meth docutils literal"><span class="pre">commit()</span></tt></a> to raise
+<a class="reference internal" href="#dropbox.datastore.DatastoreConflictError" title="dropbox.datastore.DatastoreConflictError"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreConflictError</span></tt></a>, indicating a conflict.  This
+function handles the details of handling such failures and
+retrying the updates.  You pass it a callback function which
+will be called repeatedly until <a class="reference internal" href="#dropbox.datastore.Datastore.commit" title="dropbox.datastore.Datastore.commit"><tt class="xref py py-meth docutils literal"><span class="pre">commit()</span></tt></a> succeeds, or
+the maximum number of tries is reached.</p>
+<p>The keyword-only parameter <tt class="docutils literal"><span class="pre">max_tries</span></tt> specifies how many
+times the callback is called before giving up.  The default is
+1, i.e. call it only once; the recommended value is 4.</p>
+<p>Generally, if you plan to modify a datastore, you should do
+all your reads and writes in a transaction.  On entry, there
+should be no pending changes.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">do_stuff</span><span class="p">(</span><span class="n">record_id</span><span class="p">):</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">tasks_table</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">record_id</span><span class="p">)</span>
+    <span class="n">user_count</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;user_count&#39;</span><span class="p">)</span>
+    <span class="n">record</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">user_count</span><span class="o">=</span><span class="n">user_count</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">datastore</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="n">do_stuff</span><span class="p">,</span> <span class="n">some_record_id</span><span class="p">,</span> <span class="n">max_tries</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Extra positional arguments are passed on to the callback
+function.  On success, the return value of the callback is
+returned.</p>
+<p>When a commit attempt fails, uncommitted changes are rolled
+back using <a class="reference internal" href="#dropbox.datastore.Datastore.rollback" title="dropbox.datastore.Datastore.rollback"><tt class="xref py py-meth docutils literal"><span class="pre">rollback()</span></tt></a>, and new changes are retrieved
+from the server and loaded into the datastore using
+<a class="reference internal" href="#dropbox.datastore.Datastore.load_deltas" title="dropbox.datastore.Datastore.load_deltas"><tt class="xref py py-meth docutils literal"><span class="pre">load_deltas()</span></tt></a>.  This is done before checking whether
+we are out of tries.</p>
+<p>When giving up, <a class="reference internal" href="#dropbox.datastore.DatastoreError" title="dropbox.datastore.DatastoreError"><tt class="xref py py-meth docutils literal"><span class="pre">DatastoreError()</span></tt></a> is raised.</p>
+<p>When any other exception occurs (either in the callback or in
+the commit), uncommitted changes are rolled back and the last
+exception is re-raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Datastore.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Datastore.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the datastore.</p>
+<p>The datastore should not be used after this call.</p>
+<p>All pending changes are lost.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.Table">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">Table</tt><big>(</big><em>datastore</em>, <em>tid</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object representing a table in a datastore.</p>
+<p>You need a <tt class="docutils literal"><span class="pre">Table</span></tt> in order to query or modify the content of the datastore.</p>
+<p><strong>Do not instantiate this class directly</strong>.  Use
+<a class="reference internal" href="#dropbox.datastore.Datastore.get_table" title="dropbox.datastore.Datastore.get_table"><tt class="xref py py-meth docutils literal"><span class="pre">Datastore.get_table()</span></tt></a> instead.  Calls with the same ID will return
+the same object.</p>
+<dl class="staticmethod">
+<dt id="dropbox.datastore.Table.is_valid_id">
+<em class="property">static </em><tt class="descname">is_valid_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.is_valid_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper method to check for a valid table ID.</p>
+<p>Valid table IDs are 1-32 characters long and may contain the
+following characters: <tt class="docutils literal"><span class="pre">a-z</span> <span class="pre">A-Z</span> <span class="pre">0-9</span> <span class="pre">_</span> <span class="pre">-</span> <span class="pre">/</span> <span class="pre">.</span> <span class="pre">+</span> <span class="pre">=</span></tt> .  Reserved
+IDs start with a colon followed by 1-31 characters from that set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Table.get_id">
+<tt class="descname">get_id</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ID of this table (a string).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Table.get_datastore">
+<tt class="descname">get_datastore</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.get_datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <a class="reference internal" href="#dropbox.datastore.Datastore" title="dropbox.datastore.Datastore"><tt class="xref py py-class docutils literal"><span class="pre">Datastore</span></tt></a> to which this table belongs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Table.get">
+<tt class="descname">get</tt><big>(</big><em>recordid</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the record with the given record ID.</p>
+<p>If no such record exists, return None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Table.get_or_insert">
+<tt class="descname">get_or_insert</tt><big>(</big><em>recordid</em>, <em>**fields</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.get_or_insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the record with the given record ID, or create it.</p>
+<p>If a record with the given record ID already exists, it is
+returned, and the keyword arguments are ignored.  If no such
+record exists, this inserts a record with the given record ID,
+setting its fields from the keyword arguments.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Table.insert">
+<tt class="descname">insert</tt><big>(</big><em>**fields</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new record into the table with a random record ID.</p>
+<p>Random record IDs are generated according to RFC 4122, using
+UUID version 4.  If used properly we guarantee that they are
+universally unique for the lifetime of the solar system.</p>
+<p>The new record&#8217;s fields are set from the keyword arguments.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Table.query">
+<tt class="descname">query</tt><big>(</big><em>**kwds</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Table.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the records in the table.</p>
+<p>If called without arguments, this returns a list of all
+records in the table.</p>
+<p>If called with keyword arguments, each keyword argument
+specifies a required value for the corresponding field;
+only records that have the required field values for all
+keyword arguments are returned.</p>
+<p>The following example retrieves all records in the &#8216;tasks&#8217;
+table that have a &#8216;done&#8217; field whose type is <tt class="docutils literal"><span class="pre">bool</span></tt> and
+whose value is <tt class="docutils literal"><span class="pre">False</span></tt>:</p>
+<blockquote>
+<div>results = tasks.query(done=False)</div></blockquote>
+<p>For the purpose of queries, integers and floats are compared
+using the standard Python equality comparisons.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.Record">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">Record</tt><big>(</big><em>table</em>, <em>recordid</em>, <em>fields</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object representing a record in a table in a datastore.</p>
+<p>A record has a record ID and zero or more fields.</p>
+<p>A field value can be an atomic type or a list of atomic types.</p>
+<p>Atomic types are <tt class="docutils literal"><span class="pre">bool</span></tt>, integer (<tt class="docutils literal"><span class="pre">int</span></tt> or <tt class="docutils literal"><span class="pre">long</span></tt>), <tt class="docutils literal"><span class="pre">float</span></tt>, string
+(<tt class="docutils literal"><span class="pre">unicode</span></tt> or 8-bit <tt class="docutils literal"><span class="pre">str</span></tt>; the latter must be a valid UTF-8 string), or an
+instance of the special classes <a class="reference internal" href="#dropbox.datastore.Date" title="dropbox.datastore.Date"><tt class="xref py py-class docutils literal"><span class="pre">Date</span></tt></a> or <a class="reference internal" href="#dropbox.datastore.Bytes" title="dropbox.datastore.Bytes"><tt class="xref py py-class docutils literal"><span class="pre">Bytes</span></tt></a>.  Note that <tt class="docutils literal"><span class="pre">None</span></tt> is
+not a valid field value.</p>
+<p><strong>Do not instantiate this class directly</strong>.  Use
+<a class="reference internal" href="#dropbox.datastore.Table.get" title="dropbox.datastore.Table.get"><tt class="xref py py-meth docutils literal"><span class="pre">Table.get()</span></tt></a>, <a class="reference internal" href="#dropbox.datastore.Table.insert" title="dropbox.datastore.Table.insert"><tt class="xref py py-meth docutils literal"><span class="pre">Table.insert()</span></tt></a>,
+<a class="reference internal" href="#dropbox.datastore.Table.get_or_insert" title="dropbox.datastore.Table.get_or_insert"><tt class="xref py py-meth docutils literal"><span class="pre">Table.get_or_insert()</span></tt></a> or <a class="reference internal" href="#dropbox.datastore.Table.query" title="dropbox.datastore.Table.query"><tt class="xref py py-meth docutils literal"><span class="pre">Table.query()</span></tt></a> instead.</p>
+<dl class="staticmethod">
+<dt id="dropbox.datastore.Record.is_valid_id">
+<em class="property">static </em><tt class="descname">is_valid_id</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.is_valid_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper method to check for a valid record ID.</p>
+<p>Valid record IDs are 1-32 characters long and may contain the
+following characters: <tt class="docutils literal"><span class="pre">a-z</span> <span class="pre">A-Z</span> <span class="pre">0-9</span> <span class="pre">_</span> <span class="pre">-</span> <span class="pre">/</span> <span class="pre">.</span> <span class="pre">+</span> <span class="pre">=</span></tt> .  Reserved
+IDs start with a colon followed by 1-31 characters from that set.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="dropbox.datastore.Record.is_valid_field">
+<em class="property">static </em><tt class="descname">is_valid_field</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.is_valid_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper method to check for a valid field name.</p>
+<p>Valid field names are 1-32 characters long and may contain the
+following characters: <tt class="docutils literal"><span class="pre">a-z</span> <span class="pre">A-Z</span> <span class="pre">0-9</span> <span class="pre">_</span> <span class="pre">-</span> <span class="pre">/</span> <span class="pre">.</span> <span class="pre">+</span> <span class="pre">=</span></tt> .  Reserved
+field names start with a colon followed by 1-31 characters
+from that set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.get_id">
+<tt class="descname">get_id</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ID of this record (a string).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.get_table">
+<tt class="descname">get_table</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.get_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <a class="reference internal" href="#dropbox.datastore.Table" title="dropbox.datastore.Table"><tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt></a> to which this record belongs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.get">
+<tt class="descname">get</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of a field in the record.</p>
+<p>If the record does not have a field by that name, return <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<p>If the field value is a list, this returns a <a class="reference internal" href="#dropbox.datastore.List" title="dropbox.datastore.List"><tt class="xref py py-class docutils literal"><span class="pre">List</span></tt></a> object;
+mutating that object will modify the field&#8217;s value in the record.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.set">
+<tt class="descname">set</tt><big>(</big><em>field</em>, <em>value</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the value of a field in the record.</p>
+<p>Setting the value to <tt class="docutils literal"><span class="pre">None</span></tt> deletes the field.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.delete">
+<tt class="descname">delete</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the value of a field in the record.</p>
+<p>If the field does not exist this is a no-op.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.get_fields">
+<tt class="descname">get_fields</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.get_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict mapping all the fields in the record to their values.</p>
+<p>Modifying the dict will not affect the record in the datastore.</p>
+<p>To enforce this, list values are returned as tuples.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.update">
+<tt class="descname">update</tt><big>(</big><em>**kwds</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the value of multiple fields in the record.</p>
+<p>For each keyword argument, the field by that name is set to
+the corresponding value, except that if the value is <tt class="docutils literal"><span class="pre">None</span></tt>, the
+field is deleted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.delete_record">
+<tt class="descname">delete_record</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.delete_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the record from the table.</p>
+<p>If the record is already marked as deleted, this is a no-op.</p>
+<p>A record marked as deleted cannot be re-inserted, cannot be
+modified, and no longer has any fields.  To check for a
+deleted record, use <a class="reference internal" href="#dropbox.datastore.Record.is_deleted" title="dropbox.datastore.Record.is_deleted"><tt class="xref py py-meth docutils literal"><span class="pre">is_deleted()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.get_or_create_list">
+<tt class="descname">get_or_create_list</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.get_or_create_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list field, possibly setting it to an empty list.</p>
+<p>If the field exists, it must be a list.  If it does not exist,
+it is set to an empty list.  In either case, a <a class="reference internal" href="#dropbox.datastore.List" title="dropbox.datastore.List"><tt class="xref py py-class docutils literal"><span class="pre">List</span></tt></a>
+object representing the field is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.has">
+<tt class="descname">has</tt><big>(</big><em>field</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.has" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inquire whether the record has a given field.</p>
+<p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if the field exists, <tt class="docutils literal"><span class="pre">False</span></tt> if not.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Record.is_deleted">
+<tt class="descname">is_deleted</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Record.is_deleted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inquire whether the record is marked as deleted.</p>
+<p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if the record has been deleted, <tt class="docutils literal"><span class="pre">False</span></tt> if not.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.Date">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">Date</tt><big>(</big><em>timestamp=None</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Date" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple immutable object representing a timestamp.</p>
+<p>Datastores store timestamps as milliseconds since the Epoch
+(1/1/1970) in UTC.</p>
+<p>To store a timestamp, you must set a field to a <tt class="docutils literal"><span class="pre">Date</span></tt>
+object; if a field value is a timestamp, getting the value will
+return a <tt class="docutils literal"><span class="pre">Date</span></tt>.</p>
+<p>To construct a <tt class="docutils literal"><span class="pre">Date</span></tt>, pass the constructor a POSIX
+timestamp as returned by <tt class="docutils literal"><span class="pre">time.time()</span></tt> (and many other standard
+Python APIs).</p>
+<p>You can convert a <tt class="docutils literal"><span class="pre">Date</span></tt> back to a POSIX timestamp by
+calling <tt class="docutils literal"><span class="pre">float()</span></tt> or <tt class="docutils literal"><span class="pre">int()</span></tt> on it.  These conversions take
+care of the conversion between seconds and milliseconds;
+milliseconds map to fractions when converting to/from <tt class="docutils literal"><span class="pre">float</span></tt>,
+and are truncated when converting to <tt class="docutils literal"><span class="pre">int</span></tt>.</p>
+<p>You can also convert between Date and naive (<tt class="docutils literal"><span class="pre">tzinfo</span></tt>-less) <tt class="docutils literal"><span class="pre">datetime</span></tt>
+objects using a choice of UTC or local time, using
+<a class="reference internal" href="#dropbox.datastore.Date.to_datetime_utc" title="dropbox.datastore.Date.to_datetime_utc"><tt class="xref py py-meth docutils literal"><span class="pre">to_datetime_utc()</span></tt></a>, <a class="reference internal" href="#dropbox.datastore.Date.from_datetime_utc" title="dropbox.datastore.Date.from_datetime_utc"><tt class="xref py py-meth docutils literal"><span class="pre">from_datetime_utc()</span></tt></a>,
+<a class="reference internal" href="#dropbox.datastore.Date.to_datetime_local" title="dropbox.datastore.Date.to_datetime_local"><tt class="xref py py-meth docutils literal"><span class="pre">to_datetime_local()</span></tt></a>, and <a class="reference internal" href="#dropbox.datastore.Date.from_datetime_local" title="dropbox.datastore.Date.from_datetime_local"><tt class="xref py py-meth docutils literal"><span class="pre">from_datetime_local()</span></tt></a>.
+Note that <tt class="docutils literal"><span class="pre">datetime</span></tt> objects using an explicit <tt class="docutils literal"><span class="pre">tzinfo</span></tt> field are not
+supported; if you need to work with those you must convert to/from
+naive <tt class="docutils literal"><span class="pre">datetime</span></tt> objects yourself.</p>
+<dl class="method">
+<dt id="dropbox.datastore.Date.to_datetime_utc">
+<tt class="descname">to_datetime_utc</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Date.to_datetime_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <tt class="docutils literal"><span class="pre">Date</span></tt> to a <tt class="docutils literal"><span class="pre">datetime.datetime</span></tt> object in UTC.</p>
+<p>This sets the <tt class="docutils literal"><span class="pre">tzinfo</span></tt> field to <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="dropbox.datastore.Date.from_datetime_utc">
+<em class="property">classmethod </em><tt class="descname">from_datetime_utc</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Date.from_datetime_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <tt class="docutils literal"><span class="pre">datetime.datetime</span></tt> object in UTC to a <tt class="docutils literal"><span class="pre">Date</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">tzinfo</span></tt> field must be <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.Date.to_datetime_local">
+<tt class="descname">to_datetime_local</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.Date.to_datetime_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <tt class="docutils literal"><span class="pre">Date</span></tt> to a <tt class="docutils literal"><span class="pre">datetime.datetime</span></tt> object in local time.</p>
+<p>This set the <tt class="docutils literal"><span class="pre">tzinfo</span></tt> field to <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="dropbox.datastore.Date.from_datetime_local">
+<em class="property">classmethod </em><tt class="descname">from_datetime_local</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Date.from_datetime_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <tt class="docutils literal"><span class="pre">datetime.datetime</span></tt> object in UTC to a <tt class="docutils literal"><span class="pre">Date</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">tzinfo</span></tt> field must be <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.Bytes">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">Bytes</tt><big>(</big><em>blob</em><big>)</big><a class="headerlink" href="#dropbox.datastore.Bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple immutable object representing a binary string.</p>
+<p>Datastores transmit binary strings using a base64 encoding.</p>
+<p>Because Python 2 uses ambiguous representations of binary strings,
+you must wrap binary strings in this class in order to store them
+in a datastore.  8-bit strings not wrapped this way are assumed to
+represent text and must use the UTF-8 encoding.</p>
+<p>To construct a <a class="reference internal" href="#dropbox.datastore.Bytes" title="dropbox.datastore.Bytes"><tt class="xref py py-class docutils literal"><span class="pre">Bytes</span></tt></a>, pass the constructor a <tt class="docutils literal"><span class="pre">str</span></tt>
+instance, a <tt class="docutils literal"><span class="pre">buffer</span></tt> instance, or an <tt class="docutils literal"><span class="pre">array.array</span></tt> instance
+whose typecode indicate a one-byte-wide data type (i.e. <tt class="docutils literal"><span class="pre">'c'</span></tt>, <tt class="docutils literal"><span class="pre">'b'</span></tt>
+or <tt class="docutils literal"><span class="pre">'B'</span></tt>).</p>
+<p>To convert a <a class="reference internal" href="#dropbox.datastore.Bytes" title="dropbox.datastore.Bytes"><tt class="xref py py-class docutils literal"><span class="pre">Bytes</span></tt></a> to a raw byte string, call <tt class="docutils literal"><span class="pre">bytes()</span></tt>
+on it.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.datastore.List">
+<em class="property">class </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">List</tt><big>(</big><em>record</em>, <em>field</em><big>)</big><a class="headerlink" href="#dropbox.datastore.List" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a list value.</p>
+<p>When a field contains a list value, retrieving the field using
+<a class="reference internal" href="#dropbox.datastore.Record.get" title="dropbox.datastore.Record.get"><tt class="xref py py-meth docutils literal"><span class="pre">Record.get()</span></tt></a> returns a <tt class="docutils literal"><span class="pre">List</span></tt> object.  This object
+behaves like a mutable sequence, but mutating it (e.g., replacing
+an item with a new value) will mutate the list value in the
+record.</p>
+<p>A <tt class="docutils literal"><span class="pre">List</span></tt> object knows the record and field to which it
+refers.  Multiple <tt class="docutils literal"><span class="pre">List</span></tt> objects may refer to the same record and
+field.</p>
+<p><tt class="docutils literal"><span class="pre">List</span></tt> objects are compared by value (i.e., the sequence of
+items they contain, not the record and field to which they refer).
+They can also be compared to regular tuples and lists.</p>
+<p>Several methods available for regular lists are available for
+<tt class="docutils literal"><span class="pre">List</span></tt> objects, when in doubt, consult the documentation
+below.  Some methods unique to <tt class="docutils literal"><span class="pre">List</span></tt> objects also exist.</p>
+<p>Negative indices are supported in the usual fashion.</p>
+<p><strong>Do not instantiate this class directly</strong>.  Use
+<a class="reference internal" href="#dropbox.datastore.Record.get" title="dropbox.datastore.Record.get"><tt class="xref py py-meth docutils literal"><span class="pre">Record.get()</span></tt></a> or <a class="reference internal" href="#dropbox.datastore.Record.get_or_create_list" title="dropbox.datastore.Record.get_or_create_list"><tt class="xref py py-meth docutils literal"><span class="pre">Record.get_or_create_list()</span></tt></a> instead.</p>
+<dl class="method">
+<dt id="dropbox.datastore.List.get_record">
+<tt class="descname">get_record</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.List.get_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <a class="reference internal" href="#dropbox.datastore.Record" title="dropbox.datastore.Record"><tt class="xref py py-class docutils literal"><span class="pre">Record</span></tt></a> to which this <tt class="docutils literal"><span class="pre">List</span></tt> refers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.List.get_field">
+<tt class="descname">get_field</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.datastore.List.get_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field name (a string) to which this <tt class="docutils literal"><span class="pre">List</span></tt> refers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.List.insert">
+<tt class="descname">insert</tt><big>(</big><em>index</em>, <em>value</em><big>)</big><a class="headerlink" href="#dropbox.datastore.List.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a value into the list at a given index.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.List.append">
+<tt class="descname">append</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#dropbox.datastore.List.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a value to the end of the list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.datastore.List.move">
+<tt class="descname">move</tt><big>(</big><em>index</em>, <em>newindex</em><big>)</big><a class="headerlink" href="#dropbox.datastore.List.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the list item at <tt class="docutils literal"><span class="pre">index</span></tt> to position <tt class="docutils literal"><span class="pre">newindex</span></tt>.</p>
+<p>This is most easily explained as follows: first delete the
+item at position <tt class="docutils literal"><span class="pre">index</span></tt>; then re-insert it at position
+<tt class="docutils literal"><span class="pre">newindex</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.datastore.DatastoreError">
+<em class="property">exception </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">DatastoreError</tt><big>(</big><em>message</em>, <em>resp=None</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when the server returns a JSON error dict.</p>
+<p>This is the base class for more specific exception classes.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.datastore.DatastoreNotFoundError">
+<em class="property">exception </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">DatastoreNotFoundError</tt><big>(</big><em>message</em>, <em>resp=None</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when attempting to open a non-existent datastore.</p>
+<p>Derives from <a class="reference internal" href="#dropbox.datastore.DatastoreError" title="dropbox.datastore.DatastoreError"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreError</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="dropbox.datastore.DatastoreConflictError">
+<em class="property">exception </em><tt class="descclassname">dropbox.datastore.</tt><tt class="descname">DatastoreConflictError</tt><big>(</big><em>message</em>, <em>resp=None</em><big>)</big><a class="headerlink" href="#dropbox.datastore.DatastoreConflictError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when the server reports a conflict.</p>
+<p>Derives from <a class="reference internal" href="#dropbox.datastore.DatastoreError" title="dropbox.datastore.DatastoreError"><tt class="xref py py-class docutils literal"><span class="pre">DatastoreError</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dropbox.rest">
+<span id="dropbox-rest"></span><h1>dropbox.rest<a class="headerlink" href="#module-dropbox.rest" title="Permalink to this headline">¶</a></h1>
+<p>A simple JSON REST request abstraction layer that is used by the
+dropbox.client and dropbox.session modules. You shouldn&#8217;t need to use this.</p>
+<dl class="class">
+<dt id="dropbox.rest.RESTClient">
+<em class="property">class </em><tt class="descclassname">dropbox.rest.</tt><tt class="descname">RESTClient</tt><a class="headerlink" href="#dropbox.rest.RESTClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class with all static methods to perform JSON REST requests that is used internally
+by the Dropbox Client API. It provides just enough gear to make requests
+and get responses as JSON data (when applicable). All requests happen over SSL.</p>
+<dl class="classmethod">
+<dt id="dropbox.rest.RESTClient.request">
+<em class="property">classmethod </em><tt class="descname">request</tt><big>(</big><em>*n</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTClient.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a REST request and parse the response.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">method</span></tt>: An HTTP method (e.g. &#8216;GET&#8217; or &#8216;POST&#8217;).</li>
+<li><tt class="docutils literal"><span class="pre">url</span></tt>: The URL to make a request to.</li>
+<li><tt class="docutils literal"><span class="pre">post_params</span></tt>: A dictionary of parameters to put in the body of the request.
+This option may not be used if the body parameter is given.</li>
+<li><tt class="docutils literal"><span class="pre">body</span></tt>: The body of the request. Typically, this value will be a string.
+It may also be a file-like object in Python 2.6 and above. The body
+parameter may not be used with the post_params parameter.</li>
+<li><tt class="docutils literal"><span class="pre">headers</span></tt>: A dictionary of headers to send with the request.</li>
+<li><tt class="docutils literal"><span class="pre">raw_response</span></tt>: Whether to return a RESTReponse object. [default False]
+It&#8217;s best enabled for requests that return large amounts of data that you
+would want to .read() incrementally rather than loading into memory. Also
+use this for calls where you need to read metadata like status or headers,
+or if the body is not JSON.</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>The JSON-decoded data from the server, unless raw_response is
+specified, in which case an RESTResponse object is returned instead.</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>dropbox.rest.ErrorResponse: The returned HTTP status is not 200, or the body was
+not parsed from JSON successfully.</li>
+<li>dropbox.rest.RESTSocketError: A socket.error was raised while contacting Dropbox.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="dropbox.rest.RESTClient.GET">
+<em class="property">classmethod </em><tt class="descname">GET</tt><big>(</big><em>*n</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTClient.GET" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a GET request using RESTClient.request</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="dropbox.rest.RESTClient.POST">
+<em class="property">classmethod </em><tt class="descname">POST</tt><big>(</big><em>*n</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTClient.POST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a POST request using RESTClient.request</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="dropbox.rest.RESTClient.PUT">
+<em class="property">classmethod </em><tt class="descname">PUT</tt><big>(</big><em>*n</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTClient.PUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a PUT request using RESTClient.request</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.rest.RESTResponse">
+<em class="property">class </em><tt class="descclassname">dropbox.rest.</tt><tt class="descname">RESTResponse</tt><big>(</big><em>resp</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responses to requests can come in the form of RESTResponse. These are
+thin wrappers around the socket file descriptor.
+read() and close() are implemented.
+It is important to call close() to return the connection
+back to the connection pool to be reused. If a connection
+is not closed by the caller it may leak memory. The object makes a
+best-effort attempt upon destruction to call close(),
+but it&#8217;s still best to explicitly call close()</p>
+<dl class="method">
+<dt id="dropbox.rest.RESTResponse.read">
+<tt class="descname">read</tt><big>(</big><em>amt=None</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTResponse.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read data off the underlying socket</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">amt</span></tt>: Amount of data to read. Defaults to None, indicating to read
+everything</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>Data off the socket. If amt is not None, at most amt bytes are returned.
+An empty string when the socket has no data.</li>
+</ul>
+</dd>
+<dt>Raises:</dt>
+<dd><ul class="first last simple">
+<li>ValueError: If the RESTResponse has already been closed</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.rest.RESTResponse.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.rest.RESTResponse.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the underlying socket.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.rest.RESTResponse.getheaders">
+<tt class="descname">getheaders</tt><big>(</big><big>)</big><a class="headerlink" href="#dropbox.rest.RESTResponse.getheaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of the response headers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dropbox.rest.RESTResponse.getheader">
+<tt class="descname">getheader</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTResponse.getheader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a given response header</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.rest.ErrorResponse">
+<em class="property">class </em><tt class="descclassname">dropbox.rest.</tt><tt class="descname">ErrorResponse</tt><big>(</big><em>http_resp</em>, <em>body</em><big>)</big><a class="headerlink" href="#dropbox.rest.ErrorResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised by dropbox.rest.RESTClient.request for requests that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Return a non-200 HTTP response, or</li>
+<li>Have a non-JSON response body, or</li>
+<li>Have a malformed/missing header in the response.</li>
+</ul>
+</div></blockquote>
+<p>Most errors that Dropbox returns will have an error field that is unpacked and
+placed on the ErrorResponse exception. In some situations, a user_error field
+will also come back. Messages under user_error are worth showing to an end-user
+of your app, while other errors are likely only useful for you as the developer.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dropbox.rest.RESTSocketError">
+<em class="property">class </em><tt class="descclassname">dropbox.rest.</tt><tt class="descname">RESTSocketError</tt><big>(</big><em>host</em>, <em>e</em><big>)</big><a class="headerlink" href="#dropbox.rest.RESTSocketError" title="Permalink to this definition">¶</a></dt>
+<dd><p>A light wrapper for <tt class="docutils literal"><span class="pre">socket.error</span></tt> that adds some more information.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dropbox.client</a></li>
+<li><a class="reference internal" href="#module-dropbox.datastore">dropbox.datastore</a></li>
+<li><a class="reference internal" href="#module-dropbox.rest">dropbox.rest</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">Dropbox  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Dropbox, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

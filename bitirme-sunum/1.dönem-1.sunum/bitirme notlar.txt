@@ -1,0 +1,35 @@
+Nem sensörlerinin nasıl çalıştığını anlamaya çalışıyorum.
+
+Öğrendiğim kadarıyla iki tür sensör var. Sığal ve dirençsel olarak ölçüm yapabilen sensörler.
+
+Dirençli olanlarda kullanılan malzeme su buharını emiyor ve dirençi değişiyor. Direnç bağıl neme göre logaritmik olarak değişiyor. Örneğin dirençli bir nem sensörü %30 bağıl nemde 10M, 90% bağıl nemde 90kΩ direnç gösteriyor. Ayrıca nem değişimini doğrusal hale (birinci dereceden denklem) getirmemiz gerekiyor. Direnç kullanan duyarlar doğru akım yerine dalgalı akım kullanması gerekiyor. Çünkü DC bu duyarlara zarar verebiliyor.
+
+Sığal sensörlerde de sığa bağıl neme göre değişiyor. Burada sığalığı bağıl nemle ilişkilendirebilmek için daha basit bir değere çevirmemiz gerekiyor. Örneğin R ve C dirençlerinden oluşan salınır bir devremiz olsun. Eğer sığacın değeri bağıl neme göre değişirse salınım frekansı da değişecektir. Bu durumda devre bağıl nemi frekansa çeviren bir devre gibi çalışıyor. Ancak ne yazık ki frekans değişimini bağıl nemle direkt olarak ilişkilendiremiyoruz.
+
+İkinci yöntem sinyal genişliğini (pulse width) değiştirmek. RC (direnç ve sığaçtan oluşan) integral alan  bir devre kurmak. Bu durumda puls genişliğiyle orantılı doğru bir gerilim elde ediyoruz.
+
+Bunları denemek için 122p veya 240p sığal nem sensörü ve dirençsel nem sensörü arıyorum. Bunları nereden bulabilirim. Ben sadece SHT10 ve SHT11 nem sensörü bulabildim. Ama yukarıdakilerle bir bağlantı kuramadım ??? 
+
+İkincisi mikro denetleyici kullanmadan bağıl nemi ölçmek için pratikte kurulacak devrenin çalışma prensibini izah edebilecek var mı.
+
+
+
+LCD: Lİquid Crystal Display(Sıvı Kristal Ekran)
+
+ CCS C Derleyici
+ Protheus Elektronik Devre Çizim ve Benzetim Programı
+ US-Burn Mikrodenetleç Programlayıcı
+
+rht04	 $ 9.5-12.5
+
+1. Daldırma probu: Her türlü ürünün iç sıcaklığı (çekirdek sıcaklığı) veya sıvı sıcaklığını ölçmekte kullanılmaktadır. Bu tarz probla ortam sıcaklığını ölçmeniz de mümkündür, ancak ortam sıcaklığı ölçmede yavaş cevap vermektedir.
+
+2. Hava probu: Hava sıcaklığını ölçmek için idealdir. Probun genellikle hava ile temas yüzeyinin rahat olması nedeniyle sensörü hava ile temas edecek şekilde açık bırakılmıştır. Cevap süresi daldırma problarının hava sıcaklığı ölçümüne oranla daha hızlıdır.
+
+3. Yüzey probu: Yüzey ölçümünde kullanılabilecek 2 farklı yöntem vardır. Bunlar temaslı ve temassız (Kızılötesi) ölçüm yöntemidir. 
+
+  Temaslı yüzey ölçümünde kullanılabilecek prob tipi yüzey probudur. Bu tip sensörlerin uç kısmı yüzey ile temas edebilecek şekilde düz bir yapıdadır. Ölçüm küt ucun yüzeye temas etmesi ile yapılmaktadır. Yüzey sıcaklığının ölçümü alınacak yerde tam düz bir yüzey yoksa esnek bantlı, yüzeyin şeklini alabilen yüzey probu tercih edilmelidir.
+
+  Temassız (kızılötesi) sıcaklık ölçümü: Kızılötesi ölçüm artık özellikle ısıtma soğutma sektöründe çok sıklıkla kullanılan bir ölçüm haline gelmiştir. Kızılötesi, sıcaklık ölçüm cihazlarının yüzey sıcaklığını çok hızlı bir şekilde ölçmesi en büyük avanatajıdır. Aynı zamanda erişilmesi noktalardaki yüzey sıcaklığını ölçmekte de oldukça yarar sağlar. Ancak temassız ölçümde dikkat edilmesi gereken bazı önemli noktalar vardır. Bunlardan ilki özellikle tek nokta lazer işaretlemeli temassız termometrelerde optik orana azami dikkat edilmesidir. Optik oran; cihazın ölçüm yapacağı mesafe ile ölçtüğü bölgenin arasındaki bağıntıyı işaret eder. Örnek olarak aşağıda 75:1 optik oranına sahip testo 845 kızılötesi termometrenin ölçüm alanı görüntüsü vardır; Yukarıdaki şekilden de görebileceğiniz gibi, cihaz belirli mesafede belirli bir dairenin ortalama sıcaklık değerini göstermektedir. Ölçüm yaptığınız cihaz eğer tek nokta işaretlemeli ise, nokta sadece dairenin orta noktasını gösterir. Ölçtüğü dairenin çapını ise cihazın optik oranına ve ölçüm yaptığınız noktaya bulunduğunuz mesafeye göre hesaplamanız gerekmektedir. Daha hassas ölçüm almak için çift nokta işaretlemeli kızılötesi sıcaklık ölçüm cihazı tercih edilebilir. Çift noktalı ölçüm cihazları, ölçülen dairenin alt ve üst noktalarını belirler.
+
+Nem ölçümü: Nem, endüstriyel uygulamada ölçülmesi ve kontrol altına alınması zorunlu parametrelerden biridir. Bu parametrenin doğru ve prosedüre uygun olarak ölçülmemesi sonucunda üretimde ve depolama proseslerinde büyük zararlar meydana gelebilir. Hatta günümüzde artık bu parametrenin sadece ölçümleri yeterli değildir, ölçülen bu değerlerin düzenli bir şekilde bilgisayar ortamında kayıt altına alınması da zorunlu hale gelmiştir. Bu bağlamda biz Testo Türkiye olarak bu parametrelerin hassas ve doğru bir şekilde ölçülüp değerlendirilmesi konusunda ciddi çalışmalar yapmaktayız. Testo nem sensörü ile son derece kararlı üretim ve ayarı sayesinde, %±2 veya ayrıca %±1 RH oranında ölçüm hatasının garanti edilmesi mümkündür. Buna ek olarak, nem sensörü de uzun süreli stabilite sağlar. Nem sensörü ne kadar hassassa, klima ve havalandırma sistemlerinin işletim maliyetleri o kadar düşük olur. Uluslar arası standartlara göre (ASHRAE Temel İlkeleri ,DIN 1946 vb.) klima sistemleri %30…65 RH arası hava nemi seviyelerine sahip olmalıdır. Daha yüksek nem seviyeleri, nemi alınarak gerekli aralığa getirilmeli; daha düşük seviyeler ise nemlendirilmelidir. Nem uygulama ve amaca bağlı olarak, referans ölçüm cihazları, veri kaydediciler, sabit ölçüm teknolojosindeki cihazlar ve portatif kontrol amaçlı cihazlar ile ölçülebilir.

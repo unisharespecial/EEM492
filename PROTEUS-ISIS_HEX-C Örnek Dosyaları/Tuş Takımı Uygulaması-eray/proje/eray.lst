@@ -1,0 +1,586 @@
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 1
+
+ADDR   CODE       LINE  SOURCE
+
+                  00001 
+                  00002 ; CC8E Version 1.3E, Copyright (c) B Knudsen Data
+                  00003 ; C compiler for the PIC18 microcontrollers
+                  00004 ; ************  27. Dec 2012  16:07  *************
+                  00005 
+                  00006 	processor  PIC18F452
+                  00007 	radix  DEC
+                  00008 
+       0FF6       00009 TBLPTR      EQU   0xFF6
+       0FF5       00010 TABLAT      EQU   0xFF5
+       0002       00011 Zero_       EQU   2
+       0F96       00012 TRISE       EQU   0xF96
+       0F95       00013 TRISD       EQU   0xF95
+       0F93       00014 TRISB       EQU   0xF93
+       0F92       00015 TRISA       EQU   0xF92
+       0F81       00016 PORTB       EQU   0xF81
+       0F80       00017 PORTA       EQU   0xF80
+       0000       00018 e           EQU   0
+       0001       00019 rs          EQU   1
+       0002       00020 rw          EQU   2
+       0F83       00021 disp        EQU   0xF83
+       0006       00022 t           EQU   0x06
+       0008       00023 n           EQU   0x08
+       0005       00024 kom         EQU   0x05
+       0005       00025 c           EQU   0x05
+       0000       00026 msj         EQU   0x00
+       0001       00027 adr         EQU   0x01
+       0002       00028 i           EQU   0x02
+       0003       00029 j           EQU   0x03
+       0004       00030 k           EQU   0x04
+       0005       00031 ci          EQU   0x05
+                  00032 
+000000 EF02 F000  00033 	GOTO main
+                  00034 
+                  00035   ; FILE eray.c
+                  00036 			;//ERAY KULOÐLU/20895288	
+                  00037 			;//Keypad uygulamasý 2012
+                  00038 			;void init();
+                  00039 			;void bekle(unsigned long t);
+                  00040 			;void LcdInit();
+                  00041 			;void LcdYaz(char );
+                  00042 			;void LcdKomut(unsigned kom);
+                  00043 			;void MesajYaz(const char *msj,unsigned adr);
+                  00044 			;
+                  00045 			;bit e @ PORTE.0, rs @ PORTE.1, rw @ PORTE.2;
+                  00046 			;unsigned disp @ PORTD;
+                  00047 			;
+                  00048 			;void main(){
+                  00049 main
+                  00050 			;	init();
+000004 D88B       00051 	RCALL init
+                  00052 			;	LcdInit();
+000006 D8B9       00053 	RCALL LcdInit
+                  00054 			;anadongu:
+                  00055 			;    
+                  00056 			;	PORTA.0=1;
+000008 8080       00057 m001	BSF   PORTA,0,0
+                  00058 			;    if(PORTB.0==1){
+00000A A081       00059 	BTFSS PORTB,0,0
+00000C D008       00060 	BRA   m002
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 2
+
+ADDR   CODE       LINE  SOURCE
+
+                  00061 			;
+                  00062 			;    MesajYaz("BASILAN BUTON 1",0x80);
+00000E 6A00       00063 	CLRF  msj,0
+000010 0E80       00064 	MOVLW 128
+000012 D8BE       00065 	RCALL MesajYaz
+                  00066 			;	bekle(1500);
+000014 0EDC       00067 	MOVLW 220
+000016 6E06       00068 	MOVWF t,0
+000018 0E05       00069 	MOVLW 5
+00001A 6E07       00070 	MOVWF t+1,0
+00001C D884       00071 	RCALL bekle
+                  00072 			;	}
+                  00073 			;    if(PORTB.1==1){
+00001E A281       00074 m002	BTFSS PORTB,1,0
+000020 D009       00075 	BRA   m003
+                  00076 			;
+                  00077 			;    MesajYaz("BASILAN BUTON 4",0x80);
+000022 0E10       00078 	MOVLW 16
+000024 6E00       00079 	MOVWF msj,0
+000026 0E80       00080 	MOVLW 128
+000028 D8B3       00081 	RCALL MesajYaz
+                  00082 			;	bekle(1500);
+00002A 0EDC       00083 	MOVLW 220
+00002C 6E06       00084 	MOVWF t,0
+00002E 0E05       00085 	MOVLW 5
+000030 6E07       00086 	MOVWF t+1,0
+000032 D879       00087 	RCALL bekle
+                  00088 			;	}
+                  00089 			;    if(PORTB.2==1){
+000034 A481       00090 m003	BTFSS PORTB,2,0
+000036 D009       00091 	BRA   m004
+                  00092 			;
+                  00093 			;    MesajYaz("BASILAN BUTON 7",0x80);
+000038 0E20       00094 	MOVLW 32
+00003A 6E00       00095 	MOVWF msj,0
+00003C 0E80       00096 	MOVLW 128
+00003E D8A8       00097 	RCALL MesajYaz
+                  00098 			;	bekle(1500);
+000040 0EDC       00099 	MOVLW 220
+000042 6E06       00100 	MOVWF t,0
+000044 0E05       00101 	MOVLW 5
+000046 6E07       00102 	MOVWF t+1,0
+000048 D86E       00103 	RCALL bekle
+                  00104 			;	}
+                  00105 			;    if(PORTB.3==1){
+00004A A681       00106 m004	BTFSS PORTB,3,0
+00004C D009       00107 	BRA   m005
+                  00108 			;
+                  00109 			;    MesajYaz("BASILAN YILDIZ",0x80);
+00004E 0E30       00110 	MOVLW 48
+000050 6E00       00111 	MOVWF msj,0
+000052 0E80       00112 	MOVLW 128
+000054 D89D       00113 	RCALL MesajYaz
+                  00114 			;	bekle(1500);
+000056 0EDC       00115 	MOVLW 220
+000058 6E06       00116 	MOVWF t,0
+00005A 0E05       00117 	MOVLW 5
+00005C 6E07       00118 	MOVWF t+1,0
+00005E D863       00119 	RCALL bekle
+                  00120 			;	}
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 3
+
+ADDR   CODE       LINE  SOURCE
+
+                  00121 			;    PORTA.0=0;
+000060 9080       00122 m005	BCF   PORTA,0,0
+                  00123 			;//----------------------------------------------------------------------
+                  00124 			;    PORTA.1=1;
+000062 8280       00125 	BSF   PORTA,1,0
+                  00126 			;    if(PORTB.0==1){
+000064 A081       00127 	BTFSS PORTB,0,0
+000066 D009       00128 	BRA   m006
+                  00129 			;
+                  00130 			;    MesajYaz("BASILAN BUTON 2",0x80);
+000068 0E3F       00131 	MOVLW 63
+00006A 6E00       00132 	MOVWF msj,0
+00006C 0E80       00133 	MOVLW 128
+00006E D890       00134 	RCALL MesajYaz
+                  00135 			;	bekle(1500);
+000070 0EDC       00136 	MOVLW 220
+000072 6E06       00137 	MOVWF t,0
+000074 0E05       00138 	MOVLW 5
+000076 6E07       00139 	MOVWF t+1,0
+000078 D856       00140 	RCALL bekle
+                  00141 			;	}
+                  00142 			;    if(PORTB.1==1){
+00007A A281       00143 m006	BTFSS PORTB,1,0
+00007C D009       00144 	BRA   m007
+                  00145 			;
+                  00146 			;    MesajYaz("BASILAN BUTON 5",0x80);
+00007E 0E4F       00147 	MOVLW 79
+000080 6E00       00148 	MOVWF msj,0
+000082 0E80       00149 	MOVLW 128
+000084 D885       00150 	RCALL MesajYaz
+                  00151 			;	bekle(1500);
+000086 0EDC       00152 	MOVLW 220
+000088 6E06       00153 	MOVWF t,0
+00008A 0E05       00154 	MOVLW 5
+00008C 6E07       00155 	MOVWF t+1,0
+00008E D84B       00156 	RCALL bekle
+                  00157 			;	}
+                  00158 			;    if(PORTB.2==1){
+000090 A481       00159 m007	BTFSS PORTB,2,0
+000092 D009       00160 	BRA   m008
+                  00161 			;
+                  00162 			;    MesajYaz("BASILAN BUTON 8",0x80);
+000094 0E5F       00163 	MOVLW 95
+000096 6E00       00164 	MOVWF msj,0
+000098 0E80       00165 	MOVLW 128
+00009A D87A       00166 	RCALL MesajYaz
+                  00167 			;	bekle(1500);
+00009C 0EDC       00168 	MOVLW 220
+00009E 6E06       00169 	MOVWF t,0
+0000A0 0E05       00170 	MOVLW 5
+0000A2 6E07       00171 	MOVWF t+1,0
+0000A4 D840       00172 	RCALL bekle
+                  00173 			;	}
+                  00174 			;    if(PORTB.3==1){
+0000A6 A681       00175 m008	BTFSS PORTB,3,0
+0000A8 D009       00176 	BRA   m009
+                  00177 			;
+                  00178 			;    MesajYaz("BASILAN BUTON 0",0x80);
+0000AA 0E6F       00179 	MOVLW 111
+0000AC 6E00       00180 	MOVWF msj,0
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 4
+
+ADDR   CODE       LINE  SOURCE
+
+0000AE 0E80       00181 	MOVLW 128
+0000B0 D86F       00182 	RCALL MesajYaz
+                  00183 			;	bekle(1500);
+0000B2 0EDC       00184 	MOVLW 220
+0000B4 6E06       00185 	MOVWF t,0
+0000B6 0E05       00186 	MOVLW 5
+0000B8 6E07       00187 	MOVWF t+1,0
+0000BA D835       00188 	RCALL bekle
+                  00189 			;	}
+                  00190 			;    PORTA.1=0;
+0000BC 9280       00191 m009	BCF   PORTA,1,0
+                  00192 			;//---------------------------------------------------------------------------
+                  00193 			;
+                  00194 			;   PORTA.2=1;
+0000BE 8480       00195 	BSF   PORTA,2,0
+                  00196 			;    if(PORTB.0==1){
+0000C0 A081       00197 	BTFSS PORTB,0,0
+0000C2 D009       00198 	BRA   m010
+                  00199 			;
+                  00200 			;    MesajYaz("BASILAN BUTON 3",0x80);
+0000C4 0E7F       00201 	MOVLW 127
+0000C6 6E00       00202 	MOVWF msj,0
+0000C8 0E80       00203 	MOVLW 128
+0000CA D862       00204 	RCALL MesajYaz
+                  00205 			;	bekle(1500);
+0000CC 0EDC       00206 	MOVLW 220
+0000CE 6E06       00207 	MOVWF t,0
+0000D0 0E05       00208 	MOVLW 5
+0000D2 6E07       00209 	MOVWF t+1,0
+0000D4 D828       00210 	RCALL bekle
+                  00211 			;	}
+                  00212 			;    if(PORTB.1==1){
+0000D6 A281       00213 m010	BTFSS PORTB,1,0
+0000D8 D009       00214 	BRA   m011
+                  00215 			;
+                  00216 			;    MesajYaz("BASILAN BUTON 6",0x80);
+0000DA 0E8F       00217 	MOVLW 143
+0000DC 6E00       00218 	MOVWF msj,0
+0000DE 0E80       00219 	MOVLW 128
+0000E0 D857       00220 	RCALL MesajYaz
+                  00221 			;	bekle(1500);
+0000E2 0EDC       00222 	MOVLW 220
+0000E4 6E06       00223 	MOVWF t,0
+0000E6 0E05       00224 	MOVLW 5
+0000E8 6E07       00225 	MOVWF t+1,0
+0000EA D81D       00226 	RCALL bekle
+                  00227 			;	}
+                  00228 			;    if(PORTB.2==1){
+0000EC A481       00229 m011	BTFSS PORTB,2,0
+0000EE D009       00230 	BRA   m012
+                  00231 			;
+                  00232 			;    MesajYaz("BASILAN BUTON 9",0x80);
+0000F0 0E9F       00233 	MOVLW 159
+0000F2 6E00       00234 	MOVWF msj,0
+0000F4 0E80       00235 	MOVLW 128
+0000F6 D84C       00236 	RCALL MesajYaz
+                  00237 			;	bekle(1500);
+0000F8 0EDC       00238 	MOVLW 220
+0000FA 6E06       00239 	MOVWF t,0
+0000FC 0E05       00240 	MOVLW 5
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 5
+
+ADDR   CODE       LINE  SOURCE
+
+0000FE 6E07       00241 	MOVWF t+1,0
+000100 D812       00242 	RCALL bekle
+                  00243 			;	}
+                  00244 			;    if(PORTB.3==1){
+000102 A681       00245 m012	BTFSS PORTB,3,0
+000104 D009       00246 	BRA   m013
+                  00247 			;
+                  00248 			;    MesajYaz("BASILAN KARE",0x80);
+000106 0EAF       00249 	MOVLW 175
+000108 6E00       00250 	MOVWF msj,0
+00010A 0E80       00251 	MOVLW 128
+00010C D841       00252 	RCALL MesajYaz
+                  00253 			;	bekle(1500);
+00010E 0EDC       00254 	MOVLW 220
+000110 6E06       00255 	MOVWF t,0
+000112 0E05       00256 	MOVLW 5
+000114 6E07       00257 	MOVWF t+1,0
+000116 D807       00258 	RCALL bekle
+                  00259 			;    
+                  00260 			;	}
+                  00261 			;    PORTA.2=0;
+000118 9480       00262 m013	BCF   PORTA,2,0
+                  00263 			;
+                  00264 			;
+                  00265 			;goto anadongu;
+00011A D776       00266 	BRA   m001
+                  00267 			;   	
+                  00268 			;
+                  00269 			;}
+                  00270 			;   	
+                  00271 			;   void init()
+                  00272 			;{
+                  00273 init
+                  00274 			;    TRISA=0;	
+00011C 6A92       00275 	CLRF  TRISA,0
+                  00276 			;	TRISB=0xFF;	
+00011E 6893       00277 	SETF  TRISB,0
+                  00278 			;    TRISD=0X00;
+000120 6A95       00279 	CLRF  TRISD,0
+                  00280 			;	TRISE=0X00;
+000122 6A96       00281 	CLRF  TRISE,0
+                  00282 			;	
+                  00283 			;}
+000124 0012       00284 	RETURN
+                  00285 			;void bekle(unsigned long t)	//t milisaniye gecikme saðlar
+                  00286 			;{
+                  00287 bekle
+                  00288 			;	unsigned n;
+                  00289 			;	for(;t>0;t--)
+000126 5006       00290 m014	MOVF  t,W,0
+000128 1007       00291 	IORWF t+1,W,0
+00012A B4D8       00292 	BTFSC 0xFD8,Zero_,0
+00012C D00C       00293 	BRA   m017
+                  00294 			;		for(n=140;n>0;n--)
+00012E 0E8C       00295 	MOVLW 140
+000130 6E08       00296 	MOVWF n,0
+000132 5208       00297 m015	MOVF  n,1,0
+000134 B4D8       00298 	BTFSC 0xFD8,Zero_,0
+000136 D003       00299 	BRA   m016
+                  00300 			;			nop();
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 6
+
+ADDR   CODE       LINE  SOURCE
+
+000138 0000       00301 	NOP  
+00013A 0608       00302 	DECF  n,1,0
+00013C D7FA       00303 	BRA   m015
+00013E 0606       00304 m016	DECF  t,1,0
+000140 0E00       00305 	MOVLW 0
+000142 5A07       00306 	SUBWFB t+1,1,0
+000144 D7F0       00307 	BRA   m014
+                  00308 			;}
+000146 0012       00309 m017	RETURN
+                  00310 			;
+                  00311 			;
+                  00312 			;void LcdKomut(unsigned kom)
+                  00313 			;{
+                  00314 LcdKomut
+000148 6E05       00315 	MOVWF kom,0
+                  00316 			;	bekle(20);
+00014A 0E14       00317 	MOVLW 20
+00014C 6E06       00318 	MOVWF t,0
+00014E 6A07       00319 	CLRF  t+1,0
+000150 DFEA       00320 	RCALL bekle
+                  00321 			;	disp=kom;
+000152 C005 FF83  00322 	MOVFF kom,disp
+                  00323 			;	rs=0;
+000156 9284       00324 	BCF   0xF84,rs,0
+                  00325 			;	e=0;
+000158 9084       00326 	BCF   0xF84,e,0
+                  00327 			;	e=1;
+00015A 8084       00328 	BSF   0xF84,e,0
+                  00329 			;}
+00015C 0012       00330 	RETURN
+                  00331 			;
+                  00332 			;void LcdYaz(char c)
+                  00333 			;{
+                  00334 LcdYaz
+00015E 6E05       00335 	MOVWF c,0
+                  00336 			;	bekle(100);
+000160 0E64       00337 	MOVLW 100
+000162 6E06       00338 	MOVWF t,0
+000164 6A07       00339 	CLRF  t+1,0
+000166 DFDF       00340 	RCALL bekle
+                  00341 			;	disp=c;
+000168 C005 FF83  00342 	MOVFF c,disp
+                  00343 			;	rs=1;
+00016C 8284       00344 	BSF   0xF84,rs,0
+                  00345 			;	e=0;
+00016E 9084       00346 	BCF   0xF84,e,0
+                  00347 			;	e=1;
+000170 8084       00348 	BSF   0xF84,e,0
+                  00349 			;	bekle(1);	
+000172 0E01       00350 	MOVLW 1
+000174 6E06       00351 	MOVWF t,0
+000176 6A07       00352 	CLRF  t+1,0
+000178 D7D6       00353 	BRA   bekle
+                  00354 			;}
+                  00355 			;
+                  00356 			;
+                  00357 			;void LcdInit()
+                  00358 			;{
+                  00359 LcdInit
+                  00360 			;	rw=0;
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 7
+
+ADDR   CODE       LINE  SOURCE
+
+00017A 9484       00361 	BCF   0xF84,rw,0
+                  00362 			;	e=1;
+00017C 8084       00363 	BSF   0xF84,e,0
+                  00364 			;	rs=1;
+00017E 8284       00365 	BSF   0xF84,rs,0
+                  00366 			;	LcdKomut(0x38);
+000180 0E38       00367 	MOVLW 56
+000182 DFE2       00368 	RCALL LcdKomut
+                  00369 			;	LcdKomut(0x01);	//Clear display
+000184 0E01       00370 	MOVLW 1
+000186 DFE0       00371 	RCALL LcdKomut
+                  00372 			;	LcdKomut(0x0D); //Display,Cursor,Blink on
+000188 0E0D       00373 	MOVLW 13
+00018A DFDE       00374 	RCALL LcdKomut
+                  00375 			;	LcdKomut(0x06); //Increment ddram adres, do not shift disp.
+00018C 0E06       00376 	MOVLW 6
+00018E D7DC       00377 	BRA   LcdKomut
+                  00378 			;}
+                  00379 			;
+                  00380 			;void MesajYaz(const char *msj,unsigned adr)
+                  00381 			;{
+                  00382 MesajYaz
+000190 6E01       00383 	MOVWF adr,0
+                  00384 			;	unsigned i,j,k;
+                  00385 			;	i=0;
+000192 6A02       00386 	CLRF  i,0
+                  00387 			;	while(msj[i]!=0)	i++;
+000194 5002       00388 m018	MOVF  i,W,0
+000196 2400       00389 	ADDWF msj,W,0
+000198 D819       00390 	RCALL _const1
+00019A 0A00       00391 	XORLW 0
+00019C B4D8       00392 	BTFSC 0xFD8,Zero_,0
+00019E D002       00393 	BRA   m019
+0001A0 2A02       00394 	INCF  i,1,0
+0001A2 D7F8       00395 	BRA   m018
+                  00396 			;	
+                  00397 			;	LcdKomut(adr);
+0001A4 5001       00398 m019	MOVF  adr,W,0
+0001A6 DFD0       00399 	RCALL LcdKomut
+                  00400 			;	for(j=0;j<i;j++){
+0001A8 6A03       00401 	CLRF  j,0
+0001AA 5002       00402 m020	MOVF  i,W,0
+0001AC 6003       00403 	CPFSLT j,0
+0001AE D00D       00404 	BRA   m023
+                  00405 			;		LcdYaz(msj[j]);
+0001B0 5003       00406 	MOVF  j,W,0
+0001B2 2400       00407 	ADDWF msj,W,0
+0001B4 D80B       00408 	RCALL _const1
+0001B6 DFD3       00409 	RCALL LcdYaz
+                  00410 			;		for(k=0;k<30;k++)nop();
+0001B8 6A04       00411 	CLRF  k,0
+0001BA 0E1E       00412 m021	MOVLW 30
+0001BC 6004       00413 	CPFSLT k,0
+0001BE D003       00414 	BRA   m022
+0001C0 0000       00415 	NOP  
+0001C2 2A04       00416 	INCF  k,1,0
+0001C4 D7FA       00417 	BRA   m021
+                  00418 			;	}
+0001C6 2A03       00419 m022	INCF  j,1,0
+0001C8 D7F0       00420 	BRA   m020
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 8
+
+ADDR   CODE       LINE  SOURCE
+
+                  00421 			;}
+0001CA 0012       00422 m023	RETURN
+                  00423 _const1
+0001CC 6E05       00424 	MOVWF ci,0
+0001CE 5005       00425 	MOVF  ci,W,0
+0001D0 0FE2       00426 	ADDLW 226
+0001D2 6EF6       00427 	MOVWF TBLPTR,0
+0001D4 0E01       00428 	MOVLW 1
+0001D6 6AF7       00429 	CLRF  TBLPTR+1,0
+0001D8 22F7       00430 	ADDWFC TBLPTR+1,1,0
+0001DA 6AF8       00431 	CLRF  TBLPTR+2,0
+0001DC 0008       00432 	TBLRD *
+0001DE 50F5       00433 	MOVF  TABLAT,W,0
+0001E0 0012       00434 	RETURN
+0001E2 4142       00435 	DW    0x4142
+0001E4 4953       00436 	DW    0x4953
+0001E6 414C       00437 	DW    0x414C
+0001E8 204E       00438 	DW    0x204E
+0001EA 5542       00439 	DW    0x5542
+0001EC 4F54       00440 	DW    0x4F54
+0001EE 204E       00441 	DW    0x204E
+0001F0 0031       00442 	DW    0x31
+0001F2 4142       00443 	DW    0x4142
+0001F4 4953       00444 	DW    0x4953
+0001F6 414C       00445 	DW    0x414C
+0001F8 204E       00446 	DW    0x204E
+0001FA 5542       00447 	DW    0x5542
+0001FC 4F54       00448 	DW    0x4F54
+0001FE 204E       00449 	DW    0x204E
+000200 0034       00450 	DW    0x34
+000202 4142       00451 	DW    0x4142
+000204 4953       00452 	DW    0x4953
+000206 414C       00453 	DW    0x414C
+000208 204E       00454 	DW    0x204E
+00020A 5542       00455 	DW    0x5542
+00020C 4F54       00456 	DW    0x4F54
+00020E 204E       00457 	DW    0x204E
+000210 0037       00458 	DW    0x37
+000212 4142       00459 	DW    0x4142
+000214 4953       00460 	DW    0x4953
+000216 414C       00461 	DW    0x414C
+000218 204E       00462 	DW    0x204E
+00021A 4959       00463 	DW    0x4959
+00021C 444C       00464 	DW    0x444C
+00021E 5A49       00465 	DW    0x5A49
+000220 4200       00466 	DW    0x4200
+000222 5341       00467 	DW    0x5341
+000224 4C49       00468 	DW    0x4C49
+000226 4E41       00469 	DW    0x4E41
+000228 4220       00470 	DW    0x4220
+00022A 5455       00471 	DW    0x5455
+00022C 4E4F       00472 	DW    0x4E4F
+00022E 3220       00473 	DW    0x3220
+000230 4200       00474 	DW    0x4200
+000232 5341       00475 	DW    0x5341
+000234 4C49       00476 	DW    0x4C49
+000236 4E41       00477 	DW    0x4E41
+000238 4220       00478 	DW    0x4220
+00023A 5455       00479 	DW    0x5455
+00023C 4E4F       00480 	DW    0x4E4F
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 9
+
+ADDR   CODE       LINE  SOURCE
+
+00023E 3520       00481 	DW    0x3520
+000240 4200       00482 	DW    0x4200
+000242 5341       00483 	DW    0x5341
+000244 4C49       00484 	DW    0x4C49
+000246 4E41       00485 	DW    0x4E41
+000248 4220       00486 	DW    0x4220
+00024A 5455       00487 	DW    0x5455
+00024C 4E4F       00488 	DW    0x4E4F
+00024E 3820       00489 	DW    0x3820
+000250 4200       00490 	DW    0x4200
+000252 5341       00491 	DW    0x5341
+000254 4C49       00492 	DW    0x4C49
+000256 4E41       00493 	DW    0x4E41
+000258 4220       00494 	DW    0x4220
+00025A 5455       00495 	DW    0x5455
+00025C 4E4F       00496 	DW    0x4E4F
+00025E 3020       00497 	DW    0x3020
+000260 4200       00498 	DW    0x4200
+000262 5341       00499 	DW    0x5341
+000264 4C49       00500 	DW    0x4C49
+000266 4E41       00501 	DW    0x4E41
+000268 4220       00502 	DW    0x4220
+00026A 5455       00503 	DW    0x5455
+00026C 4E4F       00504 	DW    0x4E4F
+00026E 3320       00505 	DW    0x3320
+000270 4200       00506 	DW    0x4200
+000272 5341       00507 	DW    0x5341
+000274 4C49       00508 	DW    0x4C49
+000276 4E41       00509 	DW    0x4E41
+000278 4220       00510 	DW    0x4220
+00027A 5455       00511 	DW    0x5455
+00027C 4E4F       00512 	DW    0x4E4F
+00027E 3620       00513 	DW    0x3620
+000280 4200       00514 	DW    0x4200
+000282 5341       00515 	DW    0x5341
+000284 4C49       00516 	DW    0x4C49
+000286 4E41       00517 	DW    0x4E41
+000288 4220       00518 	DW    0x4220
+00028A 5455       00519 	DW    0x5455
+00028C 4E4F       00520 	DW    0x4E4F
+00028E 3920       00521 	DW    0x3920
+000290 4200       00522 	DW    0x4200
+000292 5341       00523 	DW    0x5341
+000294 4C49       00524 	DW    0x4C49
+000296 4E41       00525 	DW    0x4E41
+000298 4B20       00526 	DW    0x4B20
+00029A 5241       00527 	DW    0x5241
+00029C 0045       00528 	DW    0x45
+                  00529 
+                  00530 	END
+                  00531 
+                  00532 
+                  00533 ; *** KEY INFO ***
+                  00534 
+                  00535 ; 0x00011C    5 word(s)  0 % : init
+                  00536 ; 0x000126   17 word(s)  0 % : bekle
+                  00537 ; 0x00017A   11 word(s)  0 % : LcdInit
+                  00538 ; 0x00015E   14 word(s)  0 % : LcdYaz
+                  00539 ; 0x000148   11 word(s)  0 % : LcdKomut
+                  00540 ; 0x000190   30 word(s)  0 % : MesajYaz
+CC8E Version 1.3E,   File: eray.c              27. Dec 2012  16:07   Page 10
+
+ADDR   CODE       LINE  SOURCE
+
+                  00541 ; 0x000004  140 word(s)  0 % : main
+                  00542 ; 0x0001CC  105 word(s)  0 % : _const1
+                  00543 
+                  00544 ; RAM usage: 9 bytes (9 local), 1527 bytes free
+                  00545 ; Maximum call level: 3
+                  00546 ; Total of 335 code words (2 %)

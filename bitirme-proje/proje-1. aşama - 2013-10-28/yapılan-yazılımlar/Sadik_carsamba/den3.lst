@@ -1,0 +1,655 @@
+CCS PCM C Compiler, Version 4.106, 18916               13-Kas-13 16:42
+
+               Filename: C:\Users\AKIN\Desktop\eem491\Sadik_carsamba\den3.lst
+
+               ROM used: 412 words (5%)
+                         Largest free fragment is 2048
+               RAM used: 54 (15%) at main() level
+                         62 (17%) worst case
+               Stack:    3 locations
+
+*
+0000:  MOVLW  01
+0001:  MOVWF  0A
+0002:  GOTO   141
+0003:  NOP
+.................... #include "C:\Users\AKIN\Desktop\eem491\Sadik_carsamba\den3.h" 
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz for PCM/PCH) (>10mhz for PCD) 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+....................  
+.................... #use delay(clock=20000000) 
+....................  
+....................  
+.................... #fuses HS,NOWDT,NOPROTECT 
+.................... #use delay(clock=20000000) 
+*
+0004:  MOVLW  58
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+....................  
+.................... //Driver baslangýcý 
+.................... #define SENSOR_YOK 0 
+.................... #define SENSORDE_HATA_H1 1 
+.................... #define SENSORDE_HATA_L1 2 
+.................... #define SENSORDE_HATA_H2 3 
+.................... #define SENSOR_CHKSUM_HATASI 4 
+....................  
+.................... int P3,P6,WA,sensor_durum,nem_deger,sicaklik_deger,eksi; 
+.................... int nem[40]; 
+.................... void NOPP(void){ 
+....................  
+.................... } 
+0018:  RETURN
+....................  
+....................  
+.................... void sensor_start(void) { 
+....................    int i; 
+....................  
+....................    //TRISE1 = 1;//Ýnput ayný pini 
+....................    set_tris_e(0x01); 
+*
+002D:  BSF    03.5
+002E:  BSF    09.0
+002F:  BCF    09.1
+0030:  BCF    09.2
+....................    delay_ms(1000); 
+0031:  MOVLW  04
+0032:  BCF    03.5
+0033:  MOVWF  57
+0034:  MOVLW  FA
+0035:  MOVWF  58
+0036:  CALL   004
+0037:  DECFSZ 57,F
+0038:  GOTO   034
+....................  
+....................    //RD5 = 1;    // nem sensorune guc ver 
+....................    //TRISD5 = 0; // RD5 output/7Bir pini output yapýp high yapýyoruz 
+....................    set_tris_d(0x00); 
+0039:  MOVLW  00
+003A:  BSF    03.5
+003B:  MOVWF  08
+....................    output_high(PIN_D0); 
+003C:  BCF    08.0
+003D:  BCF    03.5
+003E:  BSF    08.0
+....................  
+....................    for(i=0; i<4; i++) { 
+003F:  CLRF   56
+0040:  MOVF   56,W
+0041:  SUBLW  03
+0042:  BTFSS  03.0
+0043:  GOTO   05F
+....................       while(!WA); P3 = 0; P6 = 0; 
+0044:  MOVF   22,F
+0045:  BTFSC  03.2
+0046:  GOTO   044
+0047:  CLRF   20
+0048:  CLRF   21
+....................       delay_ms(500); // sensor kendisini 2sn icinde topluyor! 
+0049:  MOVLW  02
+004A:  MOVWF  57
+004B:  MOVLW  FA
+004C:  MOVWF  58
+004D:  CALL   004
+004E:  DECFSZ 57,F
+004F:  GOTO   04B
+....................       while(!WA); P3 = 1; P6 = 1; 
+0050:  MOVF   22,F
+0051:  BTFSC  03.2
+0052:  GOTO   050
+0053:  MOVLW  01
+0054:  MOVWF  20
+0055:  MOVWF  21
+....................       delay_ms(500); // sensor kendisini 2sn icinde topluyor! 
+0056:  MOVLW  02
+0057:  MOVWF  57
+0058:  MOVLW  FA
+0059:  MOVWF  58
+005A:  CALL   004
+005B:  DECFSZ 57,F
+005C:  GOTO   058
+....................    } 
+005D:  INCF   56,F
+005E:  GOTO   040
+....................  
+....................    //OSCCONbits.SCS = 0b00;    // 00 = Clock determined by FOSC<2:0> in Configuration Word 1. (32MHz icin 00 olmali) 
+....................    // 01 = Timer1 oscillator 
+....................    // 1x = Internal oscillator block 
+....................    //OSCCONbits.IRCF = 0b1110; // 1101 -> 4MHz, 1100 -> 2MHz, 1011 -> 1MHz, 0111 -> 500kHz, 1110 = 8 MHz or 32 MHz HF 
+....................    //SPLLEN = 1; // 1 = 4x PLL Is enabled, (If PLLEN in Configuration Word 1 = 0:) 
+....................  
+....................    delay_ms(100); // EK SURE 
+005F:  MOVLW  64
+0060:  MOVWF  58
+0061:  CALL   004
+....................  
+....................    sensor_durum = 0; 
+0062:  CLRF   23
+.................... } 
+....................  
+.................... void sensor_end(void) { 
+....................  
+....................    //OSCCONbits.SCS = 0b01;    // 00 = Clock determined by FOSC<2:0> in Configuration Word 1. (32MHz icin 00 olmali) 
+....................    // 01 = Timer1 oscillator 
+....................    // 1x = Internal oscillator block 
+....................    //SPLLEN = 0; 
+....................  
+....................    delay_ms(30); // EK SURE 
+*
+0019:  MOVLW  1E
+001A:  MOVWF  58
+001B:  CALL   004
+....................    //Sadk Eklenti 
+....................    //RD5 = 0;    // nem sensorune guc ver 
+....................    //TRISD5 = 0; // RD5 output 
+....................    set_tris_d(0x00); 
+001C:  MOVLW  00
+001D:  BSF    03.5
+001E:  MOVWF  08
+....................    output_low(PIN_D0); 
+001F:  BCF    08.0
+0020:  BCF    03.5
+0021:  BCF    08.0
+....................    //RE1 = 0; 
+....................    //TRISE1 = 0;    
+....................    set_tris_e(0x00); 
+0022:  BSF    03.5
+0023:  BCF    09.0
+0024:  BCF    09.1
+0025:  BCF    09.2
+....................    output_low(PIN_E0); 
+0026:  BCF    09.0
+0027:  BCF    03.5
+0028:  BCF    09.0
+....................    //Sadik eklent, son 
+....................  
+....................  
+....................  
+....................    delay_ms( 30 ); // EK SURE 
+0029:  MOVLW  1E
+002A:  MOVWF  58
+002B:  CALL   004
+.................... } 
+002C:  RETURN
+.................... int nem_oku() 
+.................... { 
+....................    unsigned char i, bit_time, bit_temp, lowda_bekle, highda_bekle; 
+....................  
+....................    sensor_start(); 
+....................  
+....................    //RE1 = 0; TRISE1 = 0;//bir pini output yapýyoruz 
+....................    set_tris_e(0x00); 
+*
+0063:  BSF    03.5
+0064:  BCF    09.0
+0065:  BCF    09.1
+0066:  BCF    09.2
+....................    output_low(PIN_E0); 
+0067:  BCF    09.0
+0068:  BCF    03.5
+0069:  BCF    09.0
+....................    delay_ms( 3000 ); // 3ms 
+006A:  MOVLW  0C
+006B:  MOVWF  56
+006C:  MOVLW  FA
+006D:  MOVWF  58
+006E:  CALL   004
+006F:  DECFSZ 56,F
+0070:  GOTO   06C
+....................    set_tris_e(0x01); 
+0071:  BSF    03.5
+0072:  BSF    09.0
+0073:  BCF    09.1
+0074:  BCF    09.2
+....................    //TRISE1 = 1; // 1-wire bir yapýlýr,//sonra input yapýyoruz 
+....................    NOPP(); 
+0075:  BCF    03.5
+0076:  CALL   018
+....................    NOPP(); 
+0077:  CALL   018
+....................    NOPP(); 
+0078:  CALL   018
+....................    NOPP(); 
+0079:  CALL   018
+....................    NOPP(); 
+007A:  CALL   018
+....................    NOPP(); 
+007B:  CALL   018
+....................    NOPP(); 
+007C:  CALL   018
+....................    NOPP(); 
+007D:  CALL   018
+....................    NOPP(); 
+007E:  CALL   018
+....................    NOPP(); 
+007F:  CALL   018
+....................    NOPP(); 
+0080:  CALL   018
+....................    NOPP(); 
+0081:  CALL   018
+....................    NOPP(); 
+0082:  CALL   018
+....................    NOPP(); 
+0083:  CALL   018
+....................    NOPP(); 
+0084:  CALL   018
+....................    NOPP(); 
+0085:  CALL   018
+....................    NOPP(); 
+0086:  CALL   018
+....................    NOPP(); 
+0087:  CALL   018
+....................    NOPP(); 
+0088:  CALL   018
+....................    NOPP(); 
+0089:  CALL   018
+....................  
+....................    if(input(PIN_E0) == 0) {sensor_durum = SENSOR_YOK; sensor_end(); return sensor_durum;}//Burada sensor durum burada sýfýr olur 
+008A:  BSF    03.5
+008B:  BSF    09.0
+008C:  BCF    03.5
+008D:  BTFSC  09.0
+008E:  GOTO   094
+008F:  CLRF   23
+0090:  CALL   019
+0091:  MOVF   23,W
+0092:  MOVWF  78
+0093:  GOTO   13E
+....................  
+....................    highda_bekle = 0; 
+0094:  CLRF   55
+....................    while(input(PIN_E0) == 1) { 
+0095:  BSF    03.5
+0096:  BSF    09.0
+0097:  BCF    03.5
+0098:  BTFSS  09.0
+0099:  GOTO   0A6
+....................       highda_bekle++; 
+009A:  INCF   55,F
+....................       if(highda_bekle >=250) { 
+009B:  MOVF   55,W
+009C:  SUBLW  F9
+009D:  BTFSC  03.0
+009E:  GOTO   0A5
+....................          sensor_durum = SENSORDE_HATA_H1; 
+009F:  MOVLW  01
+00A0:  MOVWF  23
+....................          sensor_end(); 
+00A1:  CALL   019
+....................          return sensor_durum; 
+00A2:  MOVF   23,W
+00A3:  MOVWF  78
+00A4:  GOTO   13E
+....................       } // no response from sensor 
+....................    } 
+00A5:  GOTO   095
+....................  
+....................    lowda_bekle = 0; 
+00A6:  CLRF   54
+....................    while(input(PIN_E0) == 0) { 
+00A7:  BSF    03.5
+00A8:  BSF    09.0
+00A9:  BCF    03.5
+00AA:  BTFSC  09.0
+00AB:  GOTO   0B8
+....................       lowda_bekle++; 
+00AC:  INCF   54,F
+....................       if(lowda_bekle >=250) { 
+00AD:  MOVF   54,W
+00AE:  SUBLW  F9
+00AF:  BTFSC  03.0
+00B0:  GOTO   0B7
+....................          sensor_durum = SENSORDE_HATA_L1; 
+00B1:  MOVLW  02
+00B2:  MOVWF  23
+....................          sensor_end(); 
+00B3:  CALL   019
+....................          return sensor_durum; 
+00B4:  MOVF   23,W
+00B5:  MOVWF  78
+00B6:  GOTO   13E
+....................       } // too long low state, ERROR 
+....................    } 
+00B7:  GOTO   0A7
+....................  
+....................    highda_bekle = 0; 
+00B8:  CLRF   55
+....................    while(input(PIN_E0) == 1) { 
+00B9:  BSF    03.5
+00BA:  BSF    09.0
+00BB:  BCF    03.5
+00BC:  BTFSS  09.0
+00BD:  GOTO   0CA
+....................       highda_bekle++; 
+00BE:  INCF   55,F
+....................       if(highda_bekle >=250) { 
+00BF:  MOVF   55,W
+00C0:  SUBLW  F9
+00C1:  BTFSC  03.0
+00C2:  GOTO   0C9
+....................          sensor_durum = SENSORDE_HATA_H2; 
+00C3:  MOVLW  03
+00C4:  MOVWF  23
+....................          sensor_end(); 
+00C5:  CALL   019
+....................          return sensor_durum; 
+00C6:  MOVF   23,W
+00C7:  MOVWF  78
+00C8:  GOTO   13E
+....................       } // too long high state, ERROR 
+....................    } 
+00C9:  GOTO   0B9
+....................  
+....................    for(i=0; i<40; i++) { 
+00CA:  CLRF   51
+00CB:  MOVF   51,W
+00CC:  SUBLW  27
+00CD:  BTFSS  03.0
+00CE:  GOTO   120
+....................       bit_time = 0; 
+00CF:  CLRF   52
+....................       lowda_bekle = 0; 
+00D0:  CLRF   54
+....................       while(input(PIN_E0)==0) { 
+00D1:  BSF    03.5
+00D2:  BSF    09.0
+00D3:  BCF    03.5
+00D4:  BTFSC  09.0
+00D5:  GOTO   0E3
+....................          lowda_bekle++; 
+00D6:  INCF   54,F
+....................          if(lowda_bekle > 250) { 
+00D7:  MOVF   54,W
+00D8:  SUBLW  FA
+00D9:  BTFSC  03.0
+00DA:  GOTO   0E2
+....................             sensor_durum = SENSORDE_HATA_H2 + 1 + i; 
+00DB:  MOVLW  04
+00DC:  ADDWF  51,W
+00DD:  MOVWF  23
+....................             sensor_end(); 
+00DE:  CALL   019
+....................             return sensor_durum; 
+00DF:  MOVF   23,W
+00E0:  MOVWF  78
+00E1:  GOTO   13E
+....................          } 
+....................       } // low iken bekle 
+00E2:  GOTO   0D1
+....................  
+....................       while(input(PIN_E0)==1)  { 
+00E3:  BSF    03.5
+00E4:  BSF    09.0
+00E5:  BCF    03.5
+00E6:  BTFSS  09.0
+00E7:  GOTO   0F5
+....................          bit_time++; 
+00E8:  INCF   52,F
+....................          if(bit_time>250){ 
+00E9:  MOVF   52,W
+00EA:  SUBLW  FA
+00EB:  BTFSC  03.0
+00EC:  GOTO   0F4
+....................             sensor_durum = SENSORDE_HATA_H2 + 50 + i; 
+00ED:  MOVLW  35
+00EE:  ADDWF  51,W
+00EF:  MOVWF  23
+....................             sensor_end(); 
+00F0:  CALL   019
+....................             return sensor_durum; 
+00F1:  MOVF   23,W
+00F2:  MOVWF  78
+00F3:  GOTO   13E
+....................          } 
+....................       } // sureyi olc 
+00F4:  GOTO   0E3
+....................  
+....................       //if(i>=20) dene[i-20] = bit_time; 
+....................       if (bit_time > 50) bit_temp = 1; else bit_temp = 0; 
+00F5:  MOVF   52,W
+00F6:  SUBLW  32
+00F7:  BTFSC  03.0
+00F8:  GOTO   0FC
+00F9:  MOVLW  01
+00FA:  MOVWF  53
+00FB:  GOTO   0FD
+00FC:  CLRF   53
+....................       nem[i/8] = (nem[i/8] << 1) | bit_temp; 
+00FD:  RRF    51,W
+00FE:  MOVWF  77
+00FF:  RRF    77,F
+0100:  RRF    77,F
+0101:  MOVLW  1F
+0102:  ANDWF  77,F
+0103:  MOVF   77,W
+0104:  ADDLW  27
+0105:  MOVWF  78
+0106:  CLRF   7A
+0107:  BTFSC  03.0
+0108:  INCF   7A,F
+0109:  RRF    51,W
+010A:  MOVWF  77
+010B:  RRF    77,F
+010C:  RRF    77,F
+010D:  MOVLW  1F
+010E:  ANDWF  77,F
+010F:  MOVF   77,W
+0110:  ADDLW  27
+0111:  MOVWF  04
+0112:  BCF    03.7
+0113:  BCF    03.0
+0114:  RLF    00,W
+0115:  IORWF  53,W
+0116:  MOVWF  58
+0117:  MOVF   78,W
+0118:  MOVWF  04
+0119:  BCF    03.7
+011A:  BTFSC  7A.0
+011B:  BSF    03.7
+011C:  MOVF   58,W
+011D:  MOVWF  00
+....................    } 
+011E:  INCF   51,F
+011F:  GOTO   0CB
+....................  
+....................    //if(sensor_durum == SENSOR_YOK) {nem[0]=0xFF; nem[1]=0xFF; nem[2]=0xFF; nem[3]=0xFF;} 
+....................  
+....................  
+....................    if((int) (nem[0]+nem[1]+nem[2]+nem[3]) == nem[4]) { // CHKSUM tutuyorsa 
+0120:  MOVF   28,W
+0121:  ADDWF  27,W
+0122:  ADDWF  29,W
+0123:  ADDWF  2A,W
+0124:  SUBWF  2B,W
+0125:  BTFSS  03.2
+0126:  GOTO   139
+....................       nem_deger = (nem[0] << 8) + nem[1]; 
+0127:  MOVLW  00
+0128:  ADDWF  28,W
+0129:  MOVWF  24
+....................       sicaklik_deger = (nem[2] << 8) + nem[3]; 
+012A:  MOVLW  00
+012B:  ADDWF  2A,W
+012C:  MOVWF  25
+....................       if(sicaklik_deger & 0x8000UL) { 
+012D:  ANDLW  00
+012E:  MOVWF  77
+012F:  CLRF   7A
+0130:  MOVF   77,W
+0131:  IORWF  7A,W
+0132:  BTFSC  03.2
+0133:  GOTO   137
+....................          sicaklik_deger = sicaklik_deger & 0x7FFFUL; 
+....................          eksi = 1; 
+0134:  MOVLW  01
+0135:  MOVWF  26
+....................       } else{ 
+0136:  GOTO   138
+....................       eksi = 0; 
+0137:  CLRF   26
+....................       } 
+....................    }  
+....................    else { 
+0138:  GOTO   13B
+....................    sensor_durum = SENSOR_CHKSUM_HATASI;      // CHKSUM tutMUyorsa 
+0139:  MOVLW  04
+013A:  MOVWF  23
+....................    } 
+....................  
+....................    sensor_end(); 
+013B:  CALL   019
+....................    return sensor_durum; // her sey normal ise 0 dondur 
+013C:  MOVF   23,W
+013D:  MOVWF  78
+.................... } 
+013E:  BCF    0A.3
+013F:  BCF    0A.4
+0140:  GOTO   191 (RETURN)
+....................  
+.................... //Driver Sonu 
+....................  
+....................  
+.................... void main() 
+.................... { 
+0141:  CLRF   04
+0142:  BCF    03.7
+0143:  MOVLW  1F
+0144:  ANDWF  03,F
+0145:  BSF    03.5
+0146:  BSF    1F.0
+0147:  BSF    1F.1
+0148:  BSF    1F.2
+0149:  BCF    1F.3
+014A:  MOVLW  07
+014B:  MOVWF  1C
+....................  
+....................    setup_adc_ports(NO_ANALOGS); 
+*
+014F:  BSF    03.5
+0150:  BSF    1F.0
+0151:  BSF    1F.1
+0152:  BSF    1F.2
+0153:  BCF    1F.3
+....................    setup_adc(ADC_CLOCK_DIV_2); 
+0154:  BCF    1F.6
+0155:  BCF    03.5
+0156:  BCF    1F.6
+0157:  BCF    1F.7
+0158:  BSF    03.5
+0159:  BCF    1F.7
+015A:  BCF    03.5
+015B:  BSF    1F.0
+....................    setup_psp(PSP_DISABLED); 
+015C:  BSF    03.5
+015D:  BCF    09.4
+....................    setup_spi(SPI_SS_DISABLED); 
+015E:  BCF    03.5
+015F:  BCF    14.5
+0160:  BCF    4F.5
+0161:  MOVF   4F,W
+0162:  BSF    03.5
+0163:  MOVWF  07
+0164:  BCF    03.5
+0165:  BSF    4F.4
+0166:  MOVF   4F,W
+0167:  BSF    03.5
+0168:  MOVWF  07
+0169:  BCF    03.5
+016A:  BCF    4F.3
+016B:  MOVF   4F,W
+016C:  BSF    03.5
+016D:  MOVWF  07
+016E:  MOVLW  01
+016F:  BCF    03.5
+0170:  MOVWF  14
+0171:  MOVLW  00
+0172:  BSF    03.5
+0173:  MOVWF  14
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1); 
+0174:  MOVF   01,W
+0175:  ANDLW  C7
+0176:  IORLW  08
+0177:  MOVWF  01
+....................    setup_timer_1(T1_DISABLED); 
+0178:  BCF    03.5
+0179:  CLRF   10
+....................    setup_timer_2(T2_DISABLED,0,1); 
+017A:  MOVLW  00
+017B:  MOVWF  78
+017C:  MOVWF  12
+017D:  MOVLW  00
+017E:  BSF    03.5
+017F:  MOVWF  12
+....................    setup_comparator(NC_NC_NC_NC); 
+0180:  MOVLW  07
+0181:  MOVWF  1C
+0182:  MOVF   05,W
+0183:  MOVWF  05
+0184:  MOVLW  10
+0185:  MOVWF  77
+0186:  DECFSZ 77,F
+0187:  GOTO   186
+0188:  NOP
+0189:  MOVF   1C,W
+018A:  BCF    03.5
+018B:  BCF    0D.6
+....................    setup_vref(FALSE); 
+018C:  BSF    03.5
+018D:  CLRF   1D
+....................    int degerler=0; 
+018E:  BCF    03.5
+018F:  CLRF   50
+....................     
+....................    while(1){ 
+....................    degerler=nem_oku(); 
+0190:  GOTO   02D
+0191:  MOVF   78,W
+0192:  MOVWF  50
+....................    delay_ms(1000); 
+0193:  MOVLW  04
+0194:  MOVWF  51
+0195:  MOVLW  FA
+0196:  MOVWF  58
+0197:  CALL   004
+0198:  DECFSZ 51,F
+0199:  GOTO   195
+....................    } 
+019A:  GOTO   190
+....................    //TODO: User Code 
+....................  
+.................... } 
+019B:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NODEBUG NOPROTECT NOBROWNOUT NOLVP NOCPD NOWRT

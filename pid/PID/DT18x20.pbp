@@ -1,0 +1,886 @@
+'***************************************************************************
+'*  Name    : DT_18x20.bas
+'*  Author  : Darrel Taylor
+'*  Date    : 12/12/2009
+'*  Version : 0.90 beta
+'*  Notes   : Works with DS1820, DS18S20 and DS18B20
+'*          : Only 1 device allowed on each BUS
+'*          :  but you can have a BUS on every Pin
+'*          :  both 1820 and 18B20's can be in-circuit together
+'***************************************************************************
+' Wish List:
+'  * add a timer driven 1-Wire routine so it can work with interrupts ...
+'    (not actually using interrupts)
+'  * Multiple devices on each Pin
+'***************************************************************************
+@ #define DT_18x20_Present 1
+
+DISABLE DEBUG
+
+DS1820_Buffer          VAR BYTE[9]            ; all reads/writes use this
+@DS1820_Raw = _DS1820_Buffer
+  DS1820_Raw           VAR WORD EXT           ; Temp - Word inside byte array
+  DS1820_AlarmH        VAR DS1820_Buffer(2)       
+  DS1820_AlarmL        VAR DS1820_Buffer(3)       
+  DS1820_Config        VAR DS1820_Buffer(4)   ; 18B20 
+  DS1820_Cremain       VAR DS1820_Buffer(6)   ; 1820/18S20 
+  DS1820_CountPC       VAR DS1820_Buffer(7)   ; 1820/18S20 
+  DS1820_CRC           VAR DS1820_Buffer(8)
+  
+DS1820_Flags           VAR BYTE
+  DS1820_Done          VAR DS1820_Flags.0    ' Busy Status-Bit
+  DS1820_Waiting       VAR DS1820_Flags.1    ' Waiting for device to finish
+  DS1820_Alarm         VAR DS1820_Flags.2    ' Over/Under Alarm
+  DS1820_HighAlarm     VAR DS1820_Flags.3    ' Over Alarm                    ** not yet
+  DS1820_LowAlarm      VAR DS1820_Flags.4    ' Under Alarm                   ** not yet
+  DS1820_Sign          VAR DS1820_Flags.5
+  DS1820_Parasite      VAR DS1820_Flags.6    ' device is Parasite powered
+
+DS1820_Error           VAR BYTE
+  DS1820_FAM_Error     VAR DS1820_Error.0    ' Can't configure the DS1820
+  DS1820_TimedOut      VAR DS1820_Error.1    ' Been BUSY too long
+  DS1820_NotValid      VAR DS1820_Error.2    ' Data in Buffer is NOT Valid
+  DS1820_WriteFailed   VAR DS1820_Error.3
+  DS1820_CRCfailed     VAR DS1820_Error.4
+    
+DS1820_Family          VAR BYTE
+DS1820_HoldW           VAR WORD               ; temporary holding variables
+DS1820_HoldB           VAR BYTE
+DS1820_HoldBU          VAR BYTE
+
+TempC                  VAR WORD
+Temp                   VAR TempC
+DS1820_DeviceReg       VAR WORD
+DS1820_DeviceBit       VAR BYTE
+DS1820_TimeoutCount    VAR BYTE
+
+DS18B20_9bit     CON %00011111 ; 93.75ms, 0.5 °C
+DS18B20_10bit    CON %00111111 ; 187.5ms, 0.25°C  <-- My Favorite
+DS18B20_11bit    CON %01011111 ; 375ms,   0.125°C
+DS18B20_12bit    CON %01111111 ; 750ms,   0.0625°C  (default)
+
+CMD_SearchROM    CON $F0    ; discover devices on a BUSS
+CMD_ReadROM      CON $33    ; read ROM (single device only)
+CMD_MatchROM     CON $55    ; address a device on a BUSS
+CMD_SkipROM      CON $CC    ; skip ROM search
+CMD_AlarmSearch  CON $EC    ; search for devices with alarm condition
+CMD_Convert      CON $44    ; start a conversion
+CMD_WritePAD     CON $4E    ; write to Alarms and/or Config
+CMD_ReadPAD      CON $BE    ; Read Scratchpad
+CMD_CopyPAD      CON $48    ; save Alarms and Config to EEPROM
+CMD_RecallEE     CON $B8    ; restore Alarms and Config from EEPROM
+CMD_ReadPower    CON $B4    ; determine how the device is being powered
+
+OW_NoReset       CON 0
+OW_PreReset      CON 1
+OW_PostReset     CON 2
+OW_BitData       CON 4
+
+Fam_DS1820       CON $10
+Fam_DS18S20      CON $10
+Fam_DS18B20      CON $28
+
+DS1820_DIG       CON EXT       ; Divisor for displaying decimals
+
+goto Init_DS1820
+;____[ Verify user is assembling with MPASM ]_________________________________
+ASM
+  ifdef PM_USED
+    "For DT_18x20, you must use MPASM for the assembler"
+  endif
+ENDASM
+;____[ Set Option Defaults ]__________________________________________________
+ASM
+YES = 1                           ; YES ON or 1 can be used interchangably
+ON  = 1
+NO  = 0                           ; NO OFF or 0  "     "         "
+OFF = 0
+
+  ifndef  DS1820_DECIMALS
+DS1820_DECIMALS = 1               ; 1 decimal place
+  endif 
+  ifndef DS1820_VERIFYCRC         
+DS1820_VERIFYCRC = NO             ; does NOT Verify CRC
+  endif 
+  ifndef  DS1820_ONLY             
+DS1820_ONLY = NO                  ; NOT DS1820 Only
+  endif 
+  ifndef  DS18B20_ONLY            
+DS18B20_ONLY = NO                 ; NOT DS18B20 Only
+  endif 
+  ifndef  DS1820_USEALARMS
+DS1820_USEALARMS = NO             ; No alarms
+  endif
+  if (DS1820_ONLY == 1) && (DS18B20_ONLY == 1) ; Both can't be ONLY
+      error "DS1820_ONLY and DS18B20_ONLY Can Not be enabled at the same time"
+  endif 
+  ifndef  DS1820_ERRORCHECK
+DS1820_ERRORCHECK = NO            ; No Error checking
+  endif
+  ifndef  DS1820_SIMULATION
+DS1820_SIMULATION = NO            ; Simulation is disabled
+  endif
+
+  ifndef  DS1820_TIMEOUT
+DS1820_TIMEOUT = 800              ; Timeout after ~800ms
+  else
+      if (DS1820_TIMEOUT > 800)
+        warning "DS1820_TIMEOUT" [DS1820_TIMEOUT] above recommended max of 800 
+      endif 
+  endif
+
+  ifdef  DS1820_ALLOWPARASITE     ; force timeouts if allowing parasite PWR
+    if (DS1820_ALLOWPARASITE == 1)
+      ifdef DS1820_USETIMEOUT
+          #undefine  DS1820_USETIMEOUT
+      endif
+      #define  DS1820_USETIMEOUT YES
+    endif
+  endif
+  ifndef DS1820_USETIMEOUT  ; should force it with errorcheck
+DS1820_USETIMEOUT = 1
+  endif             
+  
+  if (DS1820_DECIMALS >= 0) && (DS1820_DECIMALS <= 2)                         ; so far this line doesn't help much, doesn't hurt 
+    if (DS1820_DECIMALS == 0)
+DS1820_DIG = 1
+    endif
+    if (DS1820_DECIMALS == 1)
+DS1820_DIG = 10
+    endif
+    if (DS1820_DECIMALS == 2)
+DS1820_DIG = 100
+    endif
+  else
+DS1820_DIG = 1
+      error "Invalid DS1820_DECIMALS Specified" [DS1820_DECIMALS]
+  endif
+
+;DS1820_BUSSCOUNT = 0
+
+
+;____[Add a PIN to the Array of Busses]___________Not used yet________________
+;OW_BUSS  macro Name, PinReg, PinBit
+;    #DEFINE Name DS1820_BUSSCOUNT
+;DS1820_BUSSCOUNT = DS1820_BUSSCOUNT + 1
+
+;DS1820_BUSS#v(DS1820_BUSSCOUNT)_REG = PinReg
+;DS1820_BUSS#v(DS1820_BUSSCOUNT)_BIT = PinBit
+
+;  endm
+
+;____[Select PIN from Array of Busses]________________________________________
+;DS1820_CreateArray  macro  BussList
+
+;  endm
+  
+;DS1820_SelectBuss  macro  IDX
+
+;  endm
+
+;____[ Select PIN to use for next access ]____________________________________
+DS1820_Select  macro  Regin, Bitin
+    MOVE?CW  Regin, _DS1820_DeviceReg
+    BIT?W    Bitin
+    MOVE?AB  _DS1820_DeviceBit
+    if ((DS1820_ERRORCHECK == 1) || ((DS1820_ONLY == 0)&&(DS18B20_ONLY == 0)))
+        L?CALL   _DS1820_GetFamily
+    endif
+    MOVE?CT  1, _DS1820_NotValid
+  endm
+
+;____[ Tell OW commands which pin to use ]____________________________________
+DS1820_SetPin  macro                     ; 
+    ifdef BSR                                 ; if PIC is 18F  
+        MOVE?BB  _DS1820_DeviceReg + 1, RS1   ;   HighByte (BSR) of PORT Addr
+    endif
+    MOVE?BB  _DS1820_DeviceReg, RR1           ; LowByte of PORT Addr
+    MOVE?BB  _DS1820_DeviceBit, RM1
+  endm
+ENDASM
+
+;____[ SkipROM or MatchROM ]__________________________________________________
+;ASM
+;SkipOrMatch  macro
+;    ifdef DT_18x20_BUSS_Present
+;      BIT?GOTO ***********if pin has only 1 device*************************
+;      OWOUT?C   _CMD_MatchROM
+      ; send ROM code
+;    endif
+;    OWOUT?C   _CMD_SkipROM
+;  endm
+;ENDASM
+
+;____[ Save Alarm limits and config to EEPROM ]_______________________________
+ASM
+DS1820_Save2EE  macro
+    DS1820_SetPin
+  	OWMODE?C     _OW_PreReset
+  	OWOUT?C      _CMD_SkipROM
+  	OWOUT?C      _CMD_CopyPAD
+    OWEND?	
+    ; **** drive parasite if needed =====================================================
+;    MOVE?BB    RR1, FSR    ; put port in FSR               ; 16F only *************
+;    MOVE?BA    RM1         ; W = bit mask
+;   	L?CALL	   HIGHT       ; Drive pin HIGH during EEPROM write
+    ENDASM
+       PAUSE 10
+    ASM
+    L?CALL	   INPUTT      ; Set output low
+
+  endm  
+ENDASM
+
+;____[ Send Alarm limits and config, 3 bytes ]________________________________
+ASM                                               ; optimize out if not used
+Expand_DS1820_Write  macro
+    ifndef DS1820_Write_Expanded
+DS1820_Write_Expanded = 1
+        L?GOTO  Over_DS1820_Write
+DS1820_Write3
+    if (DS1820_ONLY == 0) && (DS18B20_ONLY == 0)
+        endasm
+            if DS1820_Family = Fam_DS18B20 then   ; number of bytes to write
+               DS1820_HoldBU = 3                  ; 3 for 18B20
+            else
+               DS1820_HoldBU = 2                  ; 2 for 1820
+            ENDIF
+        asm
+    endif
+;   OWOUT DQ, OW_PreReset, [CMD_SkipROM, CMD_WritePAD, STR DS1820_AlarmH\3]
+        DS1820_SetPin
+    	OWMODE?C     _OW_PreReset
+    	OWOUT?C      _CMD_SkipROM
+    	OWOUT?C      _CMD_WritePAD
+        if (DS1820_ONLY == 0) && (DS18B20_ONLY == 0)
+        	OWCOUNT?B    _DS1820_HoldBU
+       	else
+       	    if (DS1820_ONLY == 1)
+            	OWCOUNT?C    2
+       	    else
+       	        if (DS18B20_ONLY == 1)
+                	OWCOUNT?C    3
+       	        endif
+       	    endif
+        endif
+    	OWOUTSTRN?B  _DS1820_AlarmH
+    	OWEND?	
+     RETURN?
+ LABEL?L  Over_DS1820_Write
+    endif
+  endm
+
+DS1820_Write  macro
+    Expand_DS1820_Write
+    L?CALL  DS1820_Write3
+  endm  
+
+;____[Set Resolution of DS18B20 9-12 bit]_____________________________________
+Expand_DS1820_SetResolution  macro                ; optimize out if not used
+    ifndef DS1820_SetResolution_Expanded
+DS1820_SetResolution_Expanded = 1
+        L?GOTO  Over_DS1820_SetResolution
+        ENDASM
+DS1820_SetResolution:
+    GOSUB  DS1820_Wait                                                         ; needs ERRORchk
+    if !DS1820_TimedOut then
+        ASM
+          if (DS18B20_ONLY == 1)
+            MOVE?CB  _Fam_DS18B20, _DS1820_Family
+          else
+            L?CALL _DS1820_GetFamily
+          endif
+        ENDASM
+;        GOSUB  DS1820_GetFamily
+        if DS1820_Family = Fam_DS18B20 then
+            GOSUB DS1820_Read
+            if DS1820_Error = 0 then
+                DS1820_Config = DS1820_HoldB
+                @  DS1820_Write
+                GOSUB DS1820_Read
+                if DS1820_HoldB <> DS1820_Config then
+                    DS1820_WriteFailed = 1
+                endif
+            endif
+        else
+            DS1820_FAM_Error = 1
+        endif
+    endif
+return
+        ASM        
+Over_DS1820_SetResolution
+    endif
+  endm
+    
+DS1820_Resolution  macro Res
+    if (DS1820_ONLY == 0)
+        if (Res >= 9) && (Res <= 12)
+            if (Res == 9)
+                MOVE?CB  _DS18B20_9bit, _DS1820_HoldB
+            endif
+            if (Res == 10)
+                MOVE?CB  _DS18B20_10bit, _DS1820_HoldB
+            endif
+            if (Res == 11)
+                MOVE?CB  _DS18B20_11bit, _DS1820_HoldB
+            endif
+            if (Res == 12)
+                MOVE?CB  _DS18B20_12bit, _DS1820_HoldB
+            endif
+            Expand_DS1820_SetResolution
+            L?CALL  _DS1820_SetResolution
+        else
+            error "DS1820_Resolution - Invalid Resolution Specified."
+        endif
+    else
+        error "DS1820_Resolution cannot be used with DS1820_ONLY"
+    endif
+  endm
+
+;_____________________________________________________________________________
+Expand_RuntimeResolution  macro
+  ifndef  RuntimeResolution_Expanded
+RuntimeResolution_Expanded = 1  
+    L?GOTO  OverRuntimeResolution
+    ENDASM
+RuntimeResolution:
+    LOOKUP DS1820_HoldB-9,[DS18B20_9bit, DS18B20_10bit, DS18B20_11bit, _
+                           DS18B20_12bit],DS1820_HoldB
+return
+    ASM  
+ LABEL?L  OverRuntimeResolution  
+  endm
+  
+DS1820_Resolution?B  macro Res
+    if (DS1820_ONLY == 0)
+        MOVE?BB  Res, _DS1820_HoldB
+        Expand_RuntimeResolution
+        L?CALL   _RuntimeResolution
+        Expand_DS1820_SetResolution
+        L?CALL  _DS1820_SetResolution
+    else
+        error "DS1820_Resolution?B cannot be used with DS1820_ONLY"
+    endif
+  endm
+  
+ENDASM
+
+;_____________________________________________________________________________
+ASM
+CanUseAlarms?  macro  S                ; Make sure Alarms are Enabled first
+    if (DS1820_USEALARMS == 0)
+        error S - Alarms are disabled
+    endif
+  endm
+
+ReadAndCheck macro L
+    L?CALL   _DS1820_Read
+    if (DS1820_ERRORCHECK == 1)       ; if Error checking is enabled
+        CHK?RP   _DS1820_Error
+        movf     _DS1820_Error, W
+        btfss    STATUS, Z            ; is DS1820_Error = 0
+        L?GOTO   L                    ; NO, goto Label
+    endif
+  endm
+
+Expand_VerifyAlarms  macro                                                     ; not implemented yet
+    ifndef VerifyAlarms_Expanded
+VerifyAlarms_Expanded = 1
+    L?GOTO  Over_VerifyAlarms    
+    endasm
+VerifyAlarms_Code:
+
+    
+return    
+    asm
+Over_VerifyAlarms
+    endif
+  endm
+
+VerifyAlarms  macro TH, TL                                                     ; not implemented yet
+  local  BadWrite                                                              
+    if (DS1820_ERRORCHECK == 1)       ; if Error checking is enabled
+      if (TH < 255) || (TL < 255)     ; 255 = don't check
+        
+    
+      endif
+    endif
+  endm
+  
+DS1820_SetAlarms  macro  TH, TL
+  local  BadRead, BadWrite, ReadDone
+    CanUseAlarms?  DS1820_SetAlarms
+    if (DS1820_ONLY == 0)
+        ReadAndCheck  BadRead         ; Read 18B20 first to get config
+    endif
+    MOVE?CB  TH, _DS1820_AlarmH       ; change alarm data
+    MOVE?CB  TL, _DS1820_AlarmL
+    DS1820_Write                      ; write it back to the device
+    if (DS1820_ERRORCHECK == 1)       ; if Error checking is enabled
+        ReadAndCheck  BadRead
+        movlw    TH                   ;   verify High alarm
+        CHK?RP   _DS1820_AlarmH
+        subwf    _DS1820_AlarmH, W
+        btfss    STATUS, Z
+        L?GOTO   BadWrite
+        movlw    TL                   ;   verify Low alarm
+        CHK?RP   _DS1820_AlarmL
+        subwf    _DS1820_AlarmL, W
+        btfsc    STATUS, Z
+        L?GOTO   ReadDone                
+ LABEL?L BadWrite                 ; ******** Check for Banking issues ******
+                                  ; **     Jumping here is a problem      **
+                                  ; ** Use L?GOTO and LABEL?L, RETURN?    **
+                                  ; **   Here, and everywhere else too    **
+                                  ; ****************************************
+        MOVE?CT  1, _DS1820_WriteFailed
+    endif
+ LABEL?L BadRead
+        
+ LABEL?L ReadDone
+  endm
+
+DS1820_SetAlarms?B  macro  TH, TL
+  local  BadRead, BadWrite, ReadDone
+    CanUseAlarms? DS1820_SetAlarms 
+    if (DS1820_ONLY == 0)
+        ReadAndCheck  BadRead         ; Read 18B20 first to get config
+    endif
+    MOVE?BB  TH, _DS1820_AlarmH       ; change alarm data
+    MOVE?BB  TL, _DS1820_AlarmL
+    DS1820_Write                      ; write it back to the device
+    if (DS1820_ERRORCHECK == 1)       ; if Error checking is enabled
+        ReadAndCheck  BadRead
+        MOVE?BA  TH                   ;   verify High alarm
+        CHK?RP   _DS1820_AlarmH
+        subwf    _DS1820_AlarmH, W
+        btfss    STATUS, Z
+        L?GOTO   BadWrite
+        MOVE?BA  TL                   ;   verify Low alarm
+        CHK?RP   _DS1820_AlarmL
+        subwf    _DS1820_AlarmL, W
+        btfsc    STATUS, Z
+        L?GOTO   ReadDone
+ LABEL?L BadWrite
+        MOVE?CT  1, _DS1820_WriteFailed
+    endif
+ LABEL?L BadRead
+    ; -- Error is already flagged -- BadRead is for Whatever, Later ---
+ LABEL?L ReadDone
+  endm
+  
+DS1820_SetHighAlarm  macro TH
+  local  BadRead, BadWrite, ReadDone
+    CanUseAlarms? DS1820_SetHighAlarm
+    if (DS1820_ONLY == 0)
+        ReadAndCheck  BadRead         ; Read 18B20 first to get config
+    endif
+    MOVE?CB  TH, _DS1820_AlarmH       ; change High alarm data
+    DS1820_Write                      ; write it back to the device
+    if (DS1820_ERRORCHECK == 1)       ; if Error checking is enabled
+        ReadAndCheck  BadRead
+        MOVE?BA  TH                   ;   verify High alarm
+        CHK?RP   _DS1820_AlarmH
+        subwf    _DS1820_AlarmH, W
+        btfsc    STATUS, Z
+        L?GOTO   ReadDone
+ LABEL?L BadWrite
+        MOVE?CT  1, _DS1820_WriteFailed
+    endif
+ LABEL?L BadRead
+ LABEL?L ReadDone
+  endm
+  
+DS1820_SetLowAlarm  macro TL
+  local  BadRead, BadWrite, ReadDone
+    CanUseAlarms? DS1820_SetLowAlarm
+    ReadAndCheck  BadRead
+    MOVE?CB  TL, _DS1820_AlarmL
+    DS1820_Write
+    if (DS1820_ERRORCHECK == 1)       ; if Error checking is enabled
+        ReadAndCheck  BadRead
+        MOVE?BA  TL                   ;   verify Low alarm
+        CHK?RP   _DS1820_AlarmH
+        subwf    _DS1820_AlarmH, W
+        btfsc    STATUS, Z
+        L?GOTO   ReadDone
+ LABEL?L BadWrite
+        MOVE?CT  1, _DS1820_WriteFailed
+    endif
+ LABEL?L BadRead
+ LABEL?L ReadDone
+  endm
+endasm
+
+;____[Read Power Supply]______________________________________________________
+DS1820_ReadPWR:
+    ASM
+        DS1820_SetPin
+    	OWMODE?C  _OW_PreReset
+    	OWOUT?C   _CMD_SkipROM
+    	OWOUT?C   _CMD_ReadPower
+    	OWEND?
+      
+     	OWMODE?C  _OW_BitData
+    	OWIN?T    _DS1820_Parasite
+    	OWEND?	
+	
+    ENDASM
+return
+
+ASM
+DS1820_ReadPWR  macro
+    L?CALL _DS1820_ReadPWR
+  endm
+ENDASM
+
+;____[Start a Temperature conversion]_________________________________________
+DS1820_Convert:
+;   OWOUT   DS1820_DQ, OW_PreReset, [CMD_SkipROM, CMD_Convert]
+    ASM
+      ifdef DS1820_ALLOWPARASITE
+        if (DS1820_ALLOWPARASITE == 1)
+          DS1820_ReadPWR
+          BIT?GOTO   1, _DS1820_Parasite, DontNeed2Read
+            ReadAndCheck  _CantConvert  ; get config from the device
+ENDASM
+;  hserout ["Parasite Read config ... "]    ; 
+ASM
+          LABEL?L DontNeed2Read
+        endif
+      endif  
+        DS1820_SetPin
+    	OWMODE?C  _OW_PreReset
+    	OWOUT?C   _CMD_SkipROM
+    	OWOUT?C   _CMD_Convert
+    	OWEND?	
+      ifdef DS1820_ALLOWPARASITE
+        if (DS1820_ALLOWPARASITE == 1)
+          BIT?GOTO   1, _DS1820_Parasite, NoParasitePause
+          MOVE?BB    RR1, FSR    ; put port in FSR               ; 16F only *************
+          MOVE?BA    RM1         ; W = bit mask
+;          movf	RR1, W    
+;        	movwf	FSR
+;        	movf	RM1, W    
+        	L?CALL	HIGHT                 ; Drive pin HIGH during conversion
+          ENDASM
+;hserout ["Parasite Pause ...",13,10]    ; 
+             SELECT CASE DS1820_Config  ; pause for config'd resolution
+               CASE $7F : PAUSE 750
+               CASE $5F : PAUSE 375
+               CASE $3F : PAUSE 188
+               CASE $1F : PAUSE 94
+             END SELECT
+          ASM
+        	call	INPUTT    ; Set output low
+          LABEL?L NoParasitePause        	
+        endif
+      endif  
+
+    ENDASM
+    DS1820_Done = 0
+return
+CantConvert:    
+return
+
+ASM
+DS1820_Convert  macro
+    L?CALL  _DS1820_Convert
+  endm
+ENDASM
+
+;____[ Wait until conversion is finished ]____________________________________
+DS1820_Wait:
+    DS1820_Waiting = 1
+
+;____[See if DS1820 is still busy]____________________________________________
+@DSTIMEOUTloops = DS1820_TIMEOUT / 10 ; Number of 10ms loops for timeout
+ DSTIMEOUTloops  CON EXT              ; Let PBP see the constant
+
+DS1820_Stat:
+  IF DS1820_Done THEN RETURN
+  
+@   if (DS1820_USETIMEOUT == 1) 
+        DS1820_TimeoutCount = DSTIMEOUTloops
+        DS1820_TimedOut = 0
+@   endif
+        
+TryStatAgain:
+;   OWIN    DS1820_DQ, OW_BitData, [DS1820_Done]
+    ASM
+        DS1820_SetPin
+    	OWMODE?C  _OW_BitData
+    	OWIN?T    _DS1820_Done
+    	OWEND?	
+    ENDASM
+    if DS1820_Done then
+        DS1820_Waiting = 0
+@       if (DS1820_USEALARMS == 1) 
+            GOTO DS1820_GetAlarm
+@       else
+            return
+@       endif
+    else
+        if DS1820_Waiting then 
+            PAUSE 10
+@           if (DS1820_USETIMEOUT == 1) 
+                DS1820_TimeoutCount = DS1820_TimeoutCount - 1
+                if DS1820_TimeoutCount > 0 then TryStatAgain
+                DS1820_TimedOut = 1 
+                DS1820_NotValid = 1
+@           else
+                GOTO TryStatAgain
+@           endif
+        endif
+    endif
+return
+
+ASM
+DS1820_Stat  macro                  ; Get DS18x20 status
+    L?CALL  _DS1820_Stat
+  endm
+
+ENDASM
+;____[get alarm status]_____________________________________________________
+@  if (DS1820_USEALARMS == 1) 
+DS1820_GetAlarm:
+    if DS1820_Done = 0 then DS1820_Wait
+    ASM ;   OWOUT   DS1820_DQ, OW_PreReset, [CMD_AlarmSearch]
+        DS1820_SetPin
+    	OWMODE?C  _OW_PreReset
+    	OWOUT?C   _CMD_AlarmSearch
+    	OWEND?	
+        ;   OWIN    DS1820_DQ, OW_BitData, [DS1820_Alarm]
+        DS1820_SetPin
+    	OWMODE?C  _OW_BitData
+    	OWIN?T    _DS1820_Alarm
+    	OWEND?	
+    ENDASM
+    DS1820_Alarm = DS1820_Alarm ^ 1
+return
+@  endif
+
+;___________________________________________________________________________
+DS1820_Read:
+    GOSUB DS1820_Wait   ; Wait for conversion to finish
+
+;   OWOUT DS1820_DQ, OW_PreReset, [CMD_SkipROM, CMD_ReadPAD]
+    ASM
+        DS1820_SetPin
+    	OWMODE?C   _OW_PreReset
+    	OWOUT?C    _CMD_SkipROM
+    	OWOUT?C    _CMD_ReadPAD
+    	OWEND?	
+    ENDASM
+;   OWIN  DS1820_DQ, OW_PostReset, [STR DS1820_Buffer\9] ; Read ALL registers
+    ASM
+        DS1820_SetPin
+    	OWMODE?C   _OW_PostReset
+    	OWCOUNT?C  009h
+    	OWINSTR?B  _DS1820_Buffer
+    	OWEND?	
+    ENDASM
+
+;DS1820_Raw  = %1111111111111000       ; -0.50
+;DS1820_Raw  = %1111111101011110       ; -10.125°C
+;DS1820_Raw  = %1111110010010000        ; -55°C
+
+    DS1820_Sign = DS1820_Raw.15
+    DS1820_Raw  = ABS(DS1820_Raw)
+    
+@  if ((DS1820_ONLY == 0) && (DS18B20_ONLY == 0)) 
+    select case DS1820_Family
+      case  Fam_DS18B20
+@  endif
+@  if ((DS18B20_ONLY == 1) || ((DS1820_ONLY == 0) && (DS18B20_ONLY == 0)))
+        TempC = ((DS1820_Raw  >> 4) * 100) + ((DS1820_Raw  & $F)*100/16)
+        if DS1820_Sign then TempC = -TempC
+@  endif
+@  if ((DS1820_ONLY == 0) && (DS18B20_ONLY == 0)) 
+      case  Fam_DS18S20
+@  endif
+@  if ((DS1820_ONLY == 1) || ((DS1820_ONLY == 0) && (DS18B20_ONLY == 0)))
+        TempC = (DS1820_Raw  >> 1) * 100
+        if DS1820_Sign then TempC = -TempC
+        TempC = TempC - 25 + _
+                (((DS1820_CountPC - DS1820_Cremain) * 100) / DS1820_CountPC)
+@  endif
+@  if ((DS1820_ONLY == 0) && (DS18B20_ONLY == 0)) 
+    end select
+@  endif
+@  if (DS1820_DECIMALS == 0)
+        TempC = TempC / 100
+@  endif
+@  if (DS1820_DECIMALS == 1)
+        TempC = TempC / 10
+@  endif
+    ASM
+        if (DS1820_VERIFYCRC == 1)
+            L?CALL  _CheckCRC
+        else
+            MOVE?CT  0, _DS1820_NotValid
+        endif
+    ENDASM
+    
+return
+
+ASM
+DS1820_Read  macro
+    L?CALL  _DS1820_Read
+  endm
+ENDASM
+
+;___________________________________________________________________________
+ASM
+DS1820_GetTemp  macro
+    DS1820_Convert
+    DS1820_Read
+  endm
+ENDASM
+;___________________________________________________________________________
+ASM
+Expand_Convert2Fahrenheit  macro
+    ifndef Convert2Fahrenheit_Expanded
+Convert2Fahrenheit_Expanded = 1
+        L?GOTO OverDS1820_Convert2F
+    endasm
+Convert2Fahrenheit:
+        DS1820_Sign = TempC.15    ; convert to Fahrenheit
+        DS1820_HoldW = ABS(TempC) */ 461
+        if DS1820_Sign then DS1820_HoldW = -DS1820_HoldW
+@    if (DS1820_DECIMALS == 0)
+        DS1820_HoldW = DS1820_HoldW + 32
+@    endif
+@    if (DS1820_DECIMALS == 1)
+        DS1820_HoldW = DS1820_HoldW + 320
+@    endif
+@    if (DS1820_DECIMALS == 2)
+        DS1820_HoldW = DS1820_HoldW + 3200
+@    endif
+RETURN
+    ASM
+OverDS1820_Convert2F            
+    endif
+  endm
+
+DS1820_Convert2F  macro Wout
+    Expand_Convert2Fahrenheit
+    L?CALL  _Convert2Fahrenheit
+    MOVE?WW  _DS1820_HoldW, Wout
+  endm 
+
+;___________________________________________________________________________
+DS1820_Convert2K  macro Wout         ; convert to Kelvin
+    ENDASM
+@    if (DS1820_DECIMALS == 0)
+        DS1820_HoldW = TempC + 273
+@    endif
+@    if (DS1820_DECIMALS == 1)
+        DS1820_HoldW = TempC + 2730
+@    endif
+@    if (DS1820_DECIMALS == 2)
+        DS1820_HoldW = TempC + 27300
+@    endif
+@    MOVE?WW  _DS1820_HoldW, Wout
+@  endm
+
+;___________________________________________________________________________
+@  if (((DS1820_ONLY == 0)&&(DS18B20_ONLY == 0)) || (DS1820_ERRORCHECK == 1))
+DS1820_GetFamily:
+    GOSUB DS1820_Wait   ; Wait for conversion to finish
+
+    ASM
+        ;    OWOUT DS1820_DQ, OW_PreReset, [CMD_ReadROM]
+        DS1820_SetPin
+    	OWMODE?C   _OW_PreReset
+    	OWOUT?C    _CMD_ReadROM
+    	OWEND?	
+        ;    OWIN  DS1820_DQ, OW_PostReset,[DS1820_Family]
+        DS1820_SetPin
+    	OWMODE?C   _OW_PostReset
+    	OWIN?B     _DS1820_Family
+    	OWEND?	
+        if (DS1820_ONLY == 1)
+          if (DS1820_ERRORCHECK == 1)
+            movlw   _Fam_DS1820
+            subwf   _DS1820_Family, W
+            btfsc   STATUS, Z
+            L?GOTO  _GetFamilyDone
+            MOVE?CT  1, _DS1820_FAM_Error
+         endif   
+       endif   
+    
+       if (DS18B20_ONLY == 1)
+         if (DS1820_ERRORCHECK == 1)
+            movlw   _Fam_DS18B20
+            subwf   _DS1820_Family, W
+            btfsc   STATUS, Z
+            L?GOTO  _GetFamilyDone
+            MOVE?CT  1, _DS1820_FAM_Error
+         endif   
+       endif   
+    ENDASM
+GetFamilyDone:    
+return
+@  endif
+
+;_____This routine was adapted from ..._____________________________________
+; Dallas CRC8 Routines ( Tom Estes )     Thanks Tom !!  Works Great!
+; http://www.picbasic.co.uk/forum/showthread.php?t=1672
+
+DS_TestBit   var Bit  ' CRC8
+DS_CRCData   var Byte ' CRC8 & CRC8LU & CRC8AL
+DS_CRC       var Byte ' CRC8 & CRC8LU & CRC8AL
+
+DS_ByteCount VAR DS1820_HoldW.Highbyte
+DS_BitCount  var DS1820_HoldW.lowbyte
+DS_CRCpassed VAR BIT
+
+@    if (DS1820_VERIFYCRC == 1)
+CheckCRC:
+  DS_CRC = 0
+  DS_CRCpassed = 0
+  for DS_ByteCount = 0 to 7
+      DS_CRCData = DS1820_Buffer(DS_ByteCount)
+        
+    ' ********** Subroutine CRC8 **********
+    ' PBP Version not using lookup table
+    ' Expects CRC starting value and CRCData
+    ' CRC will be cumulative unless reset externally
+    ' Gives ending CRC value and destroys CRCData
+    ' Uses I-Byte, TestBit-Bit, CRC-Byte, CRCData-Byte
+  CRC8:
+      For DS_BitCount = 0 to 7        ' Do for all 8 bits in data byte
+          DS_TestBit = DS_CRC.0 ^ DS_CRCData.0 ' XOR bit0 of data byte and crc
+          DS_CRCData = DS_CRCData >> 1      ' Position data byte for next bit test
+          If DS_TestBit = 0 then Shift   ' If test bit not set, just shift CRC
+          DS_CRC = DS_CRC ^ $18             ' If set, account for EXOR feedback
+        Shift:                        ' Shift right the CRC byte
+          DS_CRC = DS_CRC >> 1              ' CRC bit 0 to bit bucket
+          DS_CRC.7 = DS_TestBit             ' Test bit rotates into CRC bit 7
+      Next DS_BitCount
+  next DS_ByteCount
+  IF DS_CRC = DS1820_CRC then 
+      DS_CRCpassed = 1
+      DS1820_NotValid = 0
+      DS1820_CRCfailed = 0
+  else
+      DS1820_NotValid = 1
+      DS1820_CRCfailed = 1
+  endif
+Return
+@    endif
+
+;____[ Force PBP to include 1-wire macro's etc.]____________________________
+@   ifdef NoCompile
+    OWOUT PORTA.0, 0, [1, R0.lowbyte, STR DS1820_Buffer\3]
+    OWIN  PORTA.0, 0,[R0.bit0, R0.lowbyte, STR DS1820_Buffer\R0.lowbyte]
+    HIGH R0
+    INPUT  R0
+@   endif
+
+;___________________________________________________________________________
+Init_DS1820:
+    DS1820_NotValid = 1
+    DS1820_Done = 1
+ENABLE DEBUG

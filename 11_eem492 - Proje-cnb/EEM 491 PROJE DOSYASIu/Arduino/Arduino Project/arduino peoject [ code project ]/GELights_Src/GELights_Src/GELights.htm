@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--------------------------------------------------------------------------->
+<!--                           INTRODUCTION
+
+ The Code Project article submission template (HTML version)
+
+Using this template will help us post your article sooner. To use, just
+follow the 3 easy steps below:
+
+     1. Fill in the article description details
+     2. Add links to your images and downloads
+     3. Include the main article text
+
+That's all there is to it! All formatting will be done by our submission
+scripts and style sheets.
+
+-->
+<!--------------------------------------------------------------------------->
+<!--                        IGNORE THIS SECTION                            -->
+<html>
+<head>
+<title>The Code Project</title>
+<Style>
+BODY, P, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt }
+H2,H3,H4,H5 { color: #ff9900; font-weight: bold; }
+H2 { font-size: 13pt; }
+H3 { font-size: 12pt; }
+H4 { font-size: 10pt; color: black; }
+PRE { BACKGROUND-COLOR: #FBEDBB; FONT-FAMILY: "Courier New", Courier, mono; WHITE-SPACE: pre; }
+CODE { COLOR: #990000; FONT-FAMILY: "Courier New", Courier, mono; }
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
+</head>
+<body bgcolor="#FFFFFF" color=#000000>
+<!--------------------------------------------------------------------------->
+
+
+<!-------------------------------     STEP 1      --------------------------->
+<!--  Fill in the details (CodeProject will reformat this section for you) -->
+
+<pre>
+Title:       Simulating and controlling GE Color Effects Lights with Arduino
+Author:      Keith Westley
+Email:       keithsw1111@hotmail.com
+Language:    C# 4.0, C++
+Platform:    Windows, Arduino
+Technology:  Arduino
+Level:       Advanced
+Description: Explores how to control up to 6 strings of GE Color Effects Lights with an Arduino. This article covers the hardware design, the firmware that controls the lights, a simulator for testing your light patterns and a simple programming language which is used to instruct the firmware how to control the lights.
+Section      Hardware & System
+SubSection   Hardware programming
+License:     <a href="http://www.codeproject.com/info/licenses.aspx">CPOL</a>
+</pre>
+
+<!-------------------------------     STEP 2      --------------------------->
+<!--  Include download and sample image information.                       -->
+
+<ul class=download>
+<li><a href="GELights_Src.zip">Download source - 250 Kb</a></li>
+<li><a href="http://arduino.cc/en/Main/Software">Download arduino compiler etc</a></li>
+<li><a href="http://www.youtube.com/watch?v=K8epnb7tkVs">Watch the actual lights on YouTube</a></li>
+</ul>
+
+<p><img src="GELights1.jpg" alt="Simulator"></p>
+
+
+<!-------------------------------     STEP 3      --------------------------->
+
+<!--  Add the article text. Please use simple formatting (<h2>, <p> etc)   -->
+
+<h2>Overview</h2>
+
+<p>This project builds a christmas lights controller for the GE Color Effects lights allowing programmed control of up to 6 sets of christmas lights. Furthermore it provides a function specific language for programming patterns for these lights and an emulation environment for testing the programs with requiring the lights to be built or hung.</p>
+
+<h2>Pre-reading</h2>
+
+<p>Arduino - If you have never heard of an Arduino then I suggest you check out their <a href="http://arduino.cc/en/">site</a>. They design and sell an open-source microprocessor platform which is great for building programmable electronic gadgets for those with limited electronics experience.</p>
+<p>GE Color Effects - These have to be the coolest christmas lights ever for the hacker. Each bulb contains a red, green and blue LED and can be controlled individually or as a group by sending instructions down a single data line. For a description of what they are and how they work checkout <a href="http://www.deepdarc.com/2010/11/27/hacking-christmas-lights/">this article</a> which also provides basic control information that Robert Quattlebaum (darco) reverse engineered. While you are at it do some youtube searching for some very cool demos of what can be done with a microprocessor and a set of these lights (The ten string christmas tree has to be seen to be believed).</p>
+
+<h2>Introduction</h2>
+
+<p>this article is made up of a hardware project and 3 programs:</p>
+
+<ul>
+<li>The hardware project uses an Arduino Mega 2560 to control up to six sets of lights.</li>
+<li>The first program is the firmware which runs on the Arduino Mega to control the lights. It does this by reading a set of instructions which are expressed in the form of an array of short integers for each string of lights which tell the firmware what patterns to generate with the lights. The firmware can also be cross compiled and run on the PC where they can do the same job but control a lights emulator. On the PC I use the express verion of VC++ to compile it.</li>
+<li>The second program is the lights emulator. This will emulate one or more sets of lights arranging them on screen according to your desired layout. When you run the firmware on the PC this firmware will send the instructions to the emulator which will display the lights as they would appear. I use the express version of VC# to compile it.</li>
+<li>The final program is a compiler (or more correctly an assembler) which takes a higher level instruction set and generates the required array of short integers the firmware uses to tell it what to do with the lights. I use the express version of VC# to compile it.</li>
+</ul>
+
+<p>This diagram gives you and idea of how everying works together ...</p>
+<p><img src="GELights2.png"></p>
+
+<p>To try this out you dont need an Arduino or to build any hardware ... the compiler, the firmware (built for the PC) and the Emulator all run on your PC.</p>
+
+<h2>Hardware</h2>
+
+<p>There are two key elements to the hardware in this article ... the Arduino and the isolating circuitry.</p>
+
+<p>The simplest is the Arduino. Basically it comes down to picking a suitable board. In my first prototype I used an Arduino Pro. It is cheap and works well but I quickly ran into memory issues as it only has 2K of RAM. Even with several refactorings to minimise memory use I found I was running out of memory controlling 1 to 2 sets of lights. So I upgraded to the Arduino Mega 2560 with 8K of RAM. Still paltry but enough if you are very frugal with your memory use and you put all the static data such as the instructions into the more generous 256K of flash memory.</p>
+
+<p>The Color Effects lights comes with a 3A 5V adapter. As each lights set is it's own circuit it is necessary to electrically isolate the Arduino output from each set of lights. To do this I designed this isolation circuit. The key design element here is speed. As the ardino data line is self clocked at 10 microseconds it is important the optocoupler and the inverter are fast enough and symetrical enough to not interfere with the signal timing.</p>
+
+<p><img src="GELights3.png"></p>
+
+<p>You need as many isolation circuits as sets of lights you are controlling. In my case I built 6. All of these circuits need to be fully independent of each other.</p>
+
+<p>This is 6 of the built isolation circuits. The Optocouplers are not visible as they are surface mounted on the other side of the board.</p>
+
+<p><img src="GELights4.jpg"></p>
+
+<p>This is everything put together in a nice box. The arudino is visible bottom left. The isolation circuits above it. The three LEDs display the error state, power and a blue LED that flashes as the program runs.</p>
+
+<p><img src="GELights5.jpg"></p>
+
+<p>It is also worth making a few comments about the lights themselves. Each string of lights is 50 bulbs long. Bulb addresses are established during initialisation which using my firmware means they will be always numbered 0 ... 49 in order from the controller to the end (but they dont have to be). Each bulb can be individually controlled in terms of color and brightness. Brightness can also be controlled using a broadcast command to the mythical bulb 63. The bulb control protocol involves sending a pattern of low and high voltages down the data wire. Each high/low lasts for 10 microseconds and a full single bulb command takes 820 microseconds.</p>
+
+<h2>The Compiler</h2>
+
+<p>As mentioned above the compiler is really more of an assembler as apart from some variable naming and jump measuring is basically substitutes some symbols for some numbers and emits a data file and a .h file for use in the firmware.</p>
+
+<p>The instruction set is very simple and explained in detail in the TidlyWiki html file included in the download so I will cover the basics here only.</p>
+
+<p>The instructions are simple instructions relevant to a string of bulbs.</p>
+
+<pre>
+// set bulbs 0..9 red and bright
+SetColour
+0
+9
+red
+bright
+
+// set bulbs 10 to yellow and 19 to blue and graduate bulbs 11..18
+SetFadeColour
+10
+19
+yellow
+blue
+bright
+
+donothing
+1
+</pre>
+
+<p>Instructions are executed in cycles. All instructions are executed in the same cycle up until a donothing or a loop instruction is encountered.</p>
+
+<p>Some instructions run across multiple cycles. These commands display an effect over multiple cycles such as gradually changing colour or brightness or even shifting bulbs around.</p>
+
+<pre>
+// rotate bulbs 10..19 1 bulb to the right 50 times
+RotateBulbs
+10
+19
+1
+50
+1
+1
+</pre>
+
+<p>When controlling multiple strings of lights you define a separate program for each string. When executing the cycle progression is centrally controlled. Ie all strings complete their cycle 1 commands before the program proceeds to cycle 2. With careful authoring you can then synchronise patterns across mutliple strings of bulbs. Some of the pre-built examples included show how this is done. The secret is making sure you have the same number of cycles in each program.</p>
+
+<p>The compiler emits a .dat file for each program. These files are used by the firmware when it is running on the PC allowing you to test programs without having to recompile the firmware for each test.</p>
+<p>The compiler also emits a single .h file. This .h file contains up to 6 programs and is compiled into the firmware before deploying to the arudino. You only really need to do this at the very end when you are happy with how the program looks in the emulator.</p>
+<p>To compile just pass in 1..6 program files to the compiler. The first passed is deemed program 0 in the .h file.</p>
+
+<p>The compiler also understands some common concepts and has keywords to represent them to make programs more readable. Keywords such as NOCOLOR, LASTBULB, YES, NO. These are all covered in the TiddlyWiki file.</p>
+
+<h2>The Emulator</h2>
+<p>The emulator emulates up to six sets of lights. It does this by displaying bulbs as small circles on the screen which it then colours according to the instructions received from the firmware when it is running on the PC. The firmware talks to the emulator by pasting an instruction to the clipboard then sending a windows message to the emulator. This is not pretty but I did not have the time to work out and implement a better IPC mechanism at the time.</p>
+<p>The emulator can lay out the bulbs to represent how they might look when strung up on your house. To do this just edit the xml file specifying for each bulb on each string the x/y coordinates you want the bulb displayed. If the xml file is not found then a single string only is displayed in a small grid.</p>
+
+<h2>The Firmware ... when running on the PC</h2>
+<p>The core of the firmware runs the same on the PC and the Arduino. However, when running on the PC memory is obviously not such a concern and so the PC version does a lot more error checking and has extensive trace messaging which can help you iron out the kinks in your programs. This is done through the liberal use of #ifdef PC precompiler instructions in the code.</p>
+<p>When running on the PC the firmware will try to find a running instance of the emulator. If not found it will start one up from the current folder. The firmware will also look for one or more .dat files passed to it as command line parameters and treat these as the program it is to run. If none are found then any internally compiled program.h will be run.</p>
+
+<h2>The firmware ... when running on the Arduino</h2>
+<p>When running on the Arduino the firmware runs in its stripped down version. Memory usage and consequently validation etc is minimal. Pin 11 of the arduino is the only error message you will get and this will just be set high and the program will stop if a problem is encountered. Many problems wont even be detected ... the program just wont work as expected. I strongly suggest testing on the PC first</p>
+<p>Pin 13 on the arduino will alternately go high/low as the program progresses through the program cycles. This shows the program is running.</p>
+<p>Program 0 sends its output to pin 3 on the arduino ... program 1 sends its output to pin 4 and so forth.</p>
+<p>I must admit I cheated a bit with getting the code setup and running in the Arduino SDK. In too much of a hurry to work out how it all worked I just put all the classes into a library and the rest into a folder in the examples directory. I used a batch file to copy it from the folder I was doing PC development in into the Arduio compilers folders.</p>
+
+<h2>Minimising memory usage</h2>
+<p>When I first wrote the firmware it would not even run a simple command sequence without running out of memory. Having gigabytes of RAM on a PC really makes you lazy when it comes to memory utilisation. In my first iteration everything was an integer, the program was kept in memory in a list all the time and commands like rotate bulbs would keep their own working copy of the bulbs.</p>
+<p>To shrink memory usage the following changes were made:</p>
+<ul>
+<li>Static data was moved into flash memory ... no point using ram for data that never changes. Arduino requires special declarations and access protocols to make this work.</li>
+<li>Bytes and shorts were used instead of integers to minimise wasted bytes.</li>
+<li>Unused bits in the bulb colour were used to hide status flags to avoid having to add bytes.</li>
+<li>Instructions were constructed just in time and destroyed as soon as they were done.</li>
+<li>Error checking and validation was largely removed.</li>
+<li>Commands requiring temporary copies were minimised and allocated for just as long as required.</li>
+</ul>
+<p>This increased the code size and complexity and slows down the program slightly but the benefits in reduced memory usage made this worth while.</p>
+
+<p>The most memory hungry component of the program is tracking the state of the 50 bulbs in each string. Unfortunately this is an evil that cannot be avoided as it is impossible to query a physical bulbs state. Instructions often depend on their ability to understand the state of the bulbs before deciding the new state so these have to be tracked.</p>
+
+<h2>Timing</h2>
+<p>Interfacing the 16MHz Arudino with a device so sensitive to signal timing was a big challenge. The Color Effects is looking for a high/low 10 microseconds long. Anything more than a microsecond out and you may get spurious behaviour from the lights.</p>
+<p>In my first prototype on the Arudino pro a sleep of 7 microseconds after each output was perfect. When I moved to the Arudino Mega this had to be reduced to 4 microseconds and even then I would get the occasional wrong bulb lighting up ... a further refinement of 3 micrososeconds if the signal being sent was the same as the last signal had to be introduced to avoid accumulated signal delay issues.</p>
+<p>The only way to troubleshoot this was with a logic analyser.</p>
+
+<h2>The instruction set</h2>
+<p>Deciding what to include or exclude from the instruction set is always a challenge. The basic instructions are pretty obvious and in theory any pattern can be built just using the SetColour and DoNothing instructions but more complex patterns would be excessively long to develop and almost impossible to debug due to their size. Adding the more complex instructions makes some pretty cool effects possible without unweildy programs but each of these instructions are in themselves quite large and often memory expensive. Every time I came up with an idea for a pattern that I wanted to display it was always a case of do I need a new instruction or is there a way to make the existing set do what I want. On balance I think it is about right but I would not be surprised if you decided it was easier to add an instruction for a complex pattern rather than trying to make the existing instruction set do what you want.</p>
+<p>Adding a new instruction requires changes to the Compiler so the new instruction is recognised. This is usually just a matter of adding a row to the commands array and some keywords to the decodetable. You will also need to add a new class to the instructions.cpp file inheriting from the Instruction class and implement the required override functions. Basically the Construct method initialises the instruction and the Execute method executes a cycle of the instruction. You will need to add member variables to track the state of the instruction between cycles. The emulator should not need to change as it is oblivious to the instructions ... it just knows how to display bulbs.</p>
+
+<h2>Conclusion</h2>
+
+<p>What can I say programming these devices takes me back to my Z80 assembler programming days ... almost no memory, slow CPUs but amazing what could be done with them.</p>
+
+<h2>History</h2>
+
+<p>v1.0 November 2011</p>
+
+<h2>Improvement Opportunities</h2>
+
+<p>Cross string variables ... at the moment variables are defined per string of lights ... it would be useful to be able to define a variable which is accessible in all programs at once.</p>
+<p>Concurrent instructions ... at the moment the firmware sends instructions to each bulb one at a time. This means the arduino has a theoretical ability to send about 1000 bulbs instructions per second. It is threoretically possible for the arduino to send instructions to bulbs on different strings in parallel. This would massively increase the update speed but also significantly increase code complexity and the opportunity for timing issues. It is also likely to increase memory use as buffers would likely be required to manage the arrival of instructions before they were issued in parallel. One essential change required to make this work would be to remove the Display call from the instruction Execute methods to a routine which displayed all the bulbs at the conclusion of a cycle. If the arduino was faster, had more memory and was spending more time idle while sending data to the bulbs this would be a cool enhancement.</p>
+<p>Eliminate the clipboard from IPC ... this was an ugly hack to get it working so I could get on with other parts of the project.</p>
+
+<!-------------------------------    That's it!   --------------------------->
+</body>
+
+</html>
+

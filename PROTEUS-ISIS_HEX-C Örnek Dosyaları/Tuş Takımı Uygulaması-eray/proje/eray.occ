@@ -1,0 +1,29 @@
+CC8E Version 1.3E, Copyright (c) B Knudsen Data, Norway 2001-2012
+ --> FREE edition, 8-16 bit int, 24 bit float, 128k code words, reduced optim.
+eray.c:
+ 27. Dec 2012  16:07
+ Chip = 18F452
+ RAM : ======== =******* ******** ******** ******** ******** ******** ********
+  40h: ******** ******** ******** ******** ******** ******** ******** ********
+  80h: ******** ******** ******** ******** ******** ******** ******** ********
+  C0h: ******** ******** ******** ******** ******** ******** ******** ********
+ Bank  0:247  1:256  2:256  3:256  4:256  5:256  bytes free
+RAM usage: 9 bytes (9 local), 1527 bytes free
+ File 'eray.fcs'
+ Optimizing - removed 60 code words (-13 %)
+ File 'eray.var'
+ File 'eray.asm'
+ File 'eray.lst'
+ File 'eray.cod'
+ File 'eray.occ'
+Warning[1] C:\Users\ERAY\Desktop\proje\eray.c 41 : Read-modify-write sequence on the same PORT may fail
+ (Two consecutive instructions modifying the same PORT may fail depending on
+ execution speed and load (fall/rise times) on the port pins. Option -wf will
+ remove this warning)
+Warning[2] C:\Users\ERAY\Desktop\proje\eray.c 65 : Read-modify-write sequence on the same PORT may fail
+Warning[3] C:\Users\ERAY\Desktop\proje\eray.c 117 : Read-modify-write sequence on the same PORT may fail
+Warning[4] C:\Users\ERAY\Desktop\proje\eray.c 126 : Read-modify-write sequence on the same PORT may fail
+Warning[5] C:\Users\ERAY\Desktop\proje\eray.c 135 : Read-modify-write sequence on the same PORT may fail
+ File 'eray.hex'
+Total of 335 code words (2 %)
+ * Estimated CODE SIZE of full optimization: 331 code words (-1 %)

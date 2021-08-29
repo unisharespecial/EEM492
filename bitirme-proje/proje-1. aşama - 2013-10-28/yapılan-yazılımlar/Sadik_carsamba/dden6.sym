@@ -1,0 +1,115 @@
+004     @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020     @TRIS_C
+021     MAIN.ar
+022     MAIN.start_bit
+023     MAIN.ref
+024-04C MAIN.arr
+04D-04E MAIN.RH
+04F     MAIN.RH_low
+050-051 MAIN.Temp
+052     MAIN.Temp_low
+053     MAIN.sayac
+054     @PRINTF_U_92.P1
+054-055 @DIV1616.P2
+054     lcd_init.i
+054     MAIN.@SCRATCH1
+054     @PSTRINGC7_92.@SCRATCH1
+055     @PRINTF_U_92.P1
+055     lcd_init.@SCRATCH1
+055     MAIN.@SCRATCH2
+055     @PSTRINGC7_92.@SCRATCH2
+056     @DIV88.P1
+056-057 @DIV1616.P2
+056     @PSTRINGC7_92.@SCRATCH3
+057     @DIV88.P1
+057     lcd_putc.c
+058     @delay_ms2.P1
+058     lcd_gotoxy.x
+058     @DIV1616.@SCRATCH1
+058     @DIV88.@SCRATCH1
+059     lcd_gotoxy.y
+05A     lcd_gotoxy.address
+05B     lcd_gotoxy.@SCRATCH1
+05C     lcd_send_byte.address
+05D     lcd_send_byte.n
+05E     lcd_read_byte.low
+05E     lcd_send_byte.@SCRATCH1
+05F     lcd_read_byte.high
+05F     lcd_send_nibble.nibble
+060     lcd_read_nibble.retval
+060.0   lcd_read_nibble.retval_0
+060.1   lcd_read_nibble.retval_1
+060.2   lcd_read_nibble.retval_2
+060.3   lcd_read_nibble.retval_3
+060     lcd_read_byte.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+0012  @delay_ms2
+0004  LCD_INIT_STRING
+0026  lcd_send_nibble
+0052  lcd_read_nibble
+007B  lcd_read_byte
+0077  lcd_send_byte
+00B4  lcd_init
+00FB  lcd_gotoxy
+00E4  lcd_putc
+01D0  MAIN
+000C  @const101
+0119  @PSTRINGC7_92
+0161  @DIV1616
+0186  @DIV88
+019B  @PRINTF_U_92
+01D0  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    C:\Users\AKIN\Desktop\bitirme-proje\Sadik_carsamba\
+
+Project Files:
+    dden6.c
+    dden4.h
+    16F877A.h
+    flex_lcd.c
+
+Units:
+    C:\Users\AKIN\Desktop\bitirme-proje\Sadik_carsamba\dden6 (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      dden6.err
+    Ext Symbols: dden6.esym
+    INHX8:       dden6.hex
+    Symbols:     dden6.sym
+    List:        dden6.lst
+    Debug/COFF:  dden6.cof
+    Project:     dden6.PJT
+    Call Tree:   dden6.tre
+    Statistics:  dden6.sta

@@ -1,0 +1,4 @@
+--cpu Cortex-M3 ".\bin\stm32f10x.o" ".\bin\stm32_init.o" ".\bin\main.o" --strict --scatter ".\bin\FromA-Z.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\FromA-Z.map" -o ".\bin\FromA-Z.axf"

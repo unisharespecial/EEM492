@@ -1,0 +1,16 @@
+setvariable
+usecolour
+randomcolour
+0
+0
+
+setvariable
+usebrightness
+bright
+0
+0
+
+donothing
+1
+
+#snowstack\snowstack_top.txt

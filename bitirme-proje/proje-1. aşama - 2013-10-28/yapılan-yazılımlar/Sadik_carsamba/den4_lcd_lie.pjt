@@ -1,0 +1,24 @@
+[PROJECT]
+Target=D:\on\Yandex\baskent-paylaþým\bitirme-proje-sdk\proje-1. aþama - 2013-10-28\yapýlan-yazýlýmlar\Sadik_carsamba\den4_lcd_lie.hex
+Development_Mode=
+Processor_Text=PIC16F877A
+ToolSuite=CCS
+Processor=0x877A
+[D:\on\Yandex\baskent-paylaþým\bitirme-proje-sdk\proje-1. aþama - 2013-10-28\yapýlan-yazýlýmlar\Sadik_carsamba\den4_lcd_lie]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\on\Yandex\baskent-paylaþým\bitirme-proje-sdk\proje-1. aþama - 2013-10-28\yapýlan-yazýlýmlar\Sadik_carsamba\den4_lcd_lie.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\on\Yandex\baskent-paylaþým\bitirme-proje-sdk\proje-1. aþama - 2013-10-28\yapýlan-yazýlýmlar\Sadik_carsamba\den4_lcd_lie
+[Opened Files]
+1=den4_lcd_lie.c
+2=

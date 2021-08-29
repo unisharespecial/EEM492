@@ -1,0 +1,84 @@
+
+ROM used: 3054 (37%)
+          3080 (38%) including unused fragments
+
+          3 Average locations per line
+          10 Average locations per statement
+
+RAM used: 36 (10%) at main() level
+          89 (24%) worst case
+
+Stack used: 5 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  215   163  51  tam-isi-nem.c
+  326     0   0  16F877A.h
+  238   111  35  SHT11.c
+  259    45  14  new_lcd.c
+----- -----
+ 1038   319 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     21   1   1             @delay_ms1
+0     33   1   0   300  1.4  comstart
+0     60   2   5   595  6.9  comwrite
+0     86   3   3  1134  6.1  comread
+0     32   1   2   211  4.5  comwait
+ Inline        1   250  3.2  comreset
+ Inline        4   170  3.1  measuretemp
+ Inline        4   170  3.1  measurehumid
+ Inline       32   399  5.1  calculate_data
+0     29   1   2             @ITOF
+0    117   4  13             @MULFF
+0    321  11  16             @ADDFF
+ Inline       16   228  3.0  sht_rd
+0     30   1   0    41  0.4  sht_init
+0      8   0   0             @const113
+0     41   1   1   326  2.8  lcd_send_nibble
+0     39   1   3   235  3.8  lcd_send_byte
+0     45   1   2   380  4.7  lcd_init
+0     18   1   4   186  5.5  lcd_gotoxy
+0     37   1   1   297  2.7  lcd_putc
+0    284   9   0  1871  3.4  keypad_oku
+0     45   1   0   152  1.8  allkeypadlow
+1   1032  34   8  2923  9.4  MAIN
+0      4   0   0             @const147
+0     72   2   3             @PSTRINGC7_129
+0     21   1   3             @DIV88
+0    101   3   6             @PRINTF_D_129
+0     39   1   2             @MUL88
+0     23   1   0             @const159
+0     33   1   3             @PSTRINGCN_129
+0     24   1   0             @const163
+0      9   0   0             @const165
+0     79   3   4             @PSTRINGCN7_129
+ Inline        5             @FTOSD
+0     66   2  13             @DIV3232
+0    231   8  13             @PRINTF_L32D_129FPFPF
+0      7   0   0             @const176
+0     63   2  10             @FLT
+
+Program metrics:
+    Functions               18
+    Statements              319
+    Comments                228
+    Volume (V)              15699
+    Difficilty (D)          70.1
+    Effort to implement (E) 1100620
+    Time to implement (T)   16 hours, 59 minutes
+    Est Delivered Bugs (B)  4
+    Cyclomatic Complexity   41
+    Maintainability (MI)    54
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF  2018  26  
+00800-00FFF  1032  1016  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

@@ -1,0 +1,4 @@
+>>> Warning 203 "dden7.c" Line 96(1,1): Condition always TRUE
+>>> Warning 202 "dden7.c" Line 43(9,22): Variable never used:   dht_check_sum
+      Memory usage:   ROM=11%      RAM=5% - 9%
+      0 Errors,  2 Warnings.

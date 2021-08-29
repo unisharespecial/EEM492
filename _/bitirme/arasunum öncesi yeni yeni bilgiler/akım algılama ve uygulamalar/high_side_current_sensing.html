@@ -1,0 +1,824 @@
+<html><head>
+
+<title>High Side Current Sensing: Analog Dialogue: Analog Devices</title>
+<meta content="High Side Current Sensing: Analog Dialogue" name="internalTitle">
+<meta content="current sensing, diff amp, difference amp" name="keywords">
+<meta content="Accurate high-side current sensing is necessary in applications such as motor control, solenoid control, and power management. In these applications, monitoring the current on the high side permits improved diagnostic capabilities and maintains the integrity of the ground path by avoiding the introduction of shunt resistance." name="description">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<style type="text/css">
+table.MsoNormalTable
+	{font-size:10.0pt;
+	font-family:"Times New Roman";
+	}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	}
+.title {
+	margin-top: 0;
+	margin-bottom: 3px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	font-weight: bold;
+}
+.body {
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+	margin-top: 0;
+	margin-bottom: 12px;
+}
+.volume {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14pt;
+	font-weight: bold;
+	margin-top: 24px;
+	margin-bottom: 6px;
+}
+.navigation {
+	font-family: Arial;
+	margin-bottom: 3px;
+	font-size: 10pt;
+}
+.times_14_bold {
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+	margin-top: 0;
+	margin-bottom: 6px;
+	font-weight: bold;
+}
+.author {
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+	margin-top: 12;
+	margin-bottom: 12px;
+}
+.caption {
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+	margin-top: 12;
+	margin-bottom: 18px;
+	font-weight: bold;
+}
+.style1 {
+	font-family: Arial;
+	margin-bottom: 3px;
+	font-size: 8pt;
+}
+.style2 {
+	FONT-SIZE: 14pt
+}
+.style3 {
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+	margin-top: 0;
+	margin-bottom: 12px;
+	margin-left: 120px;
+}
+</style>
+
+
+<script language="JavaScript">
+<!--
+//in NN 4, the dropdowns are buggy when browser is resized--this refreshes & fixes it
+/*function nsResizeFx() {
+ 
+  if (document.NS.nsResizeFx.WindowWidth != window.innerWidth || document.NS.nsResizeFx.WindowHeight != window.innerHeight) {
+	document.location = document.location;
+  }
+}
+
+function nsRezFxCk() {
+
+  if ((navigator.appName == 'Netscape') && (parseInt(navigator.appVersion) == 4)) {
+    if (typeof document.NS == 'undefined'){
+      document.NS = new Object;
+    }
+    if (typeof document.NS.scaleFont == 'undefined') {
+      document.NS.nsResizeFx = new Object;
+      document.NS.nsResizeFx.WindowWidth = window.innerWidth;
+      document.NS.nsResizeFx.WindowHeight = window.innerHeight;
+    }
+    window.onresize = nsResizeFx;
+  }
+}
+
+nsRezFxCk()*/
+
+function changeStatus(text) {
+	//includes time delay for IE bug
+	window.setTimeout('window.status="' + text + '"', 1);
+	return true;
+}
+
+//general popups
+function popUp(url) {
+	var popWindow = window.open(url,'pop','width=600,height=400,top=167,left=165,menubar,status,scrollbars,resizable,toolbar,location');
+	popWindow.focus();
+}
+
+//popups converted ppt presentations
+function popUpPPT(url) {
+	var popWindow = window.open(url,'pop','width=600,height=425,top=167,left=165,menubar,status,scrollbars,resizable,toolbar,location');
+	popWindow.focus();
+}
+
+//popup for signal chains
+function popUpSC(url,windowName) {
+	var popWindow = window.open(url,windowName,'width=550,height=270,top=167,left=165,scrollbars,resizable');
+	popWindow.focus();
+}
+//-->
+</script>
+<!-- included header: head_article.html -->
+<meta content="MSHTML 6.00.2900.3059" name="GENERATOR"></head><body leftmargin="25">
+                 
+
+
+<table style="width: 950px;" border="0" cellpadding="10" cellspacing="0">
+<tbody><tr valign="top">
+<td>      
+
+  <table border="0" cellpadding="0" cellspacing="0" width="700">
+    <tbody><tr valign="top">
+      <td align="left">
+      <img src="high_side_current_sensing_dosyalar/level2top.jpg" border="0" height="85" width="702"></td>
+    </tr>
+    <tr>
+    <form method="GET" action="http://www.google.com/search"></form>
+      <td align="left" bgcolor="#003399" valign="top">
+      
+      <p class="navigation">&nbsp;
+            
+      <a href="http://www.analog.com/library/analogdialogue/index.html"><font color="#ffffff">Home</font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="http://www.analog.com/"><font color="#ffffff">Analog Devices</font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="http://www.analog.com/library/analogdialogue/feedback.html"><font color="#ffffff">Feedback</font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="http://www.analog.com/library/analogdialogue/subscribe.html"><font color="#ffffff">Subscribe</font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="http://www.analog.com/library/analogdialogue/archives.html"><font color="#ffffff">Archives</font></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="http://www.analog.com/library/analogdialogue/search.html"><font color="#ffffff">Advanced Search</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    
+<!-- SiteSearch Google -->
+		<input name="q" size="12" maxlength="255" type="text">		
+		<input name="q" value="/library/analogdialogue" type="hidden">
+		<input name="btnG" value="Go" type="submit">
+		<input name="domains" value="http://www.analog.com" type="hidden">
+		<input name="sitesearch" value="http://www.analog.com" type="hidden">
+<!-- SiteSearch Google -->   
+       
+        </p>
+        </td>
+        
+        </tr>
+  </tbody></table>
+                    
+      <p class="volume" style="margin-top: 24px;"><font color="#003399">
+		<a name="return"></a>Volume 42 – 
+        January 2008</font></p>
+      <p class="body" style="margin-top: 24px;">
+		<img alt="PDF" src="high_side_current_sensing_dosyalar/pdf.gif" valign="middle" align="left" border="0" height="31" width="28"><a href="http://www.analog.com/library/analogdialogue/archives/42-01/high_side_current_sensing.pdf">Download 
+        this article in PDF format. (292K)</a></p>
+      <p class="title" style="margin-top: 24px; color: rgb(0, 0, 102); font-family: Arial;"><font color="#000080"><span class="style2">High-Side Current Sensing: Difference Amplifier vs. Current-Sense 
+        Amplifier</span></font></p>
+	<p class="body">By <a href="#author">Henri Sino<br>
+        </a><b><br>
+        </b>Accurate 
+        high-side current sensing is necessary in many applications, including 
+        motor control, solenoid control, and power management (for example, dc-to-dc 
+        converters and battery monitoring). In such applications, monitoring of 
+        current on the high side—instead of the return—permits improved diagnostic 
+        capabilities, such as determining shorts to ground and continuous monitoring 
+        of the recirculation-diode current—and maintains the integrity 
+        of the ground path by avoiding the introduction of shunt resistance. Figures 
+        1, 2, and 3 depict typical high-side current-shunt configurations for 
+        solenoid- and motor control. </p>
+      <p align="center"><b>
+		<img src="high_side_current_sensing_dosyalar/AD42_01-01.jpg" height="180" width="204"></b></p>
+      <p class="body" align="center"><b>Figure 
+        1. High-side shunt in typical solenoid control.</b></p>
+      <p align="center"><b>
+		<img src="high_side_current_sensing_dosyalar/AD42_01-02.jpg" height="198" width="252"></b></p>
+      <p class="body" align="center"><b>Figure 
+        2. High-side shunt in H-bridge motor control.</b></p>
+      <p align="center"><b>
+		<img src="high_side_current_sensing_dosyalar/AD42_01-03.jpg" height="188" width="309"></b></p>
+      <p class="body" align="center"><b>Figure 
+        3. High-side shunts in 3-phase motor control.</b></p>
+      <p class="body">In 
+        all configurations shown above, the <i>pulse-width-modulated</i> (PWM) 
+        common-mode voltage at the shunt resistor—which monitors the load current—is 
+        swinging <i>over the whole range</i> from ground to battery. This PWM 
+        input signal will have a period, frequency, and rise/fall time established 
+        by the control signal from the power stage to the FET. Therefore, the 
+        difference-measurement circuitry that monitors the voltage across the 
+        shunt resistor will require the stringent combination of very high common-mode 
+        rejection and high-voltage handling capability, plus high gain, high accuracy, 
+        and low offset—all in order to deliver a true representation of the load-current 
+        value.</p>
+      <p class="body">In <a href="http://www.analog.com/library/analogDialogue/archives/38-04/solenoids.pdf">solenoid 
+        control</a> (Figure 1) that uses a single control FET, the 
+        current is always flowing in the same direction, so a unidirectional current 
+        sensor will be sufficient. In motor-control configurations (Figures 2 
+        and 3), placing the shunt on the motor phase means that current in the 
+        shunt resistor could flow both ways; therefore, a bidirectional current 
+        sensor is necessary. </p>
+      <p class="body">The 
+        designer who studies the choices for the high-side current-sensing function 
+        will find a variety of options from many semiconductor vendors. However, 
+        a key finding will be that the choices among these integrated-circuit 
+        devices can be classified in terms of two quite different high-voltage 
+        architectures: <i>current-sense amplifiers</i> and <i>difference amplifiers</i>. 
+        </p>
+      <p class="body">We will identify 
+        and explain here some of the key differences between these architectures 
+        to help the designer in need of high-side current sensing to choose a 
+        device best-suited to the application. We will compare two high-voltage 
+        parts, the <a href="http://www.analog.com/en/prod/0,2877,AD8206,00.html">AD8206</a> 
+        bidirectional difference amplifier and the <a href="http://www.analog.com/en/prod/0,2877,AD8210,00.html">AD8210</a>
+        bidirectional current-sense amplifier. Both devices offer the same pinout, 
+        and both perform high-side current-shunt monitoring, yet their specifications 
+        and architectures are different. So, how does one consider which device 
+        is best-suited for the application?</p>
+      <p class="body"><b>HOW THEY WORK<br>
+        </b>The AD8206 
+        (Figure 4), an <i>integrated high-voltage difference amplifier</i>, withstands 
+        common-mode voltages up to 65 V by using input resistors to attenuate 
+        the input voltage by 16.7:1 so as to keep the common-mode voltage within 
+        the input range of amplifier A1. Unfortunately, the input resistance network 
+        also attenuates the differential signal by the same value. To achieve 
+        the AD8206’s featured gain of 20 V/V, amplifiers A1 and A2 must actually 
+        amplify the differential signal by approximately 334&nbsp;V/V. </p>
+      <p align="center"><b>
+		<img src="high_side_current_sensing_dosyalar/AD42_01-04.jpg" height="222" width="438"></b></p>
+      <p class="body" align="center"><b>Figure 
+        4. AD8206 simplified schematic.</b></p>
+      <p class="body">This device implements 
+        bidirectional input measurements by offsetting the output amplifier to 
+        a suitable voltage within the supply range. The offset is achieved by 
+        applying an external low-impedance voltage to a precisely trimmed resistance 
+        divider connected to the positive input of A2. A useful feature of this 
+        device is its ability to correctly amplify the differential input voltage 
+        when the common-mode voltage goes <i>negative</i> by as much as 2 V—a 
+        consequence of the 250-mV common-mode bias circuit shown in the figure.</p>
+      <p class="body">The AD8210 (Figure 
+        5), a recently introduced <i>high-voltage</i> <i>current-sense amplifier</i>, 
+        offers the same functional relationship as the AD8206 and uses the same 
+        pin connections. However, it works in a different way, and the resulting 
+        specifications are unlike those of a difference amplifier.</p>
+      <p align="center"><b>
+		<img src="high_side_current_sensing_dosyalar/AD42_01-05.jpg" height="242" width="347"></b></p>
+      <p class="body" align="center"><b>Figure 
+        5. AD8210 functional diagram.</b></p>
+      <p class="body">An obvious distinction 
+        is that the input structure does not rely on a resistive attenuation network 
+        to deal with the large common-mode voltage. The input amplifier comprises 
+        high-voltage transistors, available on the XFCB IC fabrication process. 
+        Because the V<sub>CE </sub>breakdown of all transistors exposed to this 
+        voltage is beyond 65 V, the common-mode voltage at the input can be as 
+        great as 65 V. </p>
+      <p class="body">Current-sense amplifiers 
+        such as the AD8210 amplify the small differential input voltage in the 
+        following manner. The input terminals are connected to the differential 
+        amplifier, A1, by R1 and R2. A1 nulls the voltage appearing across its 
+        own input terminals by adjusting the current through R1 and R2 with transistors 
+        Q1 and Q2. When the input signal to the AD8210 is 0&nbsp;V, the currents in 
+        R1 and R2 are equal. When the differential signal is nonzero, the current 
+        increases through one of the resistors and decreases in the other. The 
+        current difference is proportional to the size and polarity of the input 
+        signal. The differential currents through Q1 and Q2 are converted to a 
+        ground-referenced differential voltage via two internal precision-trimmed 
+        resistors. This voltage can then be amplified by amplifier A2, this time 
+        using low-voltage transistors powered by the device’s 5-V (typically) 
+        supply, to produce the final output with an overall gain of 20. </p>
+      <p class="body">Current-sense amplifiers 
+        with this architecture are generally useful only if input common-mode 
+        voltage remains above 2 V or 3 V, and if the application doesn’t require 
+        that the input common-mode voltage go all the way to ground (or below). 
+        However, the AD8210 uses a pull-up circuit to hold the inputs of amplifier 
+        A1 near the 5-V power supply, <i>even when the input common-mode drops 
+        below 5 V</i>, and all the way down to –2 V. Thus, accurate differential 
+        input-voltage measurement is possible at common-mode voltages well below 
+        the device’s 5-V supply. </p>
+      <p class="body">It is apparent that 
+        current-sense amplifiers and difference amplifiers perform the same function 
+        while operating quite differently. A difference amplifier attenuates high 
+        input voltages to bring the signal to a level the amplifier can tolerate. 
+        A current-sense amplifier converts the differential input voltage to a 
+        current, and then back to a ground-referenced voltage; its input amplifier 
+        is able to withstand large common-mode voltages due to its high-voltage 
+        manufacturing process. The disparity between the two architectures naturally 
+        leads to performance differences that designers must consider when choosing 
+        a high-side current-monitoring solution. Manufacturers’ data sheets typically 
+        provide most of the information needed to make the right judgment on which 
+        type of device to use, based on accuracy, speed, power, and other parameters. 
+        However, some key differences inherent in device architecture are not 
+        immediately obvious when reading a data sheet, yet they can be essential 
+        design considerations. The following are key points engineers must be 
+        aware of&nbsp; to arrive at the best solution. </p>
+      <p class="body"><b>Bandwidth:</b> 
+        Because of the input attenuation, the bandwidth of many difference amplifiers 
+        is typically about one-fifth that of current-sense amplifiers. However, 
+        the lower bandwidth of the difference amplifier is still sufficient for 
+        most applications. For example, many solenoid-control applications run 
+        at less than 20&nbsp;kHz, but motor control typically must run at or above 
+        20&nbsp;kHz due to noise considerations. Solenoid control typically involves 
+        looking at the <i>average</i> current, an application for which the bandwidth 
+        of difference amplifiers is well suited. For motor control, on the other 
+        hand, <i>instantaneous</i> current is key, especially when measuring on 
+        the motor phase; therefore, the current-sensor architecture, with its 
+        higher bandwidth, will yield a truer representation of the actual motor 
+        current. </p>
+      <p class="body"><b>Common-Mode Rejection: 
+        </b>The difference in the input structure between these two architectures 
+        also leads to a difference in CMR performance. The difference amplifiers 
+        typically have trimmed input resistors with a tracking accuracy of 0.01%. 
+        This degree of matching typically results in a guaranteed 80-dB CMR at 
+        dc. The current-sense amplifiers, with their transistor input structure, 
+        can obtain a better match, so that CMR, no longer dependent on input resistor 
+        matching, can typically be specified above 100 dB, except at low values 
+        of common-mode voltage. For example, the AD8210 offers the same 80 dB 
+        as a difference amplifier when the input common-mode voltage is less than 
+        5 V. At this voltage range, the input structure becomes resistive, due 
+        to the internal pull-up circuit mentioned above; so, the CMR once again 
+        becomes a function of the 0.01% precision-trimmed resistor matching. Over 
+        the whole range, though, the current-sense architecture will offer better 
+        common-mode rejection.</p>
+      <p class="body"><b>Effect of External 
+        Input Filtering: </b>If input filtering is to be used in a high-side current-sensing 
+        application, the architecture can be highly influential. An input filter, 
+        intended to smooth out effects of input noise and current spikes, is typically 
+        implemented as shown in Figure 6. </p>
+      <div align="center">
+        <p><img src="high_side_current_sensing_dosyalar/AD42_01-06.jpg" height="146" width="189"></p>
+        <p class="body"><b>Figure 6. Input 
+          filter options.</b></p>
+        </div>
+      <p class="body">Since 
+        each part, regardless of its architecture, has some trimmed input resistance, 
+        any external resistance added in series will produce mismatches leading 
+        to both gain- and CMR errors, typically calculated as follows (<i>R<sub>in</sub></i> 
+        is the specified amplifier input resistance):</p>
+	<p class="style3">
+	<img alt="Equation 1" src="high_side_current_sensing_dosyalar/AD42_01-EQ-01.jpg" height="75" width="258"></p>
+      <p class="body">The 
+        difference amplifiers have an input resistance greater than 100 kohm. For the AD8206, where <i>R<sub>in</sub></i> = 200 
+        kohm, if a <nobr>200-ohm</nobr> filter resistor is used, the additional gain error 
+        will be ~0.1%. The common-mode error due to these external components, 
+        assuming a 1% resistor tolerance, will be –94 dB, making its contribution 
+        irrelevant since it is essentially buried in the 80-dB specified CMR error 
+        of the device.</p>
+      <p class="body">The current-sense 
+        amplifiers, while having much higher common-mode input impedance, feature 
+        input series resistors typically lower than 5 kohm, 
+        in order to convert the differential input voltage into a current. For 
+        the AD8210, the equations above must be recalculated using <i>R<sub>in</sub></i> 
+        = 3.5 kohm (differential input 
+        impedance). In this case, the additional gain error due to the filter 
+        resistors could be as high as 5.4%! Also, the CMR could drop down to 59 
+        dB, assuming a worst-case external resistor mismatch. This is a major 
+        blow to performance for a device whose typical accuracy provides a maximum 
+        total error of less than 2%. </p>
+      <p class="body">Therefore, care 
+        must be used when introducing input filters with <i>current-sense</i> 
+        architecture. Use a filter resistor that is less than 10 
+        ohms when the internal resistance is 5 kohm 
+        or less. This will ensure that the high original accuracy of the current-sense 
+        amplifier is maintained. As shown above, a wider range of input filter 
+        resistor values can be used with a <i>difference amplifier</i>, as the 
+        high value input resistors are less susceptible to external mismatching. 
+        </p>
+      <p class="body"><b>Overdriving the 
+        Inputs:</b> In high-side current-sensing applications, the designer must 
+        carefully consider potential events that could cause the amplifier to 
+        operate outside of its specified range. In typical use, the inputs to 
+        the amplifier are meant to differ by only the few hundred millivolts caused 
+        by the flow of load current through the shunt resistor, but could the 
+        device survive fault conditions where several volts appear across the 
+        inputs? In such cases the difference amplifier architecture is inherently 
+        more robust and more likely to continue to function as expected once the 
+        system is back in order. The input resistor network can simply source 
+        the current to ground; at 65 V, the AD8206, with 200 kohm per input, will 
+        have 325 &#956;A 
+        flowing to ground. </p>
+      <p class="body">If 
+        the current-sense architecture is used, the designer must be concerned 
+        with such potential problems. In the case of the first example, a device 
+        like the AD8210 would not be able to survive large voltage swings across 
+        the inputs. Such devices usually include an ESD protection diode between 
+        the inputs. This diode is forward-biased by a voltage difference greater 
+        than about 0.7 &nbsp;V. The actual breaking point of this diode varies, 
+        but large differential voltages, such as those available from an automotive 
+        battery,&nbsp; typically leads to damage to the device due to electrical overstress. 
+        </p>
+      <p class="body"><b>Negative Voltage 
+        Protection:</b> In many cases it is necessary to protect the current sensor 
+        against reversed battery voltage, especially in automotive applications. 
+        The <i>difference amplifier’s</i> resistance-bridge input is potentially 
+        an important survival factor. However, designers must check the device’s 
+        absolute ratings to ensure that the input ESD diodes are also designed 
+        to turn on, but only at large negative voltages. </p>
+      <p class="body">However, 
+        the <i>current-sense</i> architecture is not optimal in such cases because 
+        the input amplifier and its corresponding input transistors will be directly 
+        connected to the large negative voltage. Because the inputs should not 
+        be subjected to large negative dc voltage, the input ESD diodes of current 
+        sense amplifiers are typically designed to turn on just outside the specified 
+        low end of the input voltage range. </p>
+      <p class="body">In addition to negative 
+        <i>dc</i> voltage, however, such current monitors can also be subject 
+        to <i>negative input transients</i>. This is typically the case in a PWM 
+        system, where the current-shunt monitor’s input common-mode voltage swings 
+        from ground to battery as the control FET switches on and off. Again, 
+        it is essential to carefully consider the absolute maximum ratings, which 
+        are principally determined by the device’s input ESD diodes. The difference 
+        amplifiers, as before, are protected by the high input resistance and 
+        are essentially impervious to the negative transients; therefore, the 
+        ESD diodes typically are designed to clamp at large negative voltages. 
+        But when the current-sense architecture is used, negative transients of 
+        even very short duration can trip the input ESD protection, which is designed 
+        to turn on at voltages close to the input common-mode rating of the device. 
+        Although such pulses typically do not carry enough energy to damage the 
+        ESD cells of the AD8210, performance in this regard will vary from device 
+        to device. To ensure that no complications arise, this parameter should 
+        be tested in the actual system. </p>
+      <p class="body"><b>Input Bias Current:</b> 
+        In applications where power management is important and even small leakages 
+        must be considered, the differing input structures of the two architectures 
+        require that input bias current be considered. For example, in a battery-current 
+        sensing system, both architectures will monitor the current on the high 
+        side. However, when the system is <i>off</i> and the power supply to the 
+        current monitor is <i>off</i>, while the inputs are still connected to 
+        battery, the path to ground inherent in the resistive input network of 
+        a difference amplifier (like the AD8206) will require a bias current that 
+        continues to drain current from the battery. On the other hand, with their 
+        very high input common-mode impedance (&gt;5 Mohm for the AD8210), devices 
+        using the current-sense architecture will not drain the battery current, 
+        since almost no current will flow via its inputs to ground.</p>
+      <p class="body"><b>CONCLUSION<br>
+        </b>High-side 
+        current sensing is a pervasive requirement in automotive, telecom, consumer, 
+        and industrial applications. Integrated high-voltage difference- and current-sense 
+        amplifiers are now offered in the marketplace to perform this function. 
+        Depending on the accuracy- and survival requirements in the application, 
+        systems engineers need to look carefully at which type of current sensor 
+        is best suited for their system. Typical considerations are summarized 
+        in the table below.</p>
+      <p class="body">Both 
+        types of current monitors can do the job, yet the advantages offered by 
+        their different architectures are accompanied by distinct trade-offs. 
+        For instantaneous current monitoring, the wide bandwidth of current-sense 
+        amplifiers is most suitable, while applications monitoring average current 
+        can be easily served by a difference-amplifier topology. In addition, 
+        power-management applications sensitive to current consumption benefit 
+        by a current-sense amplifier with its minimal input power-off bias-current 
+        drain. However, the input structure of high-side current sense amplifiers 
+        may limit performance when implementing external filters and require careful 
+        scrutiny to ensure that their absolute input ratings are not exceeded 
+        in hostile application environments.</p>
+      <div align="center"> 
+        <table class="body" border="1" cellpadding="1" cellspacing="1" width="75%">
+          <tbody><tr> 
+            <td><b>Features</b></td>
+            <td> 
+              <div align="center"><b>Current-Sense 
+                Amplifiers</b></div>
+            </td>
+            <td> 
+              <div align="center"><b>Difference 
+                Amplifiers</b></div>
+            </td>
+          </tr>
+          <tr> 
+            <td>Speed is Ideal for 
+              Monitoring...</td>
+            <td> 
+              <div align="center">Instantaneous 
+                current</div>
+            </td>
+            <td> 
+              <div align="center">Average 
+                current</div>
+            </td>
+          </tr>
+          <tr> 
+            <td>Input CMR (DC)</td>
+            <td> 
+              <div align="center">&gt;100 
+                dB</div>
+            </td>
+            <td> 
+              <div align="center">About 
+                80 dB</div>
+            </td>
+          </tr>
+          <tr> 
+            <td>Input CMR (PWM)</td>
+            <td> 
+              <div align="center">About 
+                80 dB</div>
+            </td>
+            <td> 
+              <div align="center">About 
+                80 dB</div>
+            </td>
+          </tr>
+          <tr> 
+            <td>“Off” Input Bias-Current 
+              Consumption</td>
+            <td> 
+              <div align="center">Very 
+                low</div>
+            </td>
+            <td> 
+              <div align="center">Continuous 
+                leakage in input resistance divider</div>
+            </td>
+          </tr>
+          <tr> 
+            <td>External Filtering</td>
+            <td> 
+              <div align="center">Primarily 
+                “post”</div>
+            </td>
+            <td> 
+              <div align="center">“Pre” 
+                or “post”</div>
+            </td>
+          </tr>
+          <tr> 
+            <td>Input Stress Susceptibility</td>
+            <td> 
+              <div align="center">External 
+                stresses need careful consideration</div>
+            </td>
+            <td> 
+              <div align="center">Typically 
+                robust</div>
+            </td>
+          </tr>
+        </tbody></table>
+      <p class="body">&nbsp;</p>
+        <div align="left">
+          <table align="left" border="0" cellpadding="0" cellspacing="0" height="157" width="80%">
+            <tbody><tr> 
+              <td height="174" width="18%">
+				<img src="high_side_current_sensing_dosyalar/Henri-Sino.jpg" height="171" width="125"></td>
+              <td class="body" height="174" width="82%"> 
+                <p class="body"><b><a name="author"></a>THE 
+                  AUTHOR<a name="author"></a><br>
+                  </b>Henri 
+                  Sino [<a href="mailto:henri.sino@analog.com">henri.sino@analog.com</a>] 
+                  is an applications engineer in the Integrated Amplifier Products 
+                  (IAP) group at Analog Devices in Wilmington, MA. Henri has been 
+                  with ADI for four years, since obtaining a BSEE from Worcester 
+                  Polytechnic Institute. During his time at ADI, Henri has mainly 
+                  focused on supporting products and customers relating to the 
+                  automotive market.<br>
+                  <font face="Times New Roman, Times, serif"><a href="#return">(return 
+                  to top)</a></font></p>
+                </td>
+            </tr>
+          </tbody></table>
+        </div>
+      </div>
+      <p class="body">&nbsp;</p>
+	<p class="body">&nbsp;</p>
+	<p class="body">&nbsp;</p>
+	<p class="body">&nbsp;</p>
+	<p class="body">&nbsp;</p>
+	<p class="body">&nbsp;</p>
+	<table id="table4" bgcolor="#c0c0c0" border="1" cellpadding="10" cellspacing="0" width="100%">
+		<tbody>
+			<tr>
+				<td>
+				<p class="times_14_bold" align="center">Open a Dialogue</p>
+				<p style="margin-top: 0px; margin-bottom: 6px;" class="times_14_bold" align="center">Question the authors. Share information with your colleagues. 
+                              Leave feedback for the editors. </p>
+				<p style="margin-top: 0px; margin-bottom: 6px;" class="body" align="center">What did you think of this article? 
+                              Was it useful, timely, well written?</p>
+				<p style="margin-top: 0px; margin-bottom: 6px;" class="body" align="center">Would you like to see more articles 
+                              on this topic?</p>
+				<p style="margin-top: 0px; margin-bottom: 6px;" class="body" align="center">
+				<strong>Please leave 
+                              your comments at 
+				</strong><a href="http://analogdiablog.blogspot.com/"><strong>Analog 
+                              Diablog</strong></a>.</p>
+			</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<br class="body">
+	<p class="style1">Copyright 1995-<script language="javascript">var today = new Date(); document.write(today.getFullYear());</script>2010
+      <a href="http://www.analog.com/">Analog Devices, Inc.</a> All rights reserved.<a href="#anchor"><img src="high_side_current_sensing_dosyalar/top.gif" align="right" border="0" height="21" width="600"></a></p>
+	  
+   
+  </td></tr>
+</tbody></table>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=311905; 
+var sc_partition=1; 
+</script>
+
+<script type="text/javascript" language="javascript" src="high_side_current_sensing_dosyalar/counter.js"></script><span class="statcounter"><a class="statcounter" href="http://www.statcounter.com/" target="_blank"><img src="high_side_current_sensing_dosyalar/t.gif" alt="StatCounter - Free Web Tracker and Counter" border="0"></a></span>
+
+<noscript><a href="http://www.statcounter.com/free_hit_counter.html"
+target="_blank"><img
+src="http://c2.statcounter.com/counter.php?sc_project=311905&amp;java=0"
+alt="free hit counter" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+<!-- Version 2.0 changed by H.Das -->
+
+<!-- SiteCatalyst code version: G.9.Copyright 1997-2004 Omniture, Inc. More -->
+
+<script language="JavaScript">
+
+// Set the Page name to the englishName unlsess this is the english page
+
+// then set it to the internalTitle.
+
+// Set the channel to the current language presentation
+
+var s_pageName="";
+
+var s_server="";
+
+var s_channel="";
+
+var url = new String(document.location);
+
+
+
+if (document.getElementsByName) 
+
+{
+
+	var metaArray = document.getElementsByName('englishName');
+
+	for (var i=0; i<metaArray.length; i++) 
+	  s_pageName= s_pageName + metaArray[i].content;
+
+}
+
+
+
+if ((url.indexOf("China") > -1) || (url.indexOf("china") > -1))
+
+{
+
+	s_channel="Simplified Chinese";
+
+}
+
+else 
+
+{	if ((url.indexOf("japan") > -1) || (url.indexOf("Japan") > -1))
+
+	{
+
+		s_channel="Japanese";
+
+	}	
+
+	else 
+
+	{
+
+		if ((url.indexOf("russia") > -1) || (url.indexOf("Russia") > -1))
+
+		{
+
+			s_channel="Russian";
+
+		}
+
+		else 
+
+		{
+
+			s_channel="English";
+			
+			if (document.title.indexOf(':')> -1)
+			{
+				var titleParts = document.title.split(':');
+				s_pageName = s_pageName + titleParts[1].substring(1) + ":";
+				for (var i=2; i<titleParts.length; i++) 
+				{
+				     s_pageName = s_pageName + titleParts[i];
+				     if (i != titleParts.length-1)
+				     {
+					 s_pageName= s_pageName + ":";
+				     }
+				}
+                        }
+		}
+
+	}
+
+}
+
+
+
+var s_pageType="";
+
+var s_prop1="";
+
+<!--V2 Begin-->
+
+var s_prop7="";
+
+if ((url.indexOf("/myanalog/") > -1) || (url.indexOf("/MYANALOG/") > -1) || (url.indexOf("/myAnalog/") > -1))
+{
+	s_prop7  ="MyAnalog";
+}
+if ((url.indexOf("/search/") > -1) || (url.indexOf("/Search/") > -1) || (url.indexOf("/SEARCH/") > -1))
+{
+	s_prop7  ="Site Search";
+}
+if ((url.indexOf("/dspkb/") > -1) || (url.indexOf("/DSPKB/") > -1) || (url.indexOf("/Dspkb/") > -1))
+{
+	s_prop7  ="Embedded Processing & DSP Knowledge Base";
+}
+if ((url.indexOf("soundmax") > -1) || (url.indexOf("SOUNDMAX") > -1))
+{
+	s_prop7  ="soundMAX";
+}
+if ((url.indexOf("/registration/") > -1) || (url.indexOf("/Registration/") > -1) || (url.indexOf("/REGISTRATION/") > -1))
+{
+	s_prop7  ="Registration";
+}
+if ((url.indexOf("/Form_Pages/") > -1) || (url.indexOf("/Form_pages/") > -1) || (url.indexOf("/form_pages/") > -1))
+{
+	s_prop7  ="Forms";
+}
+if ((url.indexOf("/cross-reference/") > -1) || (url.indexOf("/CROSS-REFERENCE/") > -1) || (url.indexOf("/Cross-Reference/") > -1))
+{
+	s_prop7  ="Cross Reference";
+}
+if ((url.indexOf("signalChains") > -1) || (url.indexOf("SignalChain") > -1))
+{
+	s_prop7  ="Signal Chains";
+}
+if ((url.indexOf("harteHanks") > -1) || (url.indexOf("HARTEHANKS") > -1) || (url.indexOf("hartehanks") > -1))
+{
+	s_prop7  ="Forms";
+}
+if ((url.indexOf("greenRoom") > -1) || (url.indexOf("GreenRoom") > -1) || (url.indexOf("GREENROOM") > -1))
+{
+	s_prop7  ="Green Room";
+}
+<!--V2 End-->
+
+var s_prop2="";
+
+var s_prop3="";
+
+var s_prop4="";
+
+var s_prop5="";
+
+var s_campaign="";
+
+var s_state="";
+
+var s_zip="";
+
+var s_events="";
+
+//Added for WR-701
+if(url.indexOf("/modify_home_page.asp?action=save")>-1)
+{
+	s_events = "event8";
+}
+
+var s_products="";
+
+var s_purchaseID="";
+
+var s_eVar1="";
+
+var s_eVar2="";
+
+var s_eVar3="";
+
+var s_eVar4="";
+
+var s_eVar5="";
+
+// Set the unique user id by pulling the correct cookie data
+
+var OmniPos = document.cookie.indexOf("ADIOMNITURESTATSCOOKIE=")+23;
+var s_uniqueID = document.cookie.substring(OmniPos, OmniPos+36);
+
+</script>
+
+<script language="JavaScript" src="high_side_current_sensing_dosyalar/omniture.js"></script><img src="high_side_current_sensing_dosyalar/s64824873257033.gif" name="s_i_analogcom" alt="" border="0" height="1" width="1">
+
+<!-- End SiteCatalyst code version: G.9. -->
+
+
+
+
+
+</body></html>

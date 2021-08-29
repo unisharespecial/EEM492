@@ -1,0 +1,51 @@
+
+ROM used: 412 (5%)
+          412 (5%) including unused fragments
+
+          1 Average locations per line
+          3 Average locations per statement
+
+RAM used: 54 (15%) at main() level
+          62 (17%) worst case
+
+Stack used: 3 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  208   133 100  den3.c
+   16     0   0  den3.h
+  326     0   0  16F877A.h
+----- -----
+  550   133 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20   5   1             @delay_ms2
+0      1   0   0     5  1.0  NOPP
+ Inline        2   423  4.3  sensor_start
+0     20   5   0   113  1.3  sensor_end
+0    276  67   8  3035 10.4  nem_oku
+0     91  22   1   325  3.3  MAIN
+
+Program metrics:
+    Functions               5
+    Statements              133
+    Comments                115
+    Volume (V)              4679
+    Difficilty (D)          20.2
+    Effort to implement (E) 94691
+    Time to implement (T)   1 hours, 28 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   11
+    Maintainability (MI)    127
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   408  1636  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

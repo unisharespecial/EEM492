@@ -1,0 +1,548 @@
+'****************************************************************
+'*  Name    : PID_4ch_877a.pbp                                  *
+'*  Authors : Darrel Taylor & Malcolm Crabbe                    *
+'*  Date    : 14/02/2010                                        *
+'*  Version : 1.2                                               *
+'*  Target  : 16F877A @ 20 mhz                                  *
+'*          : four DS18x20 (Family recognition is ON)           *
+'****************************************************************
+CLEAR
+INCLUDE "Hardware.pbp"
+
+;----[Interrupts]-----------------------------------------------------------
+DEFINE WRITE_INT 1
+INCLUDE "DT_INTS-14.bas"            ; Base Interrupt System
+
+ASM
+INT_LIST  macro                     ; IntSource,        Label,  Type, ResetFlag?
+        INT_Handler   TMR1_INT,  HeaterDrive,   ASM,  yes
+    endm
+    INT_CREATE                      ; Creates the interrupt processor
+ENDASM
+
+T1CON = %00000001                   ; free-running, 1:1 prescaler
+@   INT_ENABLE   TMR1_INT           ; enable Timer1 interrupts
+
+;----[DS1820 Options]----Value----Default-----------------------------------
+DEFINE  DS1820_DECIMALS    1      ' 1
+DEFINE  DS1820_VERIFYCRC   YES    ' NO
+INCLUDE "DT18x20.pbp"             ' Include DT18x20 module
+
+PID_Channels CON 4
+INCLUDE "incPID_mc.pbp"            ' Include the multi-channel PID routine.
+
+;----[USART defines]--------------------------------------------------------
+DEFINE HSER_BAUD    115200        ' Hser baud rate 
+DEFINE HSER_RCSTA   90h           ' Hser receive status init 
+DEFINE HSER_TXSTA   24h           ' Hser transmit status init 
+DEFINE HSER_CLROERR 1             ' Hser clear overflow automatically 
+ColumnWidth CON 10
+
+;----[Variables/Aliases]----------------------------------------------------
+RCIF              VAR PIR1.5      ' USART receive flag
+GIE               VAR INTCON.7
+X                 VAR BYTE        ' for terminal cursor position
+Y                 VAR BYTE
+Char              VAR BYTE        ' USART byte received 
+TempWD            VAR WORD        ' temporary WORD variable
+Bvar              VAR BYTE        ' temporary BYTE variable
+TempStr           VAR BYTE[8]
+FlashStar         VAR BIT
+EditChannel       VAR BYTE
+
+Temperatures      VAR WORD[4]
+  Temp1           VAR Temperatures[0]
+  Temp2           VAR Temperatures[1]
+  Temp3           VAR Temperatures[2]
+  Temp4           VAR Temperatures[3]
+  
+spModes           VAR BYTE[4]
+  spMode1         VAR spModes[0]
+  spMode2         VAR spModes[1]
+  spMode3         VAR spModes[2]
+  spMode4         VAR spModes[3]
+  
+SetPoints         VAR WORD[4]
+  SetPoint1       VAR SetPoints[0]
+  SetPoint2       VAR SetPoints[1]
+  SetPoint3       VAR SetPoints[2]
+  SetPoint4       VAR SetPoints[3]
+
+HeatCycle         VAR BYTE  BANK0 SYSTEM
+HeaterDrives      VAR BYTE[4] BANK0 SYSTEM
+  HeatDrive1      VAR HeaterDrives[0]
+  HeatDrive2      VAR HeaterDrives[1]
+  HeatDrive3      VAR HeaterDrives[2]
+  HeatDrive4      VAR HeaterDrives[3]
+
+SensorActive      VAR BIT[4]
+
+;----[EEPROM Data]----------------------------------------------------------
+EE_spMode1        DATA 1          ' 0=Manual mode, temp is set by Pot.
+EE_SetPoint1      DATA WORD 260   ' 26.0 deg. after programming
+EE_pid_Kp1        DATA WORD $0700 ' PID constants
+EE_pid_Ki1        DATA WORD $0080
+EE_pid_Kd1        DATA WORD $0200
+EE_pid_Ti1        DATA 8          ' Update I-term every 8th call to PID
+EE_pid_I_Clamp1   DATA 125        ' Clamp I-term to max ±100
+EE_pid_Out_Clamp1 DATA WORD 255        ' Clamp the final output to ±511
+;---(PID channel 2 defaults)------
+EE_spMode2        DATA 1          ' 0=Manual mode, temp is set by Pot.
+EE_SetPoint2      DATA WORD 260   ' 26.0 deg. after programming
+EE_pid_Kp2        DATA WORD $0700 ' PID constants
+EE_pid_Ki2        DATA WORD $0080
+EE_pid_Kd2        DATA WORD $0200
+EE_pid_Ti2        DATA 8          ' Update I-term every 8th call to PID
+EE_pid_I_Clamp2   DATA 125        ' Clamp I-term to max ±100
+EE_pid_Out_Clamp2 DATA WORD 255   ' Clamp the final output to ±511
+;---(PID channel 3 defaults)------
+EE_spMode3        DATA 1          ' 0=Manual mode, temp is set by Pot.
+EE_SetPoint3      DATA WORD 260   ' 26.0 deg. after programming
+EE_pid_Kp3        DATA WORD $0700 ' PID constants
+EE_pid_Ki3        DATA WORD $0080
+EE_pid_Kd3        DATA WORD $0200
+EE_pid_Ti3        DATA 8          ' Update I-term every 8th call to PID
+EE_pid_I_Clamp3   DATA 125        ' Clamp I-term to max ±100
+EE_pid_Out_Clamp3 DATA WORD 255   ' Clamp the final output to ±511
+;---(PID channel 4 defaults)------
+EE_spMode4        DATA 1          ' 0=Manual mode, temp is set by Pot.
+EE_SetPoint4      DATA WORD 260   ' 26.0 deg. after programming
+EE_pid_Kp4        DATA WORD $0700 ' PID constants
+EE_pid_Ki4        DATA WORD $0080
+EE_pid_Kd4        DATA WORD $0125
+EE_pid_Ti4        DATA 8          ' Update I-term every 8th call to PID
+EE_pid_I_Clamp4   DATA 250        ' Clamp I-term to max ±100
+EE_pid_Out_Clamp4 DATA WORD 255   ' Clamp the final output to ±511
+
+;----[Read EEPROM on Power-Up]----------------------------------------------
+    READ EE_spMode1,        spMode1
+    READ EE_SetPoint1, WORD SetPoint1
+    READ EE_pid_Kp1,   WORD pid_Kp
+    READ EE_pid_Ki1,   WORD pid_Ki
+    READ EE_pid_Kd1,   WORD pid_Kd
+    READ EE_pid_Ti1,        pid_Ti
+    READ EE_pid_I_Clamp1,   pid_I_Clamp
+    READ EE_pid_Out_Clamp1, WORD pid_Out_Clamp
+     
+    READ EE_spMode2,        spMode2
+    READ EE_SetPoint2, WORD SetPoint2
+    READ EE_pid_Kp2,   WORD pid_Kp(1)
+    READ EE_pid_Ki2,   WORD pid_Ki(1)
+    READ EE_pid_Kd2,   WORD pid_Kd(1)
+    READ EE_pid_Ti2,        pid_Ti(1)
+    READ EE_pid_I_Clamp2,   pid_I_Clamp(1)
+    READ EE_pid_Out_Clamp2, WORD pid_Out_Clamp(1)
+    
+    READ EE_spMode3,        spMode3
+    READ EE_SetPoint3, WORD SetPoint3
+    READ EE_pid_Kp3,   WORD pid_Kp(2)
+    READ EE_pid_Ki3,   WORD pid_Ki(2)
+    READ EE_pid_Kd3,   WORD pid_Kd(2)
+    READ EE_pid_Ti3,        pid_Ti(2)
+    READ EE_pid_I_Clamp3,   pid_I_Clamp(2)
+    READ EE_pid_Out_Clamp3, WORD pid_Out_Clamp(2)
+    
+    READ EE_spMode4,        spMode4
+    READ EE_SetPoint4, WORD SetPoint4
+    READ EE_pid_Kp4,   WORD pid_Kp(3)
+    READ EE_pid_Ki4,   WORD pid_Ki(3)
+    READ EE_pid_Kd4,   WORD pid_Kd(3)
+    READ EE_pid_Ti4,        pid_Ti(3)
+    READ EE_pid_I_Clamp4,   pid_I_Clamp(3)
+    READ EE_pid_Out_Clamp4, WORD pid_Out_Clamp(3)
+
+;----[Initialization]-------------------------------------------------------
+    LCDOUT $FE,1:FLAGS=0:PAUSE 250:LCDOUT $FE,1:PAUSE 250 ' Initialize LCD
+
+    GOSUB TerminalMenu                 ' Clear Terminal screen and show menu
+
+    FOR Bvar = 0 to 3                     ; assume all sensors are working
+        SensorActive = 1
+    NEXT Bvar
+        
+    FOR pid_Channel = 0 TO 3              ; Set # of bits in resolution
+        GOSUB SelectSensor                ;   for all sensors
+        GIE = 0                           ; disable interrupts before 1-wire
+        @ DS1820_Resolution 12            
+        GIE = 1                           ; enable interrupts after 1-wire
+    NEXT pid_Channel
+        
+    LOW HeaterOut1                        ; set heater pins to Output
+    LOW HeaterOut2
+    LOW HeaterOut3
+    LOW HeaterOut4
+
+    
+;____[Main Program Loop]____________________________________________________
+Main:
+    FOR pid_Channel = 0 TO 3              ; cycle thru all sensors
+        GOSUB SelectSensor
+        GIE = 0                           ; disable interrupts before 1-wire
+        @  DS1820_Convert                 ;   start a temperature conversion
+        GIE = 1                           ; enable interrupts after 1-wire
+    NEXT pid_Channel
+       
+    FOR TempWD = 0 TO 1000
+        IF RCIF THEN GOSUB Term_RX
+        PAUSE 1
+    NEXT TempWD
+    
+    FOR pid_Channel = 0 TO 3              ; cycle thru all sensors
+        GOSUB SelectSensor
+        DS1820_Error = 0                  ; clear any previous errors
+        DS1820_Flags = 0                  ; clear status flags
+        GIE = 0                           ; disable interrupts before 1-wire
+          @ DS1820_Stat                   ; check the sensors status
+        GIE = 1                           ; enable interrupts after 1-wire
+
+        IF !DS1820_Done THEN SensorError  ; if it's not done by now, error
+        GIE = 0                           ; disable interrupts before 1-wire
+          @ DS1820_Read                   ;   get the temperature result
+        GIE = 1                           ; enable interrupts after 1-wire
+
+        DS1820_Flags = 0
+        @ DS1820_Stat
+        IF (DS1820_Error = 0) AND DS1820_Done THEN          ; if there were no errors
+            Temperatures(pid_Channel) = TempC
+            pid_Error = SetPoints(pid_Channel) - TempC
+            GOSUB PID
+            IF pid_Out.15 THEN pid_Out = 0    ; only keep positive values
+            HeaterDrives(pid_Channel) = pid_Out
+            GOSUB DisplayPID
+            GOSUB ShowLCD
+        ELSE
+    SensorError:
+           HeaterDrives(pid_Channel) = 0  ; turn off heater if sensor's bad
+           SensorActive(pid_Channel) = 0
+           GOSUB ShowError                ; display error message
+        ENDIF
+    NEXT pid_Channel
+    X=1 : Y=22 : GOSUB MoveCursor
+
+    ;------------------------------------; flash a star to show sample time
+    LCDOUT $FE,$8F,("*"&FlashStar*$FF)|(" "&~(FlashStar*$FF))
+    FlashStar = !FlashStar               
+                                         
+GOTO Main                                
+
+;----------------    
+ShowLCD:
+    LOOKUP pid_Channel,[$80,$C0,$88,$C8],Bvar               ; Find location
+    LCDOUT $FE,Bvar,DEC1 pid_Channel+1,"=" ; print to LCD
+    TempWD = TempC : GOSUB TempToLCD      ; display TempC
+    LCDOUT $DF                            ; deg symbol
+        
+RETURN
+
+
+;---------------------------------------------------------------------------
+SelectSensor:
+  SELECT CASE pid_Channel
+    CASE 0 : @ DS1820_Select  _TempSensor1   ; Select the DS18x20 pin
+    CASE 1 : @ DS1820_Select  _TempSensor2
+    CASE 2 : @ DS1820_Select  _TempSensor3
+    CASE 3 : @ DS1820_Select  _TempSensor4
+  END SELECT  
+RETURN
+
+;----[TMR1 interrupt handler]-----------------------------------------------
+ASM
+HeaterDrive
+      incf    HeatCycle,F       ; HeatCycle
+
+      movf    _HeatDrive1,W      ; HeatDrive1
+      subwf   HeatCycle,w
+      btfsc   STATUS,C
+      bcf     _HeaterOut1
+      btfss   STATUS,C
+      bsf     _HeaterOut1
+      
+      movf    _HeatDrive2,W      ; HeatDrive2
+      subwf   HeatCycle,w
+      btfsc   STATUS,C
+      bcf     _HeaterOut2
+      btfss   STATUS,C
+      bsf     _HeaterOut2
+
+      movf    _HeatDrive3,W      ; HeatDrive3
+      subwf   HeatCycle,w
+      btfsc   STATUS,C
+      bcf     _HeaterOut3
+      btfss   STATUS,C
+      bsf     _HeaterOut3
+
+      movf    _HeatDrive4,W      ; HeatDrive4
+      subwf   HeatCycle,w
+      btfsc   STATUS,C
+      bcf     _HeaterOut4
+      btfss   STATUS,C
+      bsf     _HeaterOut4
+
+  INT_RETURN
+ENDASM
+
+;----[Display TempWD on LCD]------------------------------------------------
+TempToLCD:
+    IF TempWD.15 THEN LCDOUT "-"          ; if negative, display minus sign
+    TempWD = ABS(TempWD)                  ; get the positive value
+    LCDOUT DEC TempWD/DS1820_DIG          ; Display the Integer portion
+@   if (DS1820_DECIMALS > 0)              ; if using decimals
+        LCDOUT "."                        ;   display decimal point
+        TempWD = TempWD//DS1820_DIG       ;   get decimal portion
+@       if (DS1820_DECIMALS > 1)          ; with DECIMALS=2, next DIG is 1
+            LCDOUT  DEC1 TempWD DIG 1 
+@       endif
+@       if (DS1820_DECIMALS >= 1)         ; with DECIMALS=1, next DIG is 0
+            LCDOUT  DEC1 TempWD DIG 0 
+@       endif
+@   endif
+RETURN
+
+;----[handle incoming serial Terminal data]---------------------------------
+Term_RX:
+    HSERIN [Char]
+    SELECT CASE Char
+        CASE "R","r"   ' Refresh
+            GOSUB TerminalMenu
+        CASE "S","s"   ' Enter Setpoint
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter SetPoint ... (340=34.0",$F8,"): "]
+            HSERIN [DEC SetPoints(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_SetPoint1,EE_SetPoint2, _
+                                 EE_SetPoint3,EE_SetPoint4],Bvar
+            WRITE Bvar, WORD SetPoints(EditChannel)
+        CASE "P","p"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter P term as HEX4 ... : "]
+            HSERIN [HEX4 pid_Kp(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_pid_Kp1,EE_pid_Kp2, _
+                                 EE_pid_Kp3,EE_pid_Kp4],Bvar
+            WRITE Bvar, WORD pid_Kp(EditChannel)
+        
+        CASE "I","i"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter I term as HEX4 ... : "]
+            HSERIN [HEX4 pid_Ki(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_pid_Ki1,EE_pid_Ki2, _
+                                 EE_pid_Ki3,EE_pid_Ki4],Bvar
+            WRITE Bvar, WORD pid_Ki(EditChannel)
+        
+        CASE "D","d"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter D term as HEX4 ... : "]
+            HSERIN [HEX4 pid_Kd(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_pid_Kd1,EE_pid_Kd2, _
+                                 EE_pid_Kd3,EE_pid_Kd4],Bvar
+            WRITE Bvar, WORD pid_Kd(EditChannel)
+        
+        CASE "T","t"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter Ti term as DEC ... : "]
+            HSERIN [DEC pid_Ti(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_pid_Ti1,EE_pid_Ti2, _
+                                 EE_pid_Ti3,EE_pid_Ti4],Bvar
+            WRITE Bvar, pid_Ti(EditChannel)
+
+        CASE "C","c"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter I term Clamp as DEC ... : "]
+            HSERIN [DEC pid_I_Clamp(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_pid_I_Clamp1,EE_pid_I_Clamp2, _
+                                 EE_pid_I_Clamp3,EE_pid_I_Clamp4],Bvar
+            WRITE Bvar, WORD pid_I_Clamp(EditChannel)
+         
+        CASE "O","o"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Enter Output Clamp as DEC ... : "]
+            HSERIN [DEC pid_Out_Clamp(EditChannel)]
+            GOSUB  TerminalMenu
+            LOOKUP2 EditChannel,[EE_pid_Out_Clamp1,EE_pid_Out_Clamp2, _
+                                 EE_pid_Out_Clamp3,EE_pid_Out_Clamp4],Bvar
+            WRITE Bvar, WORD pid_Out_Clamp(EditChannel)
+        CASE "M","m"
+            X=1 : Y=22 : GOSUB MoveCursor
+            HSEROUT ["Manual Mode not available.      "]
+
+        CASE "1","2","3","4"                       ; select channel
+            IF EditChannel != Char -49 THEN
+                GOSUB ClearBox
+                EditChannel = Char -49
+                GOSUB DrawBox
+            ENDIF
+        CASE ELSE
+            HSEROUT [7]     ; bad key, send Bell
+    END SELECT
+RETURN
+
+TerminalMenu:
+    HSEROUT [27,"[2J",27,"[32m","Heater Controller Tuner",27,"[30m",13,10,10]
+    HSEROUT [27,"[K","Temperature  : ",13,10]
+    HSEROUT [27,"[K","SetPoint     : ",13,10]
+    HSEROUT [27,"[K","Error        : ",13,10]
+    HSEROUT [27,"[K","Output Drive : ",13,10,10]
+    HSEROUT [27,"[K","           P : ",13,10]
+    HSEROUT [27,"[K","           I : ",13,10]
+    HSEROUT [27,"[K","           D : ",13,10]
+    
+    FOR Bvar = 0 TO 3
+        X=17+(Bvar*ColumnWidth) : Y=4 : GOSUB MoveCursor
+        TempWD = SetPoints(Bvar)
+        GOSUB TempToTerminal
+    NEXT Bvar
+    
+;RETURN
+
+TerminalPIDvars:
+    X=1 : Y=13 : GOSUB MoveCursor
+    HSEROUT [27,"[K","M) spMode    : ",13,10]
+    HSEROUT [27,"[K","P) pid_Kp    : ",13,10]
+    HSEROUT [27,"[K","I) pid_Ki    : ",13,10]
+    HSEROUT [27,"[K","D) pid_Kd    : ",13,10]
+    HSEROUT [27,"[K","T) pid_Ti    : ",13,10]
+    HSEROUT [27,"[K","C) I_Clamp   : ",13,10]
+    HSEROUT [27,"[K","O) Out_Clamp : ",13,10]
+
+    FOR Bvar = 0 TO 3
+        X=17+(Bvar*ColumnWidth) : Y=13 : GOSUB MoveCursor
+        IF spMode1 THEN
+           HSEROUT ["PC "]
+        ELSE
+           HSEROUT ["POT"]
+        ENDIF
+        HSEROUT [13,10]
+        Y=14 : GOSUB MoveCursor
+        HSEROUT [IHEX4 pid_Kp(Bvar),13,10]
+        Y=15 : GOSUB MoveCursor
+        HSEROUT [IHEX4 pid_Ki(Bvar),13,10]
+        Y=16 : GOSUB MoveCursor
+        HSEROUT [IHEX4 pid_Kd(Bvar),13,10]
+        Y=17 : GOSUB MoveCursor
+        HSEROUT [DEC pid_Ti(Bvar),13,10]
+        Y=18 : GOSUB MoveCursor
+        HSEROUT [DEC pid_I_Clamp(Bvar),13,10]
+        Y=19 : GOSUB MoveCursor
+        HSEROUT [DEC pid_Out_Clamp(Bvar),13,10]
+    NEXT Bvar
+    
+    HSEROUT [27,"[21;1H","Menu: Channel(1-4), Edit(MPIDTCO), S=enter SetPoint, R=Refresh"]
+GOSUB DrawBox
+RETURN
+
+TempToTerminal:
+    IF TempWD.15 THEN HSEROUT ["-"]       ; if negative, display minus sign
+    TempWD = ABS(TempWD)                  ; get the positive value
+    HSEROUT [DEC TempWD/DS1820_DIG]          ; Display the Integer portion
+@   if (DS1820_DECIMALS > 0)              ; if using decimals
+        HSEROUT ["."]                        ;   display decimal point
+        TempWD = TempWD//DS1820_DIG       ;   get decimal portion
+@       if (DS1820_DECIMALS > 1)          ; with DECIMALS=2, next DIG is 1
+            HSEROUT [DEC1 TempWD DIG 1] 
+@       endif
+@       if (DS1820_DECIMALS >= 1)         ; with DECIMALS=1, next DIG is 0
+            HSEROUT [DEC1 TempWD DIG 0] 
+@       endif
+@   endif
+RETURN
+
+
+DisplayPID:
+    Y = 5 : GOSUB ColumnData
+    TempWD = pid_Error                ; Display the error value
+    GOSUB TempToTerminal 
+    HSEROUT ["  "]
+             
+    Y = 3 : GOSUB ColumnData
+    TempWD = TempC
+    GOSUB TempToTerminal
+    HSEROUT ["  "]
+    
+    Y = 6 : GOSUB ColumnData
+    HSEROUT [DEC HeaterDrives(pid_Channel),"  "]
+    IF HeaterDrives(pid_Channel) = pid_Out_Clamp(pid_Channel) THEN
+        GOSUB ColumnData
+        HSEROUT [27,"[4C",27,"[31m","CL",27,"[30m"]
+    ELSE
+        GOSUB ColumnData
+        HSEROUT [27,"[4C","  "]
+    ENDIF
+
+    Y = 8 : GOSUB ColumnData
+    HSEROUT [SDEC pid_P,"  "]
+
+    Y = 9 : GOSUB ColumnData
+    HSEROUT [SDEC pid_I(pid_Channel),"  "]
+    IF pid_i(pid_Channel) = pid_I_Clamp(pid_Channel) THEN
+        GOSUB ColumnData
+        HSEROUT [27,"[4C",27,"[31m","CL ",27,"[30m"]
+    ELSE
+        GOSUB ColumnData
+        HSEROUT [27,"[4C","   "]
+    ENDIF
+
+    Y = 10: GOSUB ColumnData
+    HSEROUT [SDEC pid_D,"  "]
+
+    
+RETURN
+
+;----[Display Sensor Error]-------------------------------------------------
+ShowError:
+    LOOKUP pid_Channel,[$83,$C3,$8B,$CB],Bvar               ; Find location
+    LCDOUT $FE,Bvar,"ERR"                                   ; print to LCD
+
+    X=17+(pid_Channel*ColumnWidth) : Y=3 : GOSUB MoveCursor ; Find location
+    HSEROUT ["Error"]                                       ; print to term.
+RETURN
+
+;----[Set Cursor according to Columns]--------------------------------------
+ColumnData:
+    X=17+(pid_Channel*ColumnWidth)
+
+;----[Move Cursor in ANSI terminal]---(set X and Y first)-------------------
+MoveCursor:
+    HSEROUT [27,"[",DEC Y,";",DEC X,"H"]      ; ESC [yy;xxH
+RETURN
+
+;----[Draw Box]-------------------------------------------------------------
+
+TL  CON $DA
+HL  CON $C4
+TR  CON $BF
+VL  CON $B3
+BL  CON $C0
+BR  CON $D9
+
+DrawBox:
+    X = 15 + (EditChannel * ColumnWidth): Y = 2 : GOSUB MoveCursor
+    HSEROUT [27,"[35m"]                                  ; box color
+    HSEROUT [TL,REP HL\ColumnWidth-2,TR]                 ; top
+    FOR Y = 3 TO 19                                      ; sides
+        GOSUB MoveCursor
+        HSEROUT [VL,27,"[",DEC ColumnWidth-2,"C",VL]
+    NEXT Y
+    Y = 20 : GOSUB MoveCursor
+    HSEROUT [BL,REP HL\ColumnWidth-2,BR]                 ; bottom
+    HSEROUT [27,"[30m"]                                  ; black text
+RETURN
+
+ClearBox:
+    X = 15 + (EditChannel * ColumnWidth) : Y = 2 : GOSUB MoveCursor
+    HSEROUT [REP " "\ColumnWidth]
+    FOR Y = 3 TO 19
+        GOSUB MoveCursor
+        HSEROUT [" ",27,"[",DEC ColumnWidth-2,"C"," "]
+    NEXT Y
+    Y = 20 : GOSUB MoveCursor
+    HSEROUT [REP " "\ColumnWidth]
+
+RETURN
+
+
+
+

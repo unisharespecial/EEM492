@@ -1,0 +1,11 @@
+
+#fadewindows\fadewindows_archin.txt
+
+setcolour
+0
+49
+white
+bright
+
+donothing
+100

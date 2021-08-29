@@ -1,0 +1,10 @@
+setvariable
+usecolour
+randomcolour
+0
+0
+
+donothing
+1
+
+#onebulb\onebulb_archin.txt

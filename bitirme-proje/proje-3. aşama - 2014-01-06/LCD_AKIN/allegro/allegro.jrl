@@ -1,0 +1,49 @@
+\t (00:00:01) allegro 16.5 S017 (v16-5-13AQ) i86
+\t (00:00:01)     Journal start - Sat Jan 04 22:55:13 2014
+\t (00:00:01)         Host=ABBAS-1F4E3CB8F User=Administrator Pid=1412 CPUs=1
+\t (00:00:01) 
+\t (00:00:03) Opening existing design...
+\d (00:00:03) Database opened: C:/Orcad16/Eski_Projeler/LCD_AKIN/allegro/LCD.brd
+\i (00:00:03) trapsize 23545
+\i (00:00:04) trapsize 23126
+\i (00:00:04) trapsize 23617
+\i (00:00:04) trapsize 21051
+\i (00:00:04) trapsize 21051
+\i (00:00:04) etchedit 
+\i (00:00:08) artwork 
+\i (00:00:10) setwindow form.film_control
+\i (00:00:10) FORM film_control filmtree 'MULTISEL YES' BOARDOUT 
+\i (00:00:10) FORM film_control filmtree 'MULTISEL YES' BOTTOM 
+\i (00:00:10) FORM film_control filmtree  BOTTOM 
+\i (00:00:10) FORM film_control filmtree 'MULTISEL YES' TOP 
+\i (00:00:10) FORM film_control filmtree  TOP 
+\i (00:00:23) FORM film_control general_parameters  
+\i (00:00:26) FORM film_control film_control  
+\i (00:00:33) FORM film_control filmtree  BOARDOUT 
+\i (00:00:38) FORM film_control filmtree  BOTTOM 
+\i (00:00:41) FORM film_control filmtree  TOP 
+\i (00:00:42) FORM film_control filmtree  BOARDOUT 
+\i (00:00:46) FORM film_control undefined_line_width 10 
+\i (00:00:46) FORM film_control filmtree  BOTTOM 
+\i (00:00:47) FORM film_control filmtree  TOP 
+\i (00:00:48) FORM film_control filmtree  BOARDOUT 
+\i (00:00:50) FORM film_control create  
+\t (00:00:50) Checking db records
+\t (00:00:50)     checking for orphans...
+\t (00:00:50)     Checked 100 percent
+\w (00:00:50) Run batch DRC to correctly regenerate DRC errs.
+
+\t (00:00:50) Done dbdoctor.
+\t (00:00:50) Starting Create artwork films...
+\w (00:00:51) WARNING(SPMHGE-269): artwork had warnings, use Viewlog to review the log file.
+\w (00:00:52) Artwork generated with warnings.
+\i (00:00:54) setwindow text
+\i (00:00:54) close 
+\i (00:00:54) setwindow form.film_control
+\i (00:00:54) FORM film_control ok  
+\i (00:00:55) setwindow pcb
+\i (00:00:55) etchedit 
+\i (00:00:56) exit 
+\e (00:00:56) Do you want to save the changes you made to LCD.brd?
+\i (00:00:57) fillin yes 
+\t (00:00:57)     Journal end - Sat Jan 04 22:56:09 2014

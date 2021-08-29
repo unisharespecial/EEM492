@@ -1,0 +1,1361 @@
+Archive member included because of file (symbol)
+
+C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                              ./Main.o (HardwareSerial::begin(long))
+C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o) (Print::write(char const*))
+C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (String::operator[](unsigned int) const)
+C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                              ./Main.o (delay)
+C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+                              ./Main.o (pinMode)
+C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o) (port_to_mode_PGM)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o) (__mulsi3)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o) (__divmodhi4)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o) (__udivmodsi4)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o (exit)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                              ./Main.o (__do_copy_data)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o) (__do_clear_bss)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o) (__do_global_ctors)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__fixunssfsi)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__subsf3)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__mulsf3)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__divsf3)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o) (__gesf2)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__ltsf2)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__floatsisf)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__fixsfsi)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__thenan_sf)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o) (__floatunsisf)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__prologue_saves__)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__epilogue_restores__)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o) (__tablejump__)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o) (__clzsi2)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__pack_f)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__unpack_f)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o) (__fpcmp_parts_f)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o) (__clz_tab)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (malloc)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (isspace)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (tolower)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (toupper)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strcat)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strchr)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strcmp)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strcpy)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strncmp)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strncpy)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strrchr)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (strstr)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (itoa)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (ltoa)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o) (ultoa)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o) (__ctype_isfalse)
+c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o) (strrev)
+
+Allocating common symbols
+Common symbol       size              file
+
+__brkval            0x2               c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__flp               0x2               c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+
+Discarded input sections
+
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .text          0x00000000        0x0 ./Main.o
+ .bss           0x00000000        0x0 ./Main.o
+ .text          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .data          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .bss           0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .text._ZN14HardwareSerialC2EP11ring_bufferPVhS3_S3_S3_S3_hhhhh
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .text._ZN14HardwareSerialC1EP11ring_bufferPVhS3_S3_S3_S3_hhhhh
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .text._ZN14HardwareSerial3endEv
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .rodata._ZTV6Stream
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .text          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .data          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .bss           0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printERK6String
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printEmi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printEji
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printEhi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printEii
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printEci
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEmi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEji
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEhi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnERK6String
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEli
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEii
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEci
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print10printFloatEdh
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print5printEdi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text._ZN5Print7printlnEdi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .rodata._ZTV5Print
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+ .text          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .data          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .bss           0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String6charAtEj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String9setCharAtEjc
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringixEj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringixEj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String11toCharArrayEPcj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String8getBytesEPhj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringD1Ev
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String10startsWithERKS_j
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String10startsWithERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String11lastIndexOfEcj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String11lastIndexOfEc
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String7indexOfERKS_j
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String7indexOfERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String7indexOfEcj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String7indexOfEc
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String6equalsERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String8endsWithERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringgeERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringleERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringgtERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringltERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringneERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6StringeqERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String9compareToERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String9getBufferEj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringpLERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String6concatERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringaSERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1Eh
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2Eh
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1Ec
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2Ec
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1ERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2ERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1Emi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2Emi
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1Eji
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2Eji
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1EPKc
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String11toUpperCaseEv
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String11toLowerCaseEv
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String16equalsIgnoreCaseERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String9substringEjj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String9substringEj
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String11lastIndexOfERKS_j
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String11lastIndexOfERKS_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZNK6String4trimEv
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String7replaceERKS_S1_
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6String7replaceEcc
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2EPKc
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1Eli
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2Eli
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC1Eii
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text._ZN6StringC2Eii
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .bss._ZZN6StringixEjE19dummy_writable_char
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ .text          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+ .data          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+ .bss           0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+ .text.millis   0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+ .text.delayMicroseconds
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+ .text          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+ .data          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+ .bss           0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+ .text.digitalRead
+                0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+ .text          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+ .data          0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+ .bss           0x00000000        0x0 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text.libgcc   0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .text.libgcc   0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .text.libgcc   0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ COMMON         0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+ .text          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .data          0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .bss           0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .text.avr-libc
+                0x00000000        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+LOAD ./Main.o
+LOAD C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a
+LOAD c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+LOAD c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
+LOAD c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0xaf2
+ *(.vectors)
+ .vectors       0x00000000       0x68 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000068       0x5a C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                0x00000068                port_to_mode_PGM
+                0x00000086                digital_pin_to_port_PGM
+                0x0000009a                digital_pin_to_bit_mask_PGM
+                0x00000072                port_to_output_PGM
+                0x0000007c                port_to_input_PGM
+                0x000000ae                digital_pin_to_timer_PGM
+                0x000000c2                . = ALIGN (0x2)
+                0x000000c2                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000000c2        0x0 linker stubs
+ *(.trampolines*)
+                0x000000c2                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000000c2                __ctors_start = .
+ *(.ctors)
+ .ctors         0x000000c2        0x2 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x000000c4                __ctors_end = .
+                0x000000c4                __dtors_start = .
+ *(.dtors)
+                0x000000c4                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000000c4        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x000000c4                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000000c4        0xc c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000000d0       0x16 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x000000d0                __do_copy_data
+ .init4         0x000000e6       0x10 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x000000e6                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ .init6         0x000000f6       0x16 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                0x000000f6                __do_global_ctors
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000010c        0x8 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init9)
+ *(.text)
+ .text          0x00000114        0x4 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000114                __vector_22
+                0x00000114                __vector_1
+                0x00000114                __vector_24
+                0x00000114                __vector_12
+                0x00000114                __bad_interrupt
+                0x00000114                __vector_6
+                0x00000114                __vector_3
+                0x00000114                __vector_23
+                0x00000114                __vector_25
+                0x00000114                __vector_11
+                0x00000114                __vector_13
+                0x00000114                __vector_17
+                0x00000114                __vector_19
+                0x00000114                __vector_7
+                0x00000114                __vector_5
+                0x00000114                __vector_4
+                0x00000114                __vector_9
+                0x00000114                __vector_2
+                0x00000114                __vector_21
+                0x00000114                __vector_15
+                0x00000114                __vector_8
+                0x00000114                __vector_14
+                0x00000114                __vector_10
+                0x00000114                __vector_20
+                0x00000118                . = ALIGN (0x2)
+ *(.text.*)
+ .text.main     0x00000118       0x52 ./Main.o
+                0x00000118                main
+ .text.__vector_18
+                0x0000016a       0x7a C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x0000016a                __vector_18
+ .text._ZN14HardwareSerial5beginEl
+                0x000001e4      0x1e2 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x000001e4                HardwareSerial::begin(long)
+ .text._ZN14HardwareSerial9availableEv
+                0x000003c6       0x28 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x000003c6                HardwareSerial::available()
+ .text._ZN14HardwareSerial4peekEv
+                0x000003ee       0x34 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x000003ee                HardwareSerial::peek()
+ .text._ZN14HardwareSerial4readEv
+                0x00000422       0x50 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x00000422                HardwareSerial::read()
+ .text._ZN14HardwareSerial5flushEv
+                0x00000472       0x18 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x00000472                HardwareSerial::flush()
+ .text._ZN14HardwareSerial5writeEh
+                0x0000048a       0x26 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x0000048a                HardwareSerial::write(unsigned char)
+ .text._GLOBAL__I_rx_buffer
+                0x000004b0       0x74 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+ .text._ZN5Print5writeEPKc
+                0x00000524       0x30 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x00000524                Print::write(char const*)
+ .text._ZN5Print5writeEPKhj
+                0x00000554       0x3e C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x00000554                Print::write(unsigned char const*, unsigned int)
+ .text._ZN5Print5printEPKc
+                0x00000592       0x10 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x00000592                Print::print(char const*)
+ .text._ZN5Print11printNumberEmh
+                0x000005a2      0x130 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x000005a2                Print::printNumber(unsigned long, unsigned char)
+ .text._ZN5Print5printEli
+                0x000006d2       0x6c C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x000006d2                Print::print(long, int)
+ .text._ZN5Print7printlnEv
+                0x0000073e       0x2e C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x0000073e                Print::println()
+ .text._ZN5Print7printlnEPKc
+                0x0000076c       0x16 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                0x0000076c                Print::println(char const*)
+ .text.__vector_16
+                0x00000782       0x90 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                0x00000782                __vector_16
+ .text.micros   0x00000812       0x4c C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                0x00000812                micros
+ .text.delay    0x0000085e       0x4c C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                0x0000085e                delay
+ .text.init     0x000008aa       0x74 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                0x000008aa                init
+ .text.pinMode  0x0000091e       0x4c C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+                0x0000091e                pinMode
+ .text.digitalWrite
+                0x0000096a       0xa8 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+                0x0000096a                digitalWrite
+ .text.libgcc   0x00000a12       0x3e c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                0x00000a12                __mulsi3
+ .text.libgcc   0x00000a50       0x26 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x00000a50                __divmodhi4
+                0x00000a50                _div
+ .text.libgcc   0x00000a76       0x44 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                0x00000a76                __udivmodsi4
+ .text.libgcc   0x00000aba       0x28 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000aba                __udivmodhi4
+ .text.libgcc   0x00000ae2        0xc c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                0x00000ae6                __tablejump__
+                0x00000ae2                __tablejump2__
+                0x00000aee                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000aee        0x0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00000aee                exit
+                0x00000aee                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000aee        0x4 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000af2                _etext = .
+
+.data           0x00800100       0x1a load address 0x00000af2
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x7 ./Main.o
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ .rodata._ZTV14HardwareSerial
+                0x00800107       0x12 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x00800107                vtable for HardwareSerial
+ *(.gnu.linkonce.d*)
+                0x0080011a                . = ALIGN (0x2)
+ *fill*         0x00800119        0x1 00
+                0x0080011a                _edata = .
+                0x0080011a                PROVIDE (__data_end, .)
+
+.bss            0x0080011a       0xa0
+                0x0080011a                PROVIDE (__bss_start, .)
+ *(.bss)
+ *(.bss*)
+ .bss.rx_buffer
+                0x0080011a       0x84 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x0080011a                rx_buffer
+ .bss.Serial    0x0080019e       0x13 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                0x0080019e                Serial
+ .bss.timer0_overflow_count
+                0x008001b1        0x4 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                0x008001b1                timer0_overflow_count
+ .bss.timer0_millis
+                0x008001b5        0x4 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                0x008001b5                timer0_millis
+ .bss.timer0_fract
+                0x008001b9        0x1 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+ *(COMMON)
+                0x008001ba                PROVIDE (__bss_end, .)
+                0x00000af2                __data_load_start = LOADADDR (.data)
+                0x00000b0c                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008001ba        0x0
+                0x008001ba                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008001ba                PROVIDE (__noinit_end, .)
+                0x008001ba                _end = .
+                0x008001ba                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x1a0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_aranges
+                0x00000020       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_aranges
+                0x00000040       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_aranges
+                0x00000060       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_aranges
+                0x00000080       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_aranges
+                0x000000a0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_aranges
+                0x000000c0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_aranges
+                0x000000e0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_aranges
+                0x00000100       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_aranges
+                0x00000120       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_aranges
+                0x00000140       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_aranges
+                0x00000160       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_aranges
+                0x00000180       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+
+.debug_pubnames
+                0x00000000      0x1f6
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x23 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_pubnames
+                0x00000023       0x2c c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_pubnames
+                0x0000004f       0x1f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_pubnames
+                0x0000006e       0x1f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_pubnames
+                0x0000008d       0x1e c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_pubnames
+                0x000000ab       0x1e c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_pubnames
+                0x000000c9       0x22 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_pubnames
+                0x000000eb       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_pubnames
+                0x0000010b       0x22 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .debug_pubnames
+                0x0000012d       0x24 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_pubnames
+                0x00000151       0x1f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_pubnames
+                0x00000170       0x1f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_pubnames
+                0x0000018f       0x21 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_pubnames
+                0x000001b0       0x26 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .debug_pubnames
+                0x000001d6       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+
+.debug_info     0x00000000     0x2393
+ *(.debug_info)
+ .debug_info    0x00000000       0xb1 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_info    0x000000b1      0x47a c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_info    0x0000052b      0x485 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_info    0x000009b0      0x3fc c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_info    0x00000dac      0x27f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_info    0x0000102b      0x27f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_info    0x000012aa      0x207 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_info    0x000014b1      0x2b0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_info    0x00001761      0x12c c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .debug_info    0x0000188d      0x206 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_info    0x00001a93      0x117 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_info    0x00001baa      0x2df c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_info    0x00001e89      0x251 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_info    0x000020da      0x210 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .debug_info    0x000022ea       0xa9 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000     0x1374
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0x5d c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_abbrev  0x0000005d      0x1ea c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_abbrev  0x00000247      0x21b c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_abbrev  0x00000462      0x216 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_abbrev  0x00000678      0x15a c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_abbrev  0x000007d2      0x15a c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_abbrev  0x0000092c      0x148 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_abbrev  0x00000a74      0x17f c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_abbrev  0x00000bf3       0xad c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .debug_abbrev  0x00000ca0      0x157 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_abbrev  0x00000df7       0xc4 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x00000ebb      0x1c0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_abbrev  0x0000107b      0x154 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_abbrev  0x000011cf      0x13b c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .debug_abbrev  0x0000130a       0x6a c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+
+.debug_line     0x00000000     0x1238
+ *(.debug_line)
+ .debug_line    0x00000000       0xa7 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_line    0x000000a7      0x2af c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_line    0x00000356      0x239 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_line    0x0000058f      0x1d5 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_line    0x00000764       0xd3 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_line    0x00000837       0xd3 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_line    0x0000090a      0x135 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_line    0x00000a3f      0x109 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_line    0x00000b48       0x90 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .debug_line    0x00000bd8      0x133 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_line    0x00000d0b       0xa5 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_line    0x00000db0      0x18a c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_line    0x00000f3a      0x14b c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_line    0x00001085      0x137 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .debug_line    0x000011bc       0x7c c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+
+.debug_frame    0x00000000      0x1c0
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_frame   0x00000020       0x40 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_frame   0x00000060       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_frame   0x00000080       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_frame   0x000000a0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_frame   0x000000c0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_frame   0x000000e0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_frame   0x00000100       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_frame   0x00000120       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_frame   0x00000140       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_frame   0x00000160       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_frame   0x00000180       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_frame   0x000001a0       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+
+.debug_str      0x00000000      0x2ff
+ *(.debug_str)
+ .debug_str     0x00000000       0xbf c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+                                 0xfe (size before relaxing)
+ .debug_str     0x000000bf      0x14d c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+                                0x206 (size before relaxing)
+ .debug_str     0x0000020c       0x27 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                0x1bf (size before relaxing)
+ .debug_str     0x00000233       0x35 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                0x1c8 (size before relaxing)
+ .debug_str     0x00000268        0x8 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+                                0x195 (size before relaxing)
+ .debug_str     0x00000270        0x8 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                                0x195 (size before relaxing)
+ .debug_str     0x00000278       0x1e c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+                                0x17b (size before relaxing)
+ .debug_str     0x00000296        0xa c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+                                0x19e (size before relaxing)
+ .debug_str     0x00000000      0x103 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .debug_str     0x000002a0       0x14 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                                0x177 (size before relaxing)
+ .debug_str     0x000002b4       0x20 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+                                0x111 (size before relaxing)
+ .debug_str     0x000002d4       0x10 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+                                0x19d (size before relaxing)
+ .debug_str     0x000002e4        0xb c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+                                0x17f (size before relaxing)
+ .debug_str     0x000002ef       0x10 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+                                0x163 (size before relaxing)
+ .debug_str     0x00000000       0xf4 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+
+.debug_loc      0x00000000      0x9de
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x34 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .debug_loc     0x00000034      0x32a c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .debug_loc     0x0000035e      0x104 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .debug_loc     0x00000462       0xc0 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .debug_loc     0x00000522       0x3c c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .debug_loc     0x0000055e       0x3c c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .debug_loc     0x0000059a       0xac c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+ .debug_loc     0x00000646       0x7e c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .debug_loc     0x000006c4       0x4c c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+ .debug_loc     0x00000710       0x94 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+ .debug_loc     0x000007a4      0x13e c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .debug_loc     0x000008e2       0xac c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .debug_loc     0x0000098e       0x50 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(BlinkenLights.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000       0x50
+ .debug_ranges  0x00000000       0x50 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+
+Cross Reference Table
+
+Symbol                                            File
+HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::HardwareSerial(ring_buffer*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char volatile*, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::available()                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::begin(long)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                                                  ./Main.o
+HardwareSerial::end()                             C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::flush()                           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::peek()                            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::read()                            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+HardwareSerial::write(unsigned char)              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+Print::print(String const&)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(char const*)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(char, int)                           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(double, int)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(int, int)                            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(long, int)                           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(unsigned char, int)                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(unsigned int, int)                   C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::print(unsigned long, int)                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::printFloat(double, unsigned char)          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::printNumber(unsigned long, unsigned char)  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println()                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(String const&)                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(char const*)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                                                  ./Main.o
+Print::println(char, int)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(double, int)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(int, int)                          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(long, int)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(unsigned char, int)                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(unsigned int, int)                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::println(unsigned long, int)                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+Print::write(char const*)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+Print::write(unsigned char const*, unsigned int)  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+Serial                                            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                                                  ./Main.o
+String::String(String const&)                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(String const&)                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(char const*)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(char const*)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(char)                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(char)                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(int, int)                          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(int, int)                          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(long, int)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(long, int)                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(unsigned char)                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(unsigned char)                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(unsigned int, int)                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(unsigned int, int)                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(unsigned long, int)                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::String(unsigned long, int)                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::charAt(unsigned int) const                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::compareTo(String const&) const            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::concat(String const&)                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::endsWith(String const&) const             C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::equals(String const&) const               C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::equalsIgnoreCase(String const&) const     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::getBuffer(unsigned int)                   C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::getBytes(unsigned char*, unsigned int)    C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::indexOf(String const&) const              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::indexOf(String const&, unsigned int) const C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::indexOf(char) const                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::indexOf(char, unsigned int) const         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::lastIndexOf(String const&) const          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::lastIndexOf(String const&, unsigned int) const C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::lastIndexOf(char) const                   C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::lastIndexOf(char, unsigned int) const     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator!=(String const&) const           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator+=(String const&)                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator<(String const&) const            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator<=(String const&) const           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator=(String const&)                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator==(String const&) const           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator>(String const&) const            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator>=(String const&) const           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator[](unsigned int)                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::operator[](unsigned int) const            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+String::replace(String const&, String const&)     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::replace(char, char)                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::setCharAt(unsigned int, char)             C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::startsWith(String const&) const           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::startsWith(String const&, unsigned int) const C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::substring(unsigned int) const             C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::substring(unsigned int, unsigned int) const C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::toCharArray(char*, unsigned int)          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::toLowerCase() const                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::toUpperCase() const                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::trim() const                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+String::~String()                                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+__addsf3                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__bad_interrupt                                   c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__brkval                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__bss_end                                         c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__clz_tab                                         c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+__clzsi2                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clzsi2.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+__ctors_end                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__ctors_start                                     c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__ctype_isfalse                                   c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+__ctype_istrue                                    c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(cty_isfalse.o)
+__cxa_pure_virtual                                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+__data_end                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_start                                      c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__divmodhi4                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+__divsf3                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__do_clear_bss                                    c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+__do_copy_data                                    c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clz.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                                                  ./Main.o
+__do_global_ctors                                 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+__epilogue_restores__                             c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+__fixsfsi                                         c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__fixunssfsi                                      c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__floatsisf                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__floatunsisf                                     c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__flp                                             c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__fpcmp_parts_f                                   c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+__gesf2                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+__heap_end                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__heap_start                                      c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__init                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__ltsf2                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__malloc_heap_end                                 c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_heap_start                               c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_margin                                   c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+__mulsf3                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__mulsi3                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+__pack_f                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+__prologue_saves__                                c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_usi_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_si_to_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+__stack                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__subsf3                                          c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+__tablejump2__                                    c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+__tablejump__                                     c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__thenan_sf                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+__udivmodhi4                                      c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+__udivmodsi4                                      c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+__unpack_f                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+__vector_1                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_10                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_11                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_12                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_13                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_14                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_15                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_16                                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_17                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_18                                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_19                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_2                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_20                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_21                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_22                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_23                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_24                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_25                                       c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_3                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_4                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_5                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_6                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_7                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_8                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_9                                        c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vector_default                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+__vectors                                         c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+_div                                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+_exit                                             c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+delay                                             C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                                                  ./Main.o
+delayMicroseconds                                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+digitalRead                                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+digitalWrite                                      C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+                                                  ./Main.o
+digital_pin_to_bit_mask_PGM                       C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+digital_pin_to_port_PGM                           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+digital_pin_to_timer_PGM                          C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+exit                                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+free                                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+init                                              C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+                                                  ./Main.o
+isspace                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(isspace.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+itoa                                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ltoa                                              c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+main                                              ./Main.o
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+malloc                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+micros                                            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+millis                                            C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+pinMode                                           C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+                                                  ./Main.o
+port_to_input_PGM                                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+port_to_mode_PGM                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+port_to_output_PGM                                C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(pins_arduino.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring_digital.o)
+rx_buffer                                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+strcat                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcat.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strchr                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strchr.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strcmp                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcmp.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strcpy                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strncmp                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strncpy                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncpy.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strrchr                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrchr.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+strrev                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ltoa.o)
+                                                  c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+strstr                                            c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strstr.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+timer0_millis                                     C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+timer0_overflow_count                             C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(wiring.o)
+tolower                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(tolower.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+toupper                                           c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(toupper.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+ultoa                                             c:/misc/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa.o)
+                                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(WString.o)
+vtable for HardwareSerial                         C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)
+vtable for Print                                  C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(Print.o)
+vtable for Stream                                 C:\Source\Eclipse\Arduino\Arduino\Release\libArduino.a(HardwareSerial.o)

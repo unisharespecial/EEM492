@@ -1,0 +1,11 @@
+CC8E Version 1.3E, Copyright (c) B Knudsen Data, Norway 2001-2012
+ --> FREE edition, 8-16 bit int, 24 bit float, 128k code words, reduced optim.
+main.c:
+ 25. Nov 2012  15:43
+
+//Berna Özkan
+             ^------
+Error[1] C:\Users\ERAY\Desktop\proje\main.c 1 : Unable to open file '16F877A.h'
+ (The file name or path can be wrong (Also consider option -cif))
+
+Error options: -ew: no warning details  -ed: no error details  -eL: list details

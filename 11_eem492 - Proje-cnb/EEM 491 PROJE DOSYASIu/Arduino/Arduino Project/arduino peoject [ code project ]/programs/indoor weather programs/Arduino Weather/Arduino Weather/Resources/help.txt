@@ -1,0 +1,8 @@
+1. Archive file is the sector number up to where the archive stops.
+
+2. Archives can be one day(101 sectors) to 28 days(2846 sectors).
+
+3. The offset is always a % of 28 days.
+   The only time that the offset time will match the displayed time
+   is if the display is 28 days.
+   Use the 28 day display to get your offset time.

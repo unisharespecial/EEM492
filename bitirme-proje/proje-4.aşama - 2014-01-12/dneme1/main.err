@@ -1,0 +1,32 @@
+*** Error 18 "main.c" Line 1(9,19): File can not be opened
+    Not in project "C:\Users\AKIN\Desktop\dneme1\18F452.h"
+*** Error 128 "main.c" Line 2(9,14): A #DEVICE required before this line
+*** "main.c" Line 4: Error #111: Unknown keyword in #FUSES   "NOWDT"
+*** "main.c" Line 5: Error #111: Unknown keyword in #FUSES   "WDT128"
+*** "main.c" Line 6: Error #111: Unknown keyword in #FUSES   "XT"
+*** "main.c" Line 7: Error #111: Unknown keyword in #FUSES   "NOPROTECT"
+*** "main.c" Line 8: Error #111: Unknown keyword in #FUSES   "NOOSCSEN"
+*** "main.c" Line 9: Error #111: Unknown keyword in #FUSES   "NOBROWNOUT"
+*** "main.c" Line 10: Error #111: Unknown keyword in #FUSES   "BORV20"
+*** "main.c" Line 11: Error #111: Unknown keyword in #FUSES   "NOPUT"
+*** "main.c" Line 12: Error #111: Unknown keyword in #FUSES   "NOSTVREN"
+*** "main.c" Line 13: Error #111: Unknown keyword in #FUSES   "NODEBUG"
+*** "main.c" Line 14: Error #111: Unknown keyword in #FUSES   "NOLVP"
+*** "main.c" Line 15: Error #111: Unknown keyword in #FUSES   "NOWRT"
+*** "main.c" Line 16: Error #111: Unknown keyword in #FUSES   "NOWRTD"
+*** "main.c" Line 17: Error #111: Unknown keyword in #FUSES   "NOWRTB"
+*** "main.c" Line 18: Error #111: Unknown keyword in #FUSES   "NOWRTC"
+*** "main.c" Line 19: Error #111: Unknown keyword in #FUSES   "NOCPD"
+*** "main.c" Line 20: Error #111: Unknown keyword in #FUSES   "NOCPB"
+*** "main.c" Line 21: Error #111: Unknown keyword in #FUSES   "NOEBTR"
+*** "main.c" Line 22: Error #111: Unknown keyword in #FUSES   "NOEBTRB"
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 23: Error #128: A #DEVICE required before this line
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 25: Error #12: Undefined identifier  -- output_float
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 26: Error #12: Undefined identifier  -- output_low
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 28: Error #12: Undefined identifier  -- output_high
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 30: Error #12: Undefined identifier  -- output_low
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 32: Error #12: Undefined identifier  -- output_low
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 34: Error #12: Undefined identifier  -- output_high
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 36: Error #12: Undefined identifier  -- output_float
+*** "C:\Users\AKIN\Desktop\dneme1\SHT11.c" Line 38: Error #12: Undefined identifier  -- output_low
+      30 Errors,  0 Warnings.

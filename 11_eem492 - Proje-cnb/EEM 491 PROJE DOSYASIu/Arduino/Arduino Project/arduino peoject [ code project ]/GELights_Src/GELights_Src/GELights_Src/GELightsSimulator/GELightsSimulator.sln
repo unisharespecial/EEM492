@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GELightsSimulator", "GELightsSimulator\GELightsSimulator.csproj", "{C0AA899B-3761-492C-81F5-EF199737F97A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GELightsCompiler", "GELightsCompiler\GELightsCompiler.csproj", "{0E577E23-106F-4FD0-87FB-E18742F628FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0AA899B-3761-492C-81F5-EF199737F97A}.Debug|x86.ActiveCfg = Debug|x86
+		{C0AA899B-3761-492C-81F5-EF199737F97A}.Debug|x86.Build.0 = Debug|x86
+		{C0AA899B-3761-492C-81F5-EF199737F97A}.Release|x86.ActiveCfg = Release|x86
+		{C0AA899B-3761-492C-81F5-EF199737F97A}.Release|x86.Build.0 = Release|x86
+		{0E577E23-106F-4FD0-87FB-E18742F628FC}.Debug|x86.ActiveCfg = Debug|x86
+		{0E577E23-106F-4FD0-87FB-E18742F628FC}.Debug|x86.Build.0 = Debug|x86
+		{0E577E23-106F-4FD0-87FB-E18742F628FC}.Release|x86.ActiveCfg = Release|x86
+		{0E577E23-106F-4FD0-87FB-E18742F628FC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

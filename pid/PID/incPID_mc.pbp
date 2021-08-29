@@ -1,0 +1,281 @@
+'*******************************************************************
+'*  Name    : incPID_mc.pbp                                        *
+'*  Author  : Henrik Olsson                                        *
+'*  Notice  : Copyright (c) 2010 Henrik Olsson                     *  
+'*          : All Rights Reserved                                  *
+'*  Date    : 2010-01-14                                           *
+'*  Notes   : Basic PID Filter include file for multiple regulators* 
+'*            Regulator code originally adapted from Parallax      *
+'*            Industrial Control App.                              *
+'*                                                                 *
+'*  Version : 0.2                                                  * 
+'*                                                                 *
+'*  Version history:                                               *
+'*  2010-01-14 v0.2 - Multichannel capabillity                     *
+'*                    NOTE: For now the pid_Status byte and aliases*
+'*                          found in the single channel incPID     *
+'*                          is NOT available.                      *
+'*                                                                 *
+'******************************************************************* 
+'*******************************************************************
+'*                                                                 *
+'*  Usage:    In the main application you start by defining how    *
+'*            many regulators (or channels) you need, this is done *
+'*            as a CONstant. After that the incPID_mc.pbp file is  *
+'*            included into the PBP source code file, like this:   *
+'*                                                                 *
+'*            PID_Channels CON 4      'Create 4 PID_Channels (0-3) *
+'*            INCLUDE "incPID_mc.pbp" 'Include the PID Filter      *
+'*                                                                 *
+'*                                                                 *
+'*            The various parameters for each regulator are        *
+'*            accessed by the main application as array entries.   *
+'*            For example, the three gains can be set or read      *
+'*            via pid_Kp[n], pid_Ki[n] and pid_Kd[n]. Where n      *
+'*            represents the channel or regulator number starting  *
+'*            at 0 and ending at PID_Channels - 1.                 *
+'*                                                                 *
+'*            The pid_Kp, pid_Ki and pid_Kd are 16bit variables    *
+'*            representing the gain of each term in 1/256 parts.   *
+'*            One LSB is 0.00390625 so to set the integral gain to *
+'*            5.5 pid_Ki[n] should be set to $0580.                *
+'*            ( 0580(hex) is 1408(dec), 1408 * 0.00390625 = 5.5 )  *
+'*                                                                 *
+'*            The error is passed to each PID filter thru a        *
+'*            variable called pid_Error. There is ONLY ONE         *       
+'*            pid_Error which is USED FOR ALL regulators.          *
+'*                                                                 *
+'*            Another variable called pid_Channel allows you to    *
+'*            reference each regulator before calling the          *
+'*            PID routine.                                         *
+'*                                                                 *
+'*            For example:                                         *
+'*                                                                 *
+'*            pid_Channel = 2        'Reference the 3'rd regulator *
+'*            pid_Error = $045A                                    *
+'*            GOSUB PID                                            *
+'*                                                                 *
+'*            When the code execution returns from the PID fiter   *
+'*            sub-routine the output from the filter is available  *
+'*            in the variable pid_Out as a 16bit two's complement  *
+'*            value. Just as with the input variable (pid_Error)   *
+'*            there is ONLY ONE output variable (pid_Out).         *
+'*                                                                 *
+'*******************************************************************
+'*                                                                 *
+'*            There are 6 variables associated with EACH regulator:*
+'*                                                                 *
+'*            pid_KP         (word)    'Proportional gain          *
+'*            pid_Ki         (word)    'Integral gain              *
+'*            pid_Kd         (word)    'Derivative gain            *
+'*            pid_Ti         (byte)    'Integrator time constant   *
+'*            pid_I_Clamp    (word)    'Integrator clamp           *
+'*            pid_Out_Clamp  (word)    'Output clamp               *
+'*                                                                 *
+'*            As described above, these are referenced just like   *
+'*            any other array:                                     *
+'*                                                                 *
+'*            pid_KP[2] = $03FE      'Set kP of regulator number 3 *
+'*            pid_Out_Clamp[0] = 511 'Set ouptut clamp channel 0   *                           
+'*                                                                 *
+'*            Again, the variables for input TO and output FROM    *
+'*            the regulators are shared between all regulators.    *
+'*            In other words, input to each regulator is passed    *
+'*            thru the pid_Error variable and the output from the  *
+'*            regulator is received thru the pid_Out variable.     *
+'*            See the example below.                               *
+'*                                                                 *
+'*            The integrator has a time constant that is set thru  *
+'*            the pid_Ti[n] variable. The pid_Ti[n] tells the      *
+'*            PID-filter how often the I-term should be updated.   *
+'*            If pid_Ti[n] is set to 10 the I-term is calculated   *
+'*            every 10 times that the filter is called. This is    *
+'*            sometimes refered to as 'reset-time'.                *
+'*                                                                 *
+'*            The pid_I_Clamp[n] is a 16bit variable that is used  *
+'*            to prevent wind-up of the integrator. If a large     *
+'*            error is present for an extended time period the     *
+'*            I-term can grow too big. The pid_I_clamp[n] clamps   *
+'*            the I-term to whatever value the variable is set to. *
+'*                                                                 *
+'*            Finally there's the pid_Out_Clamp[n] variable. This  *
+'*            16-bit variable is used to clamp the final output    *
+'*            of the PID-filter to a setable value. Note that it   *
+'*            clamps the output to the absoulte value. Ie. if you  *
+'*            set pid_Out_Clamp[1] the second regulators output    *
+'*            will be clamped to +/-100                            *
+'*                                                                 *
+'*								   *
+'* RAM      : 29 bytes ( + 1bit ) for the first regulator, then    *
+'*            18 for each consecutive regulator.                   *
+'* CODE     : 1536 bytes for 18F2431 compiled with PBPW2.60        *
+'*                                                                 *
+'* Exe time : ~550uS worst case @20MHz                             *
+'*                                                                 *
+'*                                                                 *
+'*                                                                 *
+'*                                                                 *
+'*******************************************************************
+'************************** E X A M P L E **************************
+'*******************************************************************
+'*
+'*  ADValue VAR WORD                     '<---This is your variable.
+'*  Setpoint VAR WORD                    '<---This is your variable.
+'*  Direction var PortB.7                '<---Direction bit to motor driver 
+'*
+'*  PID_Channels CON 2                   '2 PID regulators. 0 and 1
+'*  INCLUDE "incPIDmc.pbp"               'Include the PID routine.
+'*  CLEAR                                'Make sure all varaibles are 0.
+'*
+'*    'These variables are declared by the incPID routine but
+'*    'the user needs to assign values to them.
+'*    pid_Kp[0] = $0700                     'Set Kp to 7.0
+'*    pid_Ki[0] = $0080                     'Set Ki to 0.5
+'*    pid_Kd[0] = $0225                     'Set Kd to 2.14
+'*    pid_Ti[0] = 8                         'Update I-term every 8th call to PID
+'*    pid_I_Clamp[0] = 100                  'Clamp I-term to max ±100
+'*    pid_Out_Clamp[0] = 511                'Clamp the final output to ±511
+'*
+'*    pid_Kp[1] = $0500                     'Set Kp to 5.0
+'*    pid_Ki[1] = $00A0                     'Set Ki to 0.625
+'*    pid_Kd[1] = $0100                     'Set Kd to 1.0
+'*    pid_Ti[1] = 4                         'Update I-term every 4th call to PID
+'*    pid_I_Clamp[1] = 100                  'Clamp I-term to max ±100
+'*    pid_Out_Clamp[1] = 511                'Clamp the final output to ±511
+'*     
+'*  Start:
+'*    Gosub GetAD_0                         'Get speed from tacho - NOT SHOWN HERE.
+'*    pid_Error = Setpoint0 - ADValue0      'Calculate the error
+'*    PID_Channel = 0                       'Prepare for first regulator
+'*    Gosub PID                             'Result returned in pid_Out
+'*    Direction = pid_Out.15                'Set direction pin accordning to sign
+'*    pid_Out = ABS pid_Out                 'Convert from two's comp. to absolute
+'*    HPWM 1, pid_Out, 10000                'Set PWM output
+'*
+'*    Gosub GetAD_1                         'Get speed from second motor tach - NOT SHOWN HERE
+'*    pid_Error = Setpoint0 - ADValue0      'Calculate the error
+'*    PID_Channel = 1                       'Prepare for second regulator
+'*    Gosub PID                             'Result returned in pid_Out
+'*    Direction = pid_Out.15                'Set direction pin accordning to sign
+'*    pid_Out = ABS pid_Out                 'Convert from two's comp. to absolute
+'*    HPWM 2, pid_Out, 10000                'Set second PWM output
+'*    Pause 10                              'Wait....
+'*  Goto Start                              '...and do it again.
+'*                  
+'*******************************************************************************
+
+
+'*******************************************************************************
+'******************** PID-Filter "external" variables **************************
+'******** These are the variable that the main application uses.****************
+'*******************************************************************************
+pid_Channel VAR BYTE                            ' "Channel selector" (array indexer).
+
+pid_Kp Var Word[PID_Channels]                 	'Proportional gain.                                     
+pid_Ki Var Word[PID_Channels]                 	'Integral gain.
+pid_Kd Var Word[PID_Channels]                 	'Derivative gain.
+
+pid_Error Var Word                        		'PID Filter input. (setpoint - actual)
+pid_Out Var Word                            	'PID Filter output (P + I + D)
+
+pid_Ti var BYTE[PID_Channels]                 	'Time constant for the integral time
+pid_I_Clamp var word[PID_Channels]            	'Clamp for the integrator windup.
+
+pid_Out_Clamp var word[PID_Channels]          	'Clamp the final output to value in this var.
+
+'pid_Status var byte[PID_Channels]             	'Status of the PID-filter can be read here.
+'pid_Status_Out_Sat var pid_Status.7     	'Flag for saturated output
+'pid_Status_I_Sat var pid_status.6       	'Flag for saturated Integral drive.
+
+
+'*******************************************************************************
+'******************* PID-Filter "internal" variables ***************************
+'**** These are of course accesable from the main application but **************
+'**** there's no need to do so for general use (or at all actually). ***********
+'*******************************************************************************
+
+pid_P Var Word                  		'Proportional drive.
+pid_I VAR Word[PID_Channels]           	'Integral drive.
+pid_D Var Word                  		'Derivative drive.
+
+pid_Sign Var BIT               	    	'Keeps track of the sign of various values
+pid_index VAR WORD
+pid_LastError var word[PID_Channels]    'Last error, used for calculating D drive
+pid_Ei Var Word[PID_Channels]           'Integral drive accumulator.
+pid_IntCount Var Byte[PID_Channels]     'Counter for the integrator, matches against Ti
+
+'*******************************************************************************
+'******************** Initialise variables *************************************
+'*******************************************************************************
+
+Goto SkipPID                        	'Jump over the PID subroutine.
+
+PID:                                	'This is the entrypoint from the main app.
+;T1CON.0 = 1
+pid_index = (pid_Channel + 1) * 16 - 1  'Used to acces the 15th bit of each word in an array
+'*******************************************************************************
+'***********************  P I D  F I L T E R  **********************************
+'*******************************************************************************
+'PortB.0 = 1
+'Calculate the proportional drive
+    
+pid_P = (ABS pid_Error) */ pid_Kp[PID_Channel]   		'Multiply by the P-gain
+If pid_Error.15 then pid_P = -pid_P   'Re-apply sign if pid_Error is neg
+
+'*******************************************************************************
+'*******************************************************************************
+'Calculate the Integral drive
+
+pid_Ei[PID_Channel] = pid_Ei[PID_Channel] + pid_Error             'Add error to acumulator.
+pid_IntCount[PID_Channel] = pid_IntCount[PID_Channel] + 1         'Increment the reset-time counter.
+If pid_IntCount[PID_Channel] >= pid_Ti[PID_Channel] then          'Is it time to update the I-term?
+    'pid_Sign = pid_Ei[PID_Channel].15                		  'Save Sign
+    pid_Sign = pid_Ei.0(pid_index)
+    pid_Ei[PID_Channel] = ABS pid_Ei[PID_Channel]                 'Work with positive numbers
+    pid_Ei[PID_Channel] = pid_Ei[PID_Channel] */ pid_Ki[PID_Channel]           'Multiply by Ki gain
+    pid_Ei[PID_Channel] = pid_Ei[PID_Channel] / pid_Ti[PID_Channel]            'Divide by the reset time
+    
+    If pid_Sign then pid_Ei[PID_Channel] = -pid_Ei[PID_Channel]   'Re-apply sign
+    
+    pid_I[PID_Channel] = pid_I[PID_Channel] + pid_Ei[PID_Channel] 'Update I drive
+    'pid_Sign = pid_I[PID_Channel].15                 		  'Save Sign
+    pid_sign = pid_I.0(pid_index)  
+    pid_I[PID_Channel] = ABS pid_I[PID_Channel]                 'Work with positive numbers
+      if pid_I[PID_Channel] >= pid_I_Clamp[PID_Channel] then      'I-term is saturated.... 
+        'pid_Status[PID_Channel].6 = 1            		  'set pid_I_Clamp flag....
+        pid_I[PID_Channel] = pid_I_Clamp[PID_Channel]             'and clamp I-terms to what user have set.
+      Endif
+
+    If pid_Sign then pid_I[PID_Channel] = -pid_I[PID_Channel]     'Re-apply sign
+    pid_IntCount[PID_Channel] = 0                    		  'Reset the counter.
+    pid_Ei[PID_Channel] = 0                          		  'Reset the accumulator.
+Endif
+
+'*******************************************************************************
+'*******************************************************************************
+'Calculate the derivative drive       
+    pid_D = pid_Error - pid_LastError[PID_Channel]
+    pid_Sign = pid_D.15		                 		  'Save Sign
+    pid_D = (ABS pid_D) */ pid_Kd[PID_Channel]       'Multiply by Kd gain
+    If pid_Sign then pid_D = -pid_D     'Re-apply sign.
+
+DerivDone:
+        pid_LastError[PID_Channel] = pid_Error                    'Store error for next D calc.
+
+'*******************************************************************************
+'*******************************************************************************
+'Calculate the total drive.
+
+pid_Out = pid_P + pid_I[PID_Channel] + pid_D         'Calculate total drive....
+
+pid_Sign = pid_Out.15                   			  'Save Sign
+pid_Out = (ABS pid_Out)                   'Convert from two's comp. to abs.
+If pid_Out >= pid_Out_Clamp[PID_Channel] then        'Output is saturated...
+    'pid_Status[PID_Channel].1 = 1			          'set status bit and...
+    pid_out = pid_Out_Clamp[PID_Channel]             'clamp output.
+Endif
+If pid_Sign then pid_out = -pid_out     'Re-apply sign.
+
+;T1CON.0=0
+RETURN                                  'And return to sender.
+SkipPID:

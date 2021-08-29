@@ -1,0 +1,29 @@
+*** Error 18 "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 1(9,20): File can not be opened
+    Not in "C:\Users\user\Desktop\Yeni klasör\CCS C Compiler\devices\16F877A.h"
+    Not in "C:\Users\user\Desktop\Yeni klasör\CCS C Compiler\drivers\16F877A.h"
+    Not in "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\16F877A.h"
+    Not in project "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\16F877A.h"
+*** Error 128 "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 2(9,14): A #DEVICE required before this line
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 4: Error #111: Unknown keyword in #FUSES   "NOWDT"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 5: Error #111: Unknown keyword in #FUSES   "HS"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 6: Error #111: Unknown keyword in #FUSES   "NOPUT"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 7: Error #111: Unknown keyword in #FUSES   "NOPROTECT"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 8: Error #111: Unknown keyword in #FUSES   "NODEBUG"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 9: Error #111: Unknown keyword in #FUSES   "NOBROWNOUT"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 10: Error #111: Unknown keyword in #FUSES   "NOLVP"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 11: Error #111: Unknown keyword in #FUSES   "NOCPD"
+*** "C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.h" Line 12: Error #111: Unknown keyword in #FUSES   "NOWRT"
+*** "den1.c" Line 2: Error #111: Unknown keyword in #FUSES   "NOPROTECT"
+*** "den1.c" Line 4: Error #100: USE parameter value is out of range   Not a number: PIN_C6
+*** "den1.c" Line 7: Error #128: A #DEVICE required before this line
+*** "den1.c" Line 10: Error #12: Undefined identifier  -- setup_adc_ports
+*** "den1.c" Line 11: Error #12: Undefined identifier  -- setup_adc
+*** "den1.c" Line 12: Error #12: Undefined identifier  -- setup_psp
+*** "den1.c" Line 13: Error #12: Undefined identifier  -- setup_spi
+*** "den1.c" Line 14: Error #12: Undefined identifier  -- setup_timer_0
+*** "den1.c" Line 15: Error #12: Undefined identifier  -- setup_timer_1
+*** "den1.c" Line 16: Error #12: Undefined identifier  -- setup_timer_2
+*** "den1.c" Line 17: Error #12: Undefined identifier  -- setup_comparator
+*** "den1.c" Line 18: Error #12: Undefined identifier  -- setup_vref
+*** "den1.c" Line 19: Error #12: Undefined identifier  -- printf
+      24 Errors,  0 Warnings.

@@ -1,0 +1,312 @@
+
+**** Build of configuration Debug for project Arduino ****
+
+make all 
+Building file: ../HardwareSerial.cpp
+Invoking: AVR C++ Compiler
+avr-g++ -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"HardwareSerial.d" -MT"HardwareSerial.d" -c -o"HardwareSerial.o" "../HardwareSerial.cpp"
+In file included from ../wiring_private.h:30,
+                 from ../HardwareSerial.cpp:27:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../HardwareSerial.cpp:27:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+../HardwareSerial.cpp: In member function 'void HardwareSerial::begin(long int)':
+../HardwareSerial.cpp:138: warning: comparison between signed and unsigned integer expressions
+Finished building: ../HardwareSerial.cpp
+ 
+Building file: ../Print.cpp
+Invoking: AVR C++ Compiler
+avr-g++ -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"Print.d" -MT"Print.d" -c -o"Print.o" "../Print.cpp"
+../Print.cpp: In member function 'void Print::print(const String&)':
+../Print.cpp:48: warning: comparison between signed and unsigned integer expressions
+Finished building: ../Print.cpp
+ 
+Building file: ../Tone.cpp
+Invoking: AVR C++ Compiler
+avr-g++ -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"Tone.d" -MT"Tone.d" -c -o"Tone.o" "../Tone.cpp"
+../Tone.cpp:101: warning: only initialized variables can be placed into program memory area
+Finished building: ../Tone.cpp
+ 
+Building file: ../WInterrupts.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"WInterrupts.d" -MT"WInterrupts.d" -c -o"WInterrupts.o" "../WInterrupts.c"
+In file included from ../wiring_private.h:30,
+                 from ../WInterrupts.c:33:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../WInterrupts.c:33:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../WInterrupts.c
+ 
+Building file: ../WMath.cpp
+Invoking: AVR C++ Compiler
+avr-g++ -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"WMath.d" -MT"WMath.d" -c -o"WMath.o" "../WMath.cpp"
+Finished building: ../WMath.cpp
+ 
+Building file: ../WString.cpp
+Invoking: AVR C++ Compiler
+avr-g++ -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"WString.d" -MT"WString.d" -c -o"WString.o" "../WString.cpp"
+Finished building: ../WString.cpp
+ 
+Building file: ../main.cpp
+Invoking: AVR C++ Compiler
+avr-g++ -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o"main.o" "../main.cpp"
+Finished building: ../main.cpp
+ 
+Building file: ../missing.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"missing.d" -MT"missing.d" -c -o"missing.o" "../missing.c"
+Finished building: ../missing.c
+ 
+Building file: ../pins_arduino.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"pins_arduino.d" -MT"pins_arduino.d" -c -o"pins_arduino.o" "../pins_arduino.c"
+In file included from ../wiring_private.h:30,
+                 from ../pins_arduino.c:26:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../pins_arduino.c:26:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+../pins_arduino.c:361: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:362: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:363: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:369: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:370: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:371: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:377: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:378: warning: initialization makes integer from pointer without a cast
+../pins_arduino.c:379: warning: initialization makes integer from pointer without a cast
+Finished building: ../pins_arduino.c
+ 
+Building file: ../wiring.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"wiring.d" -MT"wiring.d" -c -o"wiring.o" "../wiring.c"
+In file included from ../wiring_private.h:30,
+                 from ../wiring.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../wiring.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../wiring.c
+ 
+Building file: ../wiring_analog.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"wiring_analog.d" -MT"wiring_analog.d" -c -o"wiring_analog.o" "../wiring_analog.c"
+In file included from ../wiring_private.h:30,
+                 from ../wiring_analog.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../wiring_analog.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../wiring_analog.c
+ 
+Building file: ../wiring_digital.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"wiring_digital.d" -MT"wiring_digital.d" -c -o"wiring_digital.o" "../wiring_digital.c"
+In file included from ../wiring_private.h:30,
+                 from ../wiring_digital.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../wiring_digital.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../wiring_digital.c
+ 
+Building file: ../wiring_pulse.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"wiring_pulse.d" -MT"wiring_pulse.d" -c -o"wiring_pulse.o" "../wiring_pulse.c"
+In file included from ../wiring_private.h:30,
+                 from ../wiring_pulse.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../wiring_pulse.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../wiring_pulse.c
+ 
+Building file: ../wiring_shift.c
+Invoking: AVR Compiler
+avr-gcc -I"C:\Source\Eclipse\Arduino\Arduino" -Wall -g2 -gstabs -O0 -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"wiring_shift.d" -MT"wiring_shift.d" -c -o"wiring_shift.o" "../wiring_shift.c"
+In file included from ../wiring_private.h:30,
+                 from ../wiring_shift.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:36:2: warning: #warning "This file has been moved to <util/delay.h>."
+In file included from c:/misc/winavr/lib/gcc/../../avr/include/avr/delay.h:37,
+                 from ../wiring_private.h:30,
+                 from ../wiring_shift.c:25:
+c:/misc/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../wiring_shift.c
+ 
+Building target: libArduino.a
+Invoking: AVR Archiver
+avr-ar -r "libArduino.a"  ./HardwareSerial.o ./Print.o ./Tone.o ./WInterrupts.o ./WMath.o ./WString.o ./main.o ./missing.o ./pins_arduino.o ./wiring.o ./wiring_analog.o ./wiring_digital.o ./wiring_pulse.o ./wiring_shift.o  
+c:\misc\WinAVR\bin\avr-ar.exe: creating libArduino.a
+Finished building target: libArduino.a
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S libArduino.a  >"libArduino.lss"
+Finished building: libArduino.lss
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p libArduino.a
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       2 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          2 bytes (0.1% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       1 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          1 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:       0 bytes (0.0% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 

@@ -1,0 +1,62 @@
+
+ROM used: 691 (8%)
+          691 (8%) including unused fragments
+
+          1 Average locations per line
+          7 Average locations per statement
+
+RAM used: 7 (2%) at main() level
+          22 (6%) worst case
+
+Stack used: 4 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   54    34  33  dden3.c
+   16     0   0  dden3.h
+  326     0   0  16F877A.h
+  233    68  67  flex_lcd.c
+----- -----
+  629   102 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20   3   1             @delay_ms2
+0      8   1   0             @const70
+0     44   6   1   328  2.7  lcd_send_nibble
+0     37   5   1   362  2.3  lcd_read_nibble
+ Inline        3   165  3.3  lcd_read_byte
+0     61   9   3   319  4.1  lcd_send_byte
+0     48   7   2   384  4.4  lcd_init
+ Inline        4   186  5.5  lcd_gotoxy
+0     53   8   1   275  3.9  lcd_putc
+0    173  25   1   969  4.4  MAIN
+0      5   1   0             @const101
+0     72  10   3             @PSTRINGC7_92
+0      9   1   0             @const105
+0     81  12   4             @PSTRINGCN7_92
+0     21   3   3             @DIV88
+0     55   8   2             @PRINTF_U_92
+
+Program metrics:
+    Functions               8
+    Statements              102
+    Comments                117
+    Volume (V)              4554
+    Difficilty (D)          29.8
+    Effort to implement (E) 135582
+    Time to implement (T)   2 hours, 6 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   8
+    Maintainability (MI)    79
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   687  1357  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

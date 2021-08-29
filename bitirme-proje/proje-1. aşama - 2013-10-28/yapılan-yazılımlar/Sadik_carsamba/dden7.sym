@@ -1,0 +1,126 @@
+004     @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020-029 dht_dat
+02A     @TRIS_C
+02B     MAIN.dht11_check_sum
+02C     @PSTRINGCN7_92.P1
+02C     @PRINTF_D_92.P2
+02C     read_dht.GlobalErr
+02C     lcd_init.i
+02C     MAIN.@SCRATCH1
+02C     @PSTRINGC7_92.@SCRATCH1
+02D     read_dht.dht_in
+02D     @PRINTF_D_92.P1
+02D     lcd_init.@SCRATCH1
+02D     @PSTRINGC7_92.@SCRATCH2
+02D     @PSTRINGCN7_92.@SCRATCH1
+02E     read_dht.i
+02E     @PSTRINGC7_92.@SCRATCH3
+02E     @PSTRINGCN7_92.@SCRATCH2
+02E     @PRINTF_D_92.@SCRATCH1
+02F     read_dht.dht_check_sum
+02F     @PSTRINGCN7_92.@SCRATCH3
+02F     @PRINTF_D_92.@SCRATCH2
+030     read_dht.@SCRATCH1
+030     @PRINTF_D_92.@SCRATCH3
+031     read_dht.@SCRATCH2
+031     @PRINTF_D_92.@SCRATCH4
+032     lcd_putc.c
+032     leer_dht_dat.i
+032     @DIV88.P1
+033     lcd_gotoxy.x
+033     leer_dht_dat.result
+033     @delay_ms2.P1
+033     @DIV88.P2
+034     lcd_gotoxy.y
+034     leer_dht_dat.@SCRATCH1
+034     @DIV88.@SCRATCH1
+035     lcd_gotoxy.address
+036     lcd_gotoxy.@SCRATCH1
+037     lcd_send_byte.address
+038     lcd_send_byte.n
+039     lcd_read_byte.low
+039     lcd_send_byte.@SCRATCH1
+03A     lcd_read_byte.high
+03A     lcd_send_nibble.nibble
+03B     lcd_read_nibble.retval
+03B.0   lcd_read_nibble.retval_0
+03B.1   lcd_read_nibble.retval_1
+03B.2   lcd_read_nibble.retval_2
+03B.3   lcd_read_nibble.retval_3
+03B     lcd_read_byte.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+002C  @delay_ms2
+0004  LCD_INIT_STRING
+0040  lcd_send_nibble
+006C  lcd_read_nibble
+0095  lcd_read_byte
+0091  lcd_send_byte
+00CE  lcd_init
+019B  lcd_gotoxy
+0184  lcd_putc
+00FE  dht_init
+0147  leer_dht_dat
+0106  read_dht
+02CA  MAIN
+000C  @const112
+01B9  @PSTRINGC7_92
+0017  @const114
+0201  @PSTRINGCN7_92
+0250  @DIV88
+0265  @PRINTF_D_92
+0022  @const123
+02CA  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    C:\Users\AKIN\Desktop\bitirme-proje\Sadik_carsamba\
+
+Project Files:
+    dden7.c
+    dden7.h
+    16F877A.h
+    flex_lcd.c
+
+Units:
+    C:\Users\AKIN\Desktop\bitirme-proje\Sadik_carsamba\dden7 (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      dden7.err
+    Ext Symbols: dden7.esym
+    INHX8:       dden7.hex
+    Symbols:     dden7.sym
+    List:        dden7.lst
+    Debug/COFF:  dden7.cof
+    Project:     dden7.PJT
+    Call Tree:   dden7.tre
+    Statistics:  dden7.sta

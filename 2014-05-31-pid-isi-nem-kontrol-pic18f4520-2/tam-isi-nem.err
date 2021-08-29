@@ -1,0 +1,8 @@
+>>> Warning 208 "C:\Users\AKIN\Desktop\2014-05-31-pid-isi-nem-kontrol-pic18f4520\SHT11.c" Line 169(19,30): Function not void and does not return a value  measuretemp
+>>> Warning 208 "C:\Users\AKIN\Desktop\2014-05-31-pid-isi-nem-kontrol-pic18f4520\SHT11.c" Line 184(20,32): Function not void and does not return a value  measurehumid
+>>> Warning 225 "tam-isi-nem.c" Line 44(21,53): Duplicate #define
+>>> Warning 225 "tam-isi-nem.c" Line 45(20,30): Duplicate #define
+>>> Warning 203 "tam-isi-nem.c" Line 211(1,1): Condition always TRUE
+>>> Warning 202 "C:\Users\AKIN\Desktop\2014-05-31-pid-isi-nem-kontrol-pic18f4520\SHT11.c" Line 201(8,18): Variable never used:   truehumid1
+      Memory usage:   ROM=22%      RAM=2% - 6%
+      0 Errors,  6 Warnings.

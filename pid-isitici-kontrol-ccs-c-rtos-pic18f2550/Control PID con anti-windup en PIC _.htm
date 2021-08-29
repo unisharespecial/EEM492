@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es-ES"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Control PID con anti-windup en PIC | </title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="stylesheet" type="text/css" media="all" href="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/style.css">
+<link rel="pingback" href="http://www.micros-designs.com.ar/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title=" » Feed" href="http://www.micros-designs.com.ar/feed/">
+<link rel="alternate" type="application/rss+xml" title=" » RSS de los comentarios" href="http://www.micros-designs.com.ar/comments/feed/">
+				
+	<script async="" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/a_002"></script><script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/ga.js" async="" type="text/javascript"></script><script type="text/javascript">//<![CDATA[
+	// Google Analytics for WordPress by Yoast v4.06 | http://yoast.com/wordpress/google-analytics/
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount','UA-15517598-4']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	// End of Google Analytics for WordPress by Yoast v4.0
+	//]]></script>
+<link rel="alternate" type="application/rss+xml" title=" » Control PID con anti-windup en PIC RSS de los comentarios" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/feed/">
+<link rel="stylesheet" id="codecolorer-css" href="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/codecolorer.css" type="text/css" media="screen">
+<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/si_captcha.js"></script>
+<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/comment-reply.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.micros-designs.com.ar/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.micros-designs.com.ar/wp-includes/wlwmanifest.xml"> 
+<link rel="index" title="" href="http://www.micros-designs.com.ar/">
+<link rel="start" title="MPLAB C30 y PIC24" href="http://www.micros-designs.com.ar/mplab-c30-pic24/">
+<link rel="prev" title="Revistas uControl!!! [1-9]" href="http://www.micros-designs.com.ar/203/">
+<link rel="next" title="Ethernet PIC18F67J60 Suky" href="http://www.micros-designs.com.ar/ethernet-pic18f67j60-suky/">
+<meta name="generator" content="WordPress 3.0">
+<link rel="canonical" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/">
+<link rel="shortlink" href="http://www.micros-designs.com.ar/?p=219">
+<link rel="stylesheet" type="text/css" href="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/db-youtube-rss.css"><style type="text/css">
+body { background-image: url('http://www.micros-designs.com.ar/wp-content/uploads/2011/01/fondo1.jpg'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+
+<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/plusone.js">
+  {lang: 'es'}
+</script>
+<link href="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/share-button-css.css" type="text/css" rel="stylesheet"><script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/a_003" type="text/javascript"></script><script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/search.js" type="text/javascript"></script></head>
+
+<body class="single single-post postid-219">
+<div id="wrapper" class="hfeed">
+	<div id="header">
+		<div id="masthead">
+			<div id="branding" role="banner">
+								<div id="site-title">
+					<span>
+						<a href="http://www.micros-designs.com.ar/" title="" rel="home"></a>
+					</span>
+				</div>
+				<div id="site-description"></div>
+
+										<img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/HeaderWeb.gif" alt="" height="198" width="940">
+								</div><!-- #branding -->
+
+			<div id="access" role="navigation">
+			  				<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+								<div class="menu-header"><ul id="menu-menu" class="menu"><li id="menu-item-38" class="menu-item menu-item-type-post_type"><a href="http://www.micros-designs.com.ar/">Inicio</a></li>
+<li id="menu-item-18" class="menu-item menu-item-type-taxonomy current-post-ancestor current-menu-ancestor"><a href="http://www.micros-designs.com.ar/category/micros-pic/">Microcontroladores PIC</a>
+<ul class="sub-menu">
+	<li id="menu-item-23" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/micros-pic/programacion-pic/">Programación PIC</a>
+	<ul class="sub-menu">
+		<li id="menu-item-319" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/mis-primeros-programas-en-asm-pics/">Mis Primeros Programas ASM</a></li>
+		<li id="menu-item-317" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/tutorial-mplab-c18/">Tutorial MPLAB C18</a></li>
+		<li id="menu-item-384" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/c18-logica-de-64-bits-suma-resta-multiplicacion-division/">[C18] Lógica de 64-bits</a></li>
+		<li id="menu-item-318" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/mplab-c30-pic24/">MPLAB C30 – PIC24</a></li>
+		<li id="menu-item-975" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/aplicaciones-avanzadas-en-c18/">Aplicaciones avanzadas en C18</a></li>
+		<li id="menu-item-320" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/configpic/">ConfigPIC</a></li>
+		<li id="menu-item-707" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/libreria-para-tmp175tmp75-ccs/">Libreria para TMP175/TMP75 [CCS]</a></li>
+		<li id="menu-item-711" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/libreria-para-pca9538/">Librería para PCA9538 (I2C I/O Expander)</a></li>
+		<li id="menu-item-725" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/fm25h20/">Libreria para memoria FM25H20 [C18]</a></li>
+		<li id="menu-item-984" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/c18-varias-temporizaciones-un-solo-timer/">[C18] Varias temporizaciones, un solo timer.</a></li>
+		<li id="menu-item-947" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/freertos-en-c18-plantilla/">FreeRTOS en C18 [Plantilla]</a></li>
+		<li id="menu-item-948" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/freertos-en-c18-driver-lcd/">FreeRTOS en C18, driver LCD</a></li>
+		<li id="menu-item-949" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/freertos-en-c18-utilizacion-de-colas/">FreeRTOS en C18, utilización de colas</a></li>
+		<li id="menu-item-950" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/freertos-en-c32-plantilla/">FreeRTOS en C32 [Plantilla]</a></li>
+	</ul>
+</li>
+	<li id="menu-item-26" class="menu-item menu-item-type-taxonomy current-post-ancestor current-menu-ancestor current-menu-parent current-custom-parent"><a href="http://www.micros-designs.com.ar/category/micros-pic/proyectos-pic/">Proyectos con PIC</a>
+	<ul class="sub-menu">
+		<li id="menu-item-322" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/pickit2-clone-5v3-3v/">PICKIT2 Clone 5V/3.3V</a></li>
+		<li id="menu-item-759" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/sklogicanalyzer-1-0-analizador-logico-basado-en-dspic33/">SkLogicAnalyzer 1.0</a></li>
+		<li id="menu-item-462" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/zocalo-adaptador-sencillo-para-iscpdip-182840/">Zócalo adaptador ISCP/DIP</a></li>
+		<li id="menu-item-323" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/pickit-serial-analizer-clone/">PICKIT Serial Analizer Clone</a></li>
+		<li id="menu-item-1031" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/skp32-placa-de-desarrollo-development-board-pic32-ejemplos-en-c32/">SkP32 Placa de desarrollo, ejemplos en C32</a></li>
+		<li id="menu-item-1046" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/reproductor-avi-con-pic32-skp32/">Reproductor AVI con PIC32 [SkP32]</a></li>
+		<li id="menu-item-976" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/fuente-digital-25v2-5a/">Fuente Digital 25V/2.5A</a></li>
+		<li id="menu-item-1017" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/comunicacion-dnp3-sobre-tcpip-capa-de-enlace/">Comunicación DNP3 sobre TCP/IP (Capa de enlace)</a></li>
+		<li id="menu-item-344" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/analizador-de-espectro-de-audio-con-lcd-4x20/">Analizador de espectro de Audio</a></li>
+		<li id="menu-item-450" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/reproductor-de-archivos-wav-desde-sd-card-mas-analizador-de-espectro/">Reproductor de archivos WAV con PIC32 mas…</a></li>
+		<li id="menu-item-436" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/c18-bootloader-usb-hid/">Bootloader USB HID</a></li>
+		<li id="menu-item-717" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/ejemplo-usb-hid-en-c18/">Ejemplo USB HID en C18</a></li>
+		<li id="menu-item-326" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/el-modulo-de-conversion-analogica-a-digital/">Módulo de Conversión Analógica</a></li>
+		<li id="menu-item-325" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/creacion-de-menu-en-glcd-128x64-c18/">Menús GLCD 128×64 (C18)</a></li>
+		<li id="menu-item-329" class="menu-item menu-item-type-custom current-menu-item"><a href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/">Control PID con Anti-Windup</a></li>
+		<li id="menu-item-330" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/ethernet-pic18f67j60-suky/">Ethernet PIC18F67J60</a></li>
+		<li id="menu-item-321" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/79/">dsPIC30F/dsPIC33F/PIC24 16-Bits 28-Pins</a></li>
+		<li id="menu-item-324" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/comunicacion-teclado-ps2-y-pic-en-asm/">Comunicación Teclado PS/2 ASM</a></li>
+		<li id="menu-item-394" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/cartel-de-leds-en-asm/">Cartel de Leds [ASM]</a></li>
+		<li id="menu-item-327" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/medidor-lc/">Medidor LC</a></li>
+		<li id="menu-item-328" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/179/">PIC32 Ethernet Starter Kit</a></li>
+		<li id="menu-item-787" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/trabajando-con-el-mcp3909-c-i-para-medicion-de-energia/">Trabajando con el MCP3909</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-474" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/">Freescale, AVR y ARM</a>
+<ul class="sub-menu">
+	<li id="menu-item-17" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-freescale/">Microcontroladores Freescale</a>
+	<ul class="sub-menu">
+		<li id="menu-item-642" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/modulo-efmjm60/">Módulo EFMJM60</a></li>
+	</ul>
+</li>
+	<li id="menu-item-16" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-avr/">Microcontroladores AVR</a>
+	<ul class="sub-menu">
+		<li id="menu-item-361" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/creando-un-proyecto-en-codevisionavr/">Creando un proyecto CodeVisionAVR</a></li>
+		<li id="menu-item-360" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/control-sobre-puertos-io-y-demoras/">1º Ejemplo- Puertos I/O y demoras</a></li>
+	</ul>
+</li>
+	<li id="menu-item-15" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-arm/">Microcontroladores ARM</a>
+	<ul class="sub-menu">
+		<li id="menu-item-805" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/hola-mundo-con-lpc1114302-lpcxpresso-board/">Hola Mundo con LPC1114/302 LPCXpresso Board</a></li>
+		<li id="menu-item-951" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/freertos-en-lpc1114-plantilla/">FreeRTOS en LPC1114 [plantilla]</a></li>
+		<li id="menu-item-486" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/mbed-nxp-lpc1768-arm-cortex-m3/">mbed NXP LPC1768 (ARM Cortex-M3)</a></li>
+		<li id="menu-item-583" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/mbed-nxp-mas-lcd-tft-y-touch/">mbed NXP más LCD TFT y Touch.</a></li>
+		<li id="menu-item-674" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/menues-para-lcd-tft-y-touch-screen/">Menús para LCD TFT y Touch Screen</a></li>
+		<li id="menu-item-682" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/sincronizar-fecha-hora-del-mbed-con-un-servidor-nist/">Sincronizar fecha-hora del mbed con un Servidor NIST</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-21" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/programacion-c-general/">Programación C en General</a>
+<ul class="sub-menu">
+	<li id="menu-item-365" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/librerias-genericas-en-c-%c2%bfcomo-trabajar/">Librerías genéricas en C – ¿Como trabajar?</a></li>
+	<li id="menu-item-368" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/libreria-generica-en-c-control-lcd/">Librería genérica en C – Control LCD</a></li>
+	<li id="menu-item-591" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/libreria-glcd-128x64-c/">Librería GLCD 128×64 [C]</a></li>
+	<li id="menu-item-333" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/memorias-sdmmc-libreria-a-nivel-hardware/">Memorias SD Card – Liberia a nivel Hardware</a></li>
+	<li id="menu-item-334" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/libreria-fat16/">Librería FAT16</a></li>
+	<li id="menu-item-692" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/como-crear-menus-en-lcd/">Como crear menús en LCD</a></li>
+</ul>
+</li>
+<li id="menu-item-13" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/">Aplicaciones PC</a>
+<ul class="sub-menu">
+	<li id="menu-item-509" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/visual-c/">Visual C++</a>
+	<ul class="sub-menu">
+		<li id="menu-item-508" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/practicas-en-visual-c-01/">Practicas en Visual C++ [01]</a></li>
+		<li id="menu-item-519" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/practicas-en-visual-c-02/">Practicas en Visual C++ [02]</a></li>
+		<li id="menu-item-530" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/practicas-en-visual-c-03/">Practicas en Visual C++ [03]</a></li>
+		<li id="menu-item-544" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/practicas-en-visual-c-04/">Practicas en Visual C++ [04]</a></li>
+		<li id="menu-item-561" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/practicas-en-visual-c-05/">Practicas en Visual C++ [05]</a></li>
+		<li id="menu-item-603" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/practicas-en-visual-c-06/">Practicas en Visual C++ [06]</a></li>
+	</ul>
+</li>
+	<li id="menu-item-14" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/labwindows/">LabWindonws/CVI</a>
+	<ul class="sub-menu">
+		<li id="menu-item-332" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/comunicacion-usb-con-labwindowscvi-y-ni-visa/">Comunicacion USB y NI-VISA</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-202" class="menu-item menu-item-type-taxonomy"><a href="http://www.micros-designs.com.ar/category/varios/">Varios</a>
+<ul class="sub-menu">
+	<li id="menu-item-896" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/maxadclite-ev-kit/">MAXADCLite EV Kit</a></li>
+	<li id="menu-item-872" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/client-tcp-en-android-control-sobre-leds/">Client TCP en Android – Control sobre Leds</a></li>
+	<li id="menu-item-821" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/806/">Creación de librerías Eagle mediante Ultra Librarian</a></li>
+	<li id="menu-item-738" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/generador-de-funciones-con-xr2206/">Generador de funciones con XR2206</a></li>
+	<li id="menu-item-656" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/protocolo-de-comunicaciones-dnp3/">Protocolo de comunicaciones DNP3</a></li>
+	<li id="menu-item-331" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/203/">Revistas uControl # [1-9]</a></li>
+	<li id="menu-item-620" class="menu-item menu-item-type-custom"><a href="http://www.micros-designs.com.ar/revista-ucontrol-10/">Revista uControl #10</a></li>
+</ul>
+</li>
+</ul></div>			</div><!-- #access -->
+		</div><!-- #masthead -->
+	</div><!-- #header -->
+
+	<div id="main">
+
+		<div id="container">
+			<div id="content" role="main">
+
+
+				<center><script type="text/javascript"><!--
+				google_ad_client = "pub-6398190701070314";
+				/* 728x15, creado 3/09/11 */
+				google_ad_slot = "4157151319";
+				google_ad_width = 728;
+				google_ad_height = 15;
+				//-->
+				</script></center>
+				<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/show_ads.js">
+				</script><ins style="display:inline-table;border:none;height:15px;margin:0;padding:0;position:relative;visibility:visible;width:728px"><ins id="aswift_0_anchor" style="display:block;border:none;height:15px;margin:0;padding:0;position:relative;visibility:visible;width:728px"><iframe allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){i+='.call';setTimeout(h,0)}else if(h.match){i+='.nav';w.location.replace(h)}s.log&amp;&amp;s.log.push(i)}" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="15" scrolling="no" width="728"></iframe></ins></ins>
+
+				<div id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="http://www.micros-designs.com.ar/203/" rel="prev"><span class="meta-nav">←</span> Revistas uControl!!! [1-9]</a></div>
+					<div class="nav-next"><a href="http://www.micros-designs.com.ar/ethernet-pic18f67j60-suky/" rel="next">Ethernet PIC18F67J60 Suky <span class="meta-nav">→</span></a></div>
+				</div><!-- #nav-above -->
+
+				<div id="post-219" class="post-219 post type-post hentry category-proyectos-pic">						
+					<div style="height: 24px; width: 106px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;" id="___plusone_0"><iframe allowtransparency="true" hspace="0" id="I1_1322949557596" marginheight="0" marginwidth="0" name="I1_1322949557596" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/fastbutton.htm" style="position: static; left: 0pt; top: 0pt; width: 106px; margin: 0px; border-style: none; height: 24px; visibility: visible;" tabindex="-1" vspace="0" title="+1" frameborder="0" scrolling="no" width="100%"></iframe></div><br>
+					<iframe title="Twi`tter para sitios web: Botón para Twittear" style="width: 118px; height: 20px;" class="twitter-share-button twitter-count-horizontal" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/tweet_button.htm" allowtransparency="true" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/widgets.js"></script>
+					<br><a style="text-decoration: none;" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.micros-designs.com.ar%2Fcontrol-pid-con-anti-windup-en-pic%2F&amp;t=Control%20PID%20con%20anti-windup%20en%20PIC%20%7C&amp;src=sp" name="fb_share" type="button"><span class="FBConnectButton FBConnectButton_Small" style="cursor:pointer;"><span class="FBConnectButton_Text">Share</span></span></a><script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/FB.js" type="text/javascript"></script>
+					
+					<h1 class="entry-title"><center>Control PID con anti-windup en PIC</center></h1>
+
+					<div class="entry-meta">
+						<span class="meta-prep meta-prep-author">Posted on</span> <a href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/" title="2:04" rel="bookmark"><span class="entry-date">10 Septiembre, 2010</span></a> <span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://www.micros-designs.com.ar/author/suky/" title="View all posts by Suky">Suky</a></span>					</div><!-- .entry-meta -->
+
+					<div class="entry-content">
+						<p><strong>Objetivo:</strong></p>
+<p style="text-align: justify;">Un sistema de control de temperatura 
+configurable mediante un panel de control (Teclado mas display LCD), en 
+donde se puede seleccionar entre control On/Off o PID, ingreso de 
+Temperatura deseada (Set Point), cambio de alguno de los parámetros del 
+PID (Kp, Ti, Td), Visualización de las variables (Temperatura actual del
+ sistema, Temperatura deseada, Kp, Ti, Td) y un simple datalogger 
+activable (Envía por RS232 temperatura cada ciertos ms) El sistema a 
+controlar será el horno Over que trae Proteus, excelente para esta 
+práctica ya que trae un terminal donde nos indica la temperatura del 
+horno necesaria para la realimentación. El Over lo configuramos de la 
+siguiente manera para hacer más rápidas las simulaciones: 25, 0.7, 1, 1,
+ 100.</p>
+<p><a rel="attachment wp-att-227" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/paneldecontrol/"><img class="aligncenter size-full wp-image-227" title="paneldecontrol" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/paneldecontrol.jpg" alt="" height="244" width="207"></a></p>
+<p><strong>Identificación del Sistema.</strong></p>
+<p><a rel="attachment wp-att-234" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/sistemaaa/"><img class="aligncenter size-full wp-image-234" title="sistemaaa" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/sistemaaa.jpg" alt="" height="177" width="346"></a></p>
+<p style="text-align: justify;">En este caso para identificar el sistema
+ simplemente aplique un escalón de 1 volts y determiné la salida. 
+Capturé los datos cada 100ms, y con estos ingresé a la utilidad ident de
+ Matlab.&nbsp;&nbsp;<a href="http://www.todopic.com.ar/foros/index.php?topic=24599.msg200365#msg200365">Aquí blackgat</a>
+ del foro todoPic explica paso a paso como determinar el sistema usando 
+esta utilidad de Matlab. Este es solo un ejemplo así que no me preocupe 
+por obtener un modelo bien determinado, en ese caso no solo hay que 
+aplicar un escalón, sino aplicar una entrada de varios niveles, y así 
+obtener un sistema estimado más aproximado al real.</p>
+<p><img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/sealident.jpg" alt="" border="0"></p>
+<p style="text-align: justify;">En ident, seleccione oe221 logrando una 
+identificación del 99.65%. El modelo del sistema resultante para 
+Ts=0.1s: GZ=(0.6566z+0.6145)/(z^2-1.809z+0.8178) Aplicando D2C 
+determinamos el modelo de sistema continuo:</p>
+<p style="text-align: justify;">GS=(-0.0027s+140.4)/(s^2+2.011s+0.9723)</p>
+<p><strong>Selección de muestro a lazo cerrado.</strong></p>
+<p style="text-align: justify;">Este valor esta íntimamente relacionado 
+con el ancho de banda del sistema y las velocidades razonables de 
+muestro están entre 6 y 10 veces este valor. En Matlab determinamos el 
+bode del sistema, dando un ancho de banda de 4.4 Hz, con esto 
+seleccionamos&nbsp; 0.02 segundos como periodo de muestro. (1/10•4.4Hz).
+ Utilizando C2D&nbsp; y Ts = 0.02 s determinamos el sistema muestreado :</p>
+<p style="text-align: justify;">GZ=(0.0276z+0.0274)(z^2-1.96z+0.9606)</p>
+<p><strong>Control PID a aplicar</strong> (Ver&nbsp;<a href="http://iaci.unq.edu.ar/Materias/Cont.Digital/Apuntes/ApuntePagina/15-PID.pdf">Apunte PID</a>)</p>
+<p>El control PID a utilizar es el siguiente:</p>
+<p><a rel="attachment wp-att-220" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/controlatinwindup/"><img class="aligncenter size-full wp-image-220" title="controlatinwindup" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/controlatinwindup.jpg" alt="" height="183" width="352"></a></p>
+<p style="text-align: justify;">Como se ve ya tiene implementado el 
+control anti-windup. El efecto windup aparece al arrancar el sistema o 
+en cualquier otra situación, donde aparece un error muy grande durante 
+un tiempo prolongado. Esto hará que el término integral aumente para 
+reducir el error. Pero si nuestro actuador es&nbsp; limitado, con esto 
+me refiero que la tensión que podemos aplicarle al horno solo (en este 
+caso) esta entre 0 y 5V, se saturará pero el termino integral seguirá 
+creciendo. Cuando el error se reduce, la parte integral también 
+comenzará a reducirse pero desde un valor muy alto, llevando mucho 
+tiempo hasta que logre la estabilidad, generando fluctuaciones 
+exageradamente grandes.</p>
+<p><a rel="attachment wp-att-226" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/ecuacionespidcont/"><img class="alignleft size-full wp-image-226" title="ecuacionespidcont" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/ecuacionespidcont.gif" alt="" height="49" width="403"></a></p>
+<p style="text-align: justify;">
+</p><p style="text-align: justify;">
+</p><p style="text-align: justify;">Discretización: Para la parte integral se aproxima a sumas sucesivas, y la parte derivativa por una diferencia:</p>
+<p><strong><a rel="attachment wp-att-222" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/ecuacionespid/"><img class="alignleft size-full wp-image-222" title="ecuacionespid" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/ecuacionespid.gif" alt="" height="431" width="708"></a><br>
+</strong></p>
+<p><strong>Sintonización del Control PID</strong> <a href="http://www.dia.uned.es/%7Efmorilla/MaterialDidactico/ajuste_empirico.pdf">(Sintonización de PID)</a></p>
+<p>En este caso utilizo el método de Ziegler-Nichols basado en la 
+respuesta en frecuencia. Se realimenta la planta con un regulador 
+proporcional aumentando su ganancia hasta que el sistema presente una 
+oscilación no amortiguada, determino la ganancia proporcional y el 
+periodo de la oscilación: Kc=1.4392, tc=0.44s Kp=0.6Kc=0.8635, 
+Ti=0.5tc=0.22, Td=0.125tc=0.055 Función de transferencia del PID 
+discreto sin windup U(z)/E(z)=(q0z^2+q1z+q2)(z(z-1)) Con el control PID 
+sin windup utilizamos la herramienta sisotool para ver el resultado 
+obtenido, y también si es posible mejorarlo.</p>
+<p><a rel="attachment wp-att-232" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/pidnormal/"><img class="aligncenter size-full wp-image-232" title="pidnormal" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/pidnormal.jpg" alt="" height="199" width="393"></a></p>
+<p style="text-align: justify;">Por ejemplo, un resultado mejor se obtiene modificando los ceros del control PID a&nbsp;<strong>0.95; 0.95</strong> y una ganancia de&nbsp;<strong>K=8.57</strong>. Con estos valores los nuevos parámetros del PID son: Kp=0.8142, Ti=0.7609, Td=0.1899</p>
+<p><a rel="attachment wp-att-231" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/pidmejorado/"><img class="aligncenter size-full wp-image-231" title="pidmejorado" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/pidmejorado.jpg" alt="" height="205" width="391"></a></p>
+<p>En simulink podemos ver el efecto que tiene la saturación del actuador:</p>
+<p><a rel="attachment wp-att-228" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/pidconsaturacion/"><img class="aligncenter size-full wp-image-228" title="pidconsaturacion" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/pidconsaturacion.jpg" alt="" height="369" width="723"></a></p>
+<p>Resultado obtenido al aplicar antiwindup:</p>
+<p><a rel="attachment wp-att-229" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/pidconwindupsignal/"><img class="aligncenter size-full wp-image-229" title="pidconwindupsignal" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/pidconwindupsignal.jpg" alt="" height="430" width="730"></a></p>
+<p><strong>Control On/Off </strong>(todo o nada)</p>
+<p style="text-align: justify;">Es un sistema de control muy simple, y 
+como su nombre lo indica, la señal de control en este caso será 0 Volts 
+si Temperatura del horno es mayor a la deseada, y 5 Volts si es menor a 
+la deseada. Mas info,&nbsp;<a href="http://materias.fi.uba.ar/7609/material/Clase%2001%20Intro/07%20-%20Control%20Todo%20o%20Nada.pdf">Control Todo o nada</a> <strong><br>
+</strong></p>
+<p><strong>Programación</strong></p>
+<p style="text-align: justify;">El control PID ya esta calculado por lo 
+menos en teoría. Con esto pasamos a realizar el código que se ejecutará 
+cada 20ms. Para ello creamos una tarea: (<span style="text-decoration: underline;"><strong>Sin trabajar con RTOS se puede crear una interrupción que se ejecute cada 20ms</strong></span>)<em><br>
+</em></p>
+<div class="codecolorer-container c default" style="overflow:auto;white-space:nowrap;width:840px;height:500px;"><div class="c codecolorer"><span class="co2">#task(rate=20ms,max=1ms)</span><br>
+<span class="kw4">void</span> ControlSistema<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span><span class="br0">{</span><br>
+&nbsp; &nbsp;Medida<span class="sy0">=</span>read_adc<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp;TempReal<span class="sy0">=</span>Medida<span class="sy0">;</span><br>
+&nbsp; &nbsp;TempReal<span class="sy0">=</span><span class="br0">(</span>TempReal<span class="sy0">*</span><span class="nu0">500</span><span class="br0">)</span><span class="sy0">/</span><span class="nu0">1024</span><span class="sy0">;</span><br>
+&nbsp; <br>
+&nbsp; &nbsp;eT<span class="sy0">=</span>TempRef<span class="sy0">-</span>TempReal<span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//Cálculo error</span><br>
+&nbsp; <br>
+&nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>SistControl<span class="sy0">==</span><span class="nu0">1</span><span class="br0">)</span><span class="br0">{</span><br>
+&nbsp; &nbsp; &nbsp; uT<span class="sy0">=</span>q0<span class="sy0">*</span>eT <span class="sy0">-</span> q1<span class="sy0">*</span>eT_1 <span class="sy0">+</span> q2<span class="sy0">*</span>eT_2 <span class="sy0">+</span> uT_1<span class="sy0">;</span> &nbsp; &nbsp; &nbsp;<span class="co1">//Cálculo de la salida PID (uT=[Volt])</span><br>
+&nbsp; &nbsp; &nbsp; rT<span class="sy0">=</span><span class="br0">(</span>uT<span class="sy0">*</span><span class="nu0">1000</span><span class="br0">)</span><span class="sy0">/</span><span class="nu0">5</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//duty cycle maximo 1000 -&gt; 5V.-</span><br>
+&nbsp; &nbsp; &nbsp; <span class="coMULTI">/* &lt;&lt;&lt;&lt;&lt; AntiWindup &nbsp;&gt;&gt;&gt;&gt;&gt;*/</span><br>
+&nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">(</span>rT<span class="sy0">&gt;</span><span class="nu0">1000</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//Salida PID si es mayor que el 1000.-</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;uT<span class="sy0">=</span><span class="br0">(</span>uT <span class="sy0">+</span> <span class="nu0">5</span><span class="sy0">*</span>p0<span class="br0">)</span><span class="sy0">*</span>p00<span class="sy0">;</span> &nbsp; &nbsp; <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rT<span class="sy0">=</span><span class="nu0">1000</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; <span class="br0">}</span><br>
+&nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">(</span>rT<span class="sy0">&lt;</span>0n<span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//Salida PID si es menor que el 0</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;uT<span class="sy0">=</span>uT<span class="sy0">*</span>p00<span class="sy0">;</span> <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rT<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; <span class="br0">}</span><br>
+&nbsp; &nbsp; &nbsp; <span class="coMULTI">/* &lt;&lt;&lt;&lt;&lt; Transferencia de salida PID a señal PWM &gt;&gt;&gt;&gt;&gt;*/</span><br>
+&nbsp; &nbsp; &nbsp; ControlPWM<span class="sy0">=</span>rT<span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>
+&nbsp; &nbsp; &nbsp; set_pwm1_duty<span class="br0">(</span>ControlPWM<span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; <span class="coMULTI">/* &nbsp;&lt;&lt;&lt;&lt;&lt; Guardar variables para proximo estado &gt;&gt;&gt;&gt;&gt;*/</span><br>
+&nbsp; &nbsp; &nbsp; eT_2<span class="sy0">=</span>eT_1<span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; eT_1<span class="sy0">=</span>eT<span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; uT_1<span class="sy0">=</span>uT<span class="sy0">;</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><span class="kw1">else</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Control On-Off</span><br>
+&nbsp; &nbsp; &nbsp; <span class="kw1">if</span><span class="br0">(</span>eT<span class="sy0">&gt;</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">{</span>output_high<span class="br0">(</span>PIN_C2<span class="br0">)</span><span class="sy0">;</span><span class="br0">}</span><br>
+&nbsp; &nbsp; &nbsp; <span class="kw1">else</span><span class="br0">{</span>output_low<span class="br0">(</span>PIN_C2<span class="br0">)</span><span class="sy0">;</span><span class="br0">}</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+<span class="br0">}</span></div></div>
+<p style="text-align: justify;">En RTOS CCS la “prioridad” de tareas, 
+con esto me refiero si hay tareas que se ejecutan con el mismo periodo o
+ con algún múltiplo del mismo se da en el orden en que se definen en el 
+programa <img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/icon_confused.gif" alt=":?" class="wp-smiley">
+  Así que como esta tarea es la mas importante se define primero a 
+todas, excepto que exista alguna otra de inicialización del 
+sistema.&nbsp;<strong><br>
+</strong></p>
+<p><strong>Menú de control</strong></p>
+<p style="text-align: justify;">Como objetivo se planteo armar un panel 
+de control, éste tiene un menú que debe ser visualizado en display según
+ las teclas presionadas de movimiento. La impresión del menú en el 
+display se hace por medio de una tarea, que se ejecuta cada 1ms cuando 
+es habilitada. Esta tarea envía un carácter o comando a la vez, de esta 
+manera hacemos la impresión de manera más dinámica&nbsp; que al realizar
+ un simple printf(lcd_putc,”Menu Principal \n&nbsp;&nbsp;&nbsp;&nbsp; 
+—-&gt;”), línea que dependiendo de los datos que se envíe puede llegar a
+ demorar unos 5ms. Puede que en este ejemplo no haya sido necesario, 
+pero fue útil para aplicar algunos comandos de rtos <img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/icon_mrgreen.gif" alt=":mrgreen:" class="wp-smiley">
+  Entonces para imprimir un mensaje en el LCD se usaron 2 buffer de 16 
+elementos para cada línea, dos variables que indican el largo de los 
+string a escribir y una adicional para indicar si es necesario borrar el
+ display al iniciar la escritura. La carga de un mensaje sería así:</p>
+<div class="codecolorer-container c default" style="overflow:auto;white-space:nowrap;width:840px;"><div class="c codecolorer">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;strcpy<span class="br0">(</span>BufferLCD1<span class="sy0">,</span><span class="st0">"&gt;Datos"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;strcpy<span class="br0">(</span>BufferLCD2<span class="sy0">,</span><span class="st0">"Configuracion"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LengthMsj1<span class="sy0">=</span>strlen<span class="br0">(</span>BufferLCD1<span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LengthMsj2<span class="sy0">=</span>strlen<span class="br0">(</span>BufferLCD2<span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Print<span class="sy0">=</span><span class="nu0">1</span><span class="sy0">;</span> <span class="co1">// 1 Requiere borrar LCD.</span></div></div>
+<p>Al completar la cargar de los buffer se habilita la tarea que se encarga de imprimir el mensaje:</p>
+<div class="codecolorer-container c default" style="overflow:auto;white-space:nowrap;width:840px;height:500px;"><div class="c codecolorer"><span class="co2">#task(rate=1ms,max=1ms)</span><br>
+<span class="kw4">void</span> ImprimirLCD<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span><span class="br0">{</span><br>
+<span class="kw4">int</span> j<span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>Print<span class="sy0">==</span><span class="nu0">1</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Borramos display?</span><br>
+&nbsp; &nbsp; &nbsp; lcd_comand<span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; Print<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; rtos_yield<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Se "duerme" hasta el proximo ciclo.-</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp;<span class="kw1">for</span><span class="br0">(</span>j<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>j<br>
+&nbsp; &nbsp; &nbsp;lcd_putc<span class="br0">(</span>BufferLCD1<span class="br0">[</span>j<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp;rtos_yield<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>LengthMsj2<span class="sy0">!=</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Si hay caracteres a imprimir en la segunda linea..</span><br>
+&nbsp; &nbsp; &nbsp; lcd_gotoxy<span class="br0">(</span><span class="nu0">1</span><span class="sy0">,</span><span class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// ..salta a la siguiente a la linea 2.</span><br>
+&nbsp; &nbsp; &nbsp; rtos_yield<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp;<span class="kw1">for</span><span class="br0">(</span>j<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>j<br>
+&nbsp; &nbsp; &nbsp; lcd_putc<span class="br0">(</span>BufferLCD2<span class="br0">[</span>j<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; rtos_yield<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>PosMod<span class="sy0">!=</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Utilizado para correr el cursor cuando se modifican</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// los parametros.-</span><br>
+&nbsp; &nbsp; &nbsp; lcd_gotoxy<span class="br0">(</span>PosMod<span class="sy0">,</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp;<span class="co1">// Vuelve cursor para modificar valores.-</span><br>
+&nbsp; &nbsp; &nbsp; rtos_yield<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp;rtos_disable<span class="br0">(</span>ImprimirLCD<span class="br0">)</span><span class="sy0">;</span><br>
+<span class="br0">}</span></div></div>
+<p><strong>Control del menú mediante teclado.</strong></p>
+<p style="text-align: justify;">Para detectar cuando se ha presionado 
+una tecla se utiliza la interrupción por cambio de estado de RB4-RB7. Al
+ activarse la interrupción se testea la tecla pulsada, este dato se 
+coloca en cola de mensajes y se habilita la tarea que lo tratará. Esta 
+tarea recibe el dato, ejecuta una rutina que modifica las variables de 
+control del menú, carga los buffer de visualización, habilita la tarea 
+que realiza la impresión del menú en el display y se deshabilita así 
+misma.&nbsp;<em><br>
+</em></p>
+<div class="codecolorer-container c default" style="overflow:auto;white-space:nowrap;width:840px;height:500px;"><div class="c codecolorer"><span class="co2">#int_RB</span><br>
+<span class="kw4">void</span> &nbsp;RB_isr<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span><br>
+<span class="br0">{</span><br>
+&nbsp; &nbsp;Tecla<span class="sy0">=</span>TestTeclado<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//Testea la Tecla Pulsada.-</span><br>
+&nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>Tecla<span class="sy0">!=</span><span class="nu0">16</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//Tecla y no falsa alarma?.-</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rtos_msg_send<span class="br0">(</span>VisualizacionLCD<span class="sy0">,</span>Tecla<span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rtos_enable<span class="br0">(</span>VisualizacionLCD<span class="br0">)</span><span class="sy0">;</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+<span class="br0">}</span><br>
+<br>
+<span class="kw4">void</span> VisualizacionLCD<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span><span class="br0">{</span><br>
+&nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>rtos_msg_poll<span class="br0">(</span><span class="br0">)</span><span class="sy0">&amp;</span>gt<span class="sy0">;</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">{</span><br>
+&nbsp; &nbsp; &nbsp; SeleccionMenu<span class="br0">(</span>rtos_msg_read<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> &nbsp;<span class="co1">//Dependiendo la Tecla recibida se ubica</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//dentro del Menu.-</span><br>
+&nbsp; &nbsp; &nbsp; <span class="kw1">if</span><span class="br0">(</span>Panel<span class="sy0">==</span><span class="nu0">1</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//Si no se a pedido apagar...</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="kw1">if</span><span class="br0">(</span>Enter<span class="sy0">==</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//Y si no se ha presionado Enter...</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ImpresionMenu<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//Cargamos los buffer segun la posicion</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">//en el menu para impresion en LCD.-</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rtos_enable<span class="br0">(</span>ImprimirLCD<span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; <span class="co1">//Habilitamos tarea para impresion en LCD.-</span><br>
+&nbsp; &nbsp; &nbsp; <span class="br0">}</span><br>
+&nbsp; &nbsp;<span class="br0">}</span><br>
+&nbsp; &nbsp;rtos_disable<span class="br0">(</span>VisualizacionLCD<span class="br0">)</span><span class="sy0">;</span><br>
+<span class="br0">}</span></div></div>
+<p>Un Video del funcionamiento:</p>
+<p></p><center><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" height="405" width="500"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><param name="src" value="http://www.youtube.com/v/X3X1rRkyeLk&amp;hl=es_ES&amp;fs=1&amp;color1=0x234900&amp;color2=0x4e9e00&amp;border=1"><param name="allowfullscreen" value="true"><embed type="application/x-shockwave-flash" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/X3X1rRkyeLkhles_ESfs1color10x234900color20x4e9e00border1.swf" allowscriptaccess="always" allowfullscreen="true" height="405" width="500"></object></center><p></p>
+<p>Señales obtenidas de la simulación:</p>
+<p><span style="text-decoration: underline;">Control PID:</span></p>
+<p><a rel="attachment wp-att-230" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/piddigital/"><img class="aligncenter size-full wp-image-230" title="piddigital" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/piddigital.jpg" alt="" height="261" width="803"></a></p>
+<p><span style="text-decoration: underline;">Control On-Off:</span></p>
+<p><a rel="attachment wp-att-221" href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/controlonoff/"><img class="aligncenter size-full wp-image-221" title="controlonoff" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/controlonoff.jpg" alt="" height="260" width="485"></a></p>
+<p>Esta claro que para un sistema real hay muchas cosas adicionales a 
+tener en cuenta pero aquí se presenta un ejemplo de los pasos a seguir 
+en el diseño</p>
+<p><strong><a href="http://www.micros-designs.com.ar/downloads/Control%20PID.rar">…Descarga de código completo…</a></strong></p>
+<p class="buymebeer"></p><form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"><input name="cmd" value="_xclick" type="hidden"><input name="business" value="suky_msjs@live.com.ar" type="hidden"><input name="return" value="" type="hidden"><input name="item_name" value="Donaciones: for Control PID con anti-windup en PIC" type="hidden"><input name="currency_code" value="USD" type="hidden"><input name="amount" value="" type="hidden"><input src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/icon_cafe.gif" alt="Si el material que encontraste te ha sido útil, ayúdanos a mantenerlo y obtener recursos para más ejemplos." title="Si el material que encontraste te ha sido útil, ayúdanos a mantenerlo y obtener recursos para más ejemplos." align="left" hspace="3" type="image"></form><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=suky_msjs@live.com.ar&amp;currency_code=USD&amp;amount=&amp;return=&amp;item_name=Donaciones:+for+Control+PID+con+anti-windup+en+PIC" target="paypal">Si el material que encontraste te ha sido útil, ayúdanos a mantenerlo y obtener recursos para más ejemplos.</a><p></p>											</div><!-- .entry-content -->
+
+<p></p><p></p>
+<hr align="center" size="5" width="80%">
+<center><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Licencia de Creative Commons" style="border-width: 0pt;" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/88x31.png"></a><br><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><b>micros-designs</b></span> by <a href="http://www.micros-designs.com.ar/" property="cc:attributionName" rel="cc:attributionURL">Suky</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Reconocimiento-NoComercial-CompartirIgual 3.0 Unported License</a>.</center>
+<hr align="center" size="5" width="80%">
+<hr align="center" size="5" width="50%">
+<hr align="center" size="5" width="30%">
+<p></p><center><a href="http://www.micros-designs.com.ar/category/micros-pic/programacion-pic/">MPLAB C18</a>
+-<a href="http://www.micros-designs.com.ar/category/micros-pic/programacion-pic/">FreeRTOS</a>
+-<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-arm/">mbed NXP</a>
+-<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-arm/">LPC1114</a>
+-<a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/visual-c/">Visual C++</a>
+-<a href="http://www.micros-designs.com.ar/category/micros-pic/programacion-pic/">MPLAB C30</a>
+-<a href="http://www.micros-designs.com.ar/pickit2-clone-5v3-3v/">PICKIT2 Clone</a>
+-<a href="http://www.micros-designs.com.ar/category/micros-pic/proyectos-pic/">USB, FAT, TCP/IP</a></center><p></p>
+<hr align="center" size="5" width="80%">
+<p></p><p></p>
+
+	
+
+			
+					<div class="entry-utility">
+						This entry was posted in <a href="http://www.micros-designs.com.ar/category/micros-pic/proyectos-pic/" title="Ver todas las entradas en Proyectos con PIC" rel="category tag">Proyectos con PIC</a>. Bookmark the <a href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/" title="Permalink to Control PID con anti-windup en PIC" rel="bookmark">permalink</a>.											</div><!-- .entry-utility -->
+				</div><!-- #post-## -->
+				
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://www.micros-designs.com.ar/203/" rel="prev"><span class="meta-nav">←</span> Revistas uControl!!! [1-9]</a></div>
+					<div class="nav-next"><a href="http://www.micros-designs.com.ar/ethernet-pic18f67j60-suky/" rel="next">Ethernet PIC18F67J60 Suky <span class="meta-nav">→</span></a></div>
+				</div><!-- #nav-below -->
+				
+			<div id="comments">
+
+
+			<h3 id="comments-title">3 Responses to <em>Control PID con anti-windup en PIC</em></h3>
+
+
+			<ol class="commentlist">
+					<li class="comment even thread-even depth-1" id="li-comment-189">
+		<div id="comment-189">
+		<div class="comment-author vcard">
+			<img alt="" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/ab15b5298ca198a5c3a5039a174c13b6.png" class="avatar avatar-40 photo" height="40" width="40">			<cite class="fn">Jaime Ricardo</cite> <span class="says">says:</span>		</div><!-- .comment-author .vcard -->
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/comment-page-1/#comment-189">
+			23 Diciembre, 2010 at 6:00</a>		</div><!-- .comment-meta .commentmetadata -->
+
+		<div class="comment-body"><p>Excelente.</p>
+</div>
+
+		<div class="reply">
+					</div><!-- .reply -->
+	</div><!-- #comment-##  -->
+
+	</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-213">
+		<div id="comment-213">
+		<div class="comment-author vcard">
+			<img alt="" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/4fa0c8b03e644b93e36fd2832b8562d7.png" class="avatar avatar-40 photo" height="40" width="40">			<cite class="fn">Roman kikis</cite> <span class="says">says:</span>		</div><!-- .comment-author .vcard -->
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/comment-page-1/#comment-213">
+			4 Enero, 2011 at 22:57</a>		</div><!-- .comment-meta .commentmetadata -->
+
+		<div class="comment-body"><p>Hey amigo, eh quedado sorprendido hace 
+tiempo q andaba en busca de un ejemplo de un control pid y esto es 
+simplemente genial. Aun cuando es un ejemplo de un horno q hasta donde 
+recuerdo y que no me falle la memoria es un sistema de primer orden, 
+esta completo y deja a uno con una idea mas clara de como diseñar un 
+controlador q a veces se torna algo muy confuso. Con esto voy arrancar 
+para poder hacerme uno y pulirme en estas artes del diseño de 
+controladores.</p>
+<p>Gracias.</p>
+</div>
+
+		<div class="reply">
+					</div><!-- .reply -->
+	</div><!-- #comment-##  -->
+
+	</li>
+	<li class="comment even thread-even depth-1" id="li-comment-443">
+		<div id="comment-443">
+		<div class="comment-author vcard">
+			<img alt="" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/77f6a38cc77163b03b48568433efaa2c.png" class="avatar avatar-40 photo" height="40" width="40">			<cite class="fn">ingdsf</cite> <span class="says">says:</span>		</div><!-- .comment-author .vcard -->
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.micros-designs.com.ar/control-pid-con-anti-windup-en-pic/comment-page-1/#comment-443">
+			13 Febrero, 2011 at 2:25</a>		</div><!-- .comment-meta .commentmetadata -->
+
+		<div class="comment-body"><p>Guau, esta super este proyecto</p>
+</div>
+
+		<div class="reply">
+					</div><!-- .reply -->
+	</div><!-- #comment-##  -->
+
+	</li>
+			</ol>
+
+
+
+								
+</div><!-- #comments -->
+
+
+			</div><!-- #content -->
+		</div><!-- #container -->
+
+
+		<div id="primary" class="widget-area" role="complementary">
+			<ul class="xoxo">
+
+<li id="text-15" class="widget-container widget_text">			<div class="textwidget"><style type="text/css">
+#contenedor2 {
+position: fixed;
+top: 50%;
+left: 0px;
+width: 38px; 
+height: 150px;
+background: url(http://www.micros-designs.com.ar/foros/Themes/Apollo/images/botonPrincipal.png) no-repeat transparent -4px 0px;
+z-index: 10;
+}
+</style>
+<a href="http://www.micros-designs.com.ar/foros/index.php">
+<div id="contenedor2" onmouseout='this.style.backgroundPosition="-4px 0px";' onmouseover='this.style.backgroundPosition="right bottom";'>
+</div>
+</a></div>
+		</li><li id="text-6" class="widget-container widget_text"><h3 class="widget-title">Búsqueda</h3>			<div class="textwidget"><div id="cse" style="width: 100%;"><div class="gsc-control-cse gsc-control-cse-es"><div dir="ltr" class="gsc-control-wrapper-cse"><form accept-charset="utf-8" class="gsc-search-box"><table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-input"><input style="background: url(&quot;http://www.google.com/cse/intl/es/images/google_custom_search_watermark.gif&quot;) no-repeat scroll left center rgb(255, 255, 255);" title="buscar" name="search" class=" gsc-input" size="10" autocomplete="off" type="text"></td><td class="gsc-search-button"><input title="buscar" class="gsc-search-button" value="Buscar" type="submit"></td><td class="gsc-clear-button"><div title="borrar resultados" class="gsc-clear-button">&nbsp;</div></td></tr></tbody></table><table class="gsc-branding" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-branding-user-defined"></td><td class="gsc-branding-text"><div class="gsc-branding-text">con la tecnología de</div></td><td class="gsc-branding-img"><img class="gsc-branding-img" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/small-logo.png"></td></tr></tbody></table></form><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Búsqueda personalizada de Google</div><span class="gs-spacer"> </span></div><div class="gsc-tabsAreaInvisible"></div><div class="gsc-result-info-invisible"></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table class="gsc-resultsHeader" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div title="mostrar un resultado" class="gsc-result-selector gsc-one-result">&nbsp;</div><div title="mostrar más resultados" class="gsc-result-selector gsc-more-results">&nbsp;</div><div title="mostrar todos los resultados" class="gsc-result-selector gsc-all-results">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div class="gsc-results gsc-webResult"></div></div></div></div></div></div></div>
+<script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'es', style : google.loader.themes.SHINY});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('015614330497230860974:qcgknkqdssu');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+</script><script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/a" type="text/javascript"></script><link href="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/defaultes.css" type="text/css" rel="stylesheet"><link href="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/shiny.css" type="text/css" rel="stylesheet"><script src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/defaultes.js" type="text/javascript"></script>
+ 
+      </div>
+		</li><li id="text-5" class="widget-container widget_text">			<div class="textwidget"><center><iframe title="Twi`tter para sitios web: Botón para Twittear" style="width: 118px; height: 20px;" class="twitter-share-button twitter-count-horizontal" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/tweet_button_002.htm" allowtransparency="true" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/widgets.js"></script></center>
+<center><iframe src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/like.htm" allowtransparency="true" style="border: medium none; overflow: hidden; width: 100px; height: 20px; text-align: right;" frameborder="0" scrolling="no"></iframe></center>
+<center><div style="height: 24px; width: 106px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;" id="___plusone_1"><iframe allowtransparency="true" hspace="0" id="I2_1322949557727" marginheight="0" marginwidth="0" name="I2_1322949557727" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/fastbutton_002.htm" style="position: static; left: 0pt; top: 0pt; width: 106px; margin: 0px; border-style: none; height: 24px; visibility: visible;" tabindex="-1" vspace="0" title="+1" frameborder="0" scrolling="no" width="100%"></iframe></div></center>
+</div>
+		</li>			</ul>
+		</div><!-- #primary .widget-area -->
+
+
+		<div id="secondary" class="widget-area" role="complementary">
+			<ul class="xoxo">
+				<li id="tag_cloud-3" class="widget-container widget_tag_cloud"><h3 class="widget-title">Tags</h3><div><a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/" class="tag-link-16" title="0 temas" style="font-size: 8pt;">Aplicaciones PC</a>
+<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/" class="tag-link-22" title="3 temas" style="font-size: 14.1765pt;">Freescale, AVR y ARM</a>
+<a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/labwindows/" class="tag-link-19" title="1 tema" style="font-size: 11.0882pt;">LabWindonws/CVI</a>
+<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-arm/" class="tag-link-12" title="5 temas" style="font-size: 16.0294pt;">Microcontroladores ARM</a>
+<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-avr/" class="tag-link-9" title="2 temas" style="font-size: 12.9412pt;">Microcontroladores AVR</a>
+<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-freescale/" class="tag-link-6" title="1 tema" style="font-size: 11.0882pt;">Microcontroladores Freescale</a>
+<a href="http://www.micros-designs.com.ar/category/micros-pic/" class="tag-link-3" title="0 temas" style="font-size: 8pt;">Microcontroladores PIC</a>
+<a href="http://www.micros-designs.com.ar/category/micros-freescale-avr-arm/micros-arm/programacion-arm/" class="tag-link-13" title="1 tema" style="font-size: 11.0882pt;">Programación ARM</a>
+<a href="http://www.micros-designs.com.ar/category/programacion-c-general/" class="tag-link-15" title="6 temas" style="font-size: 16.75pt;">Programación C en General</a>
+<a href="http://www.micros-designs.com.ar/category/micros-pic/programacion-pic/" class="tag-link-4" title="14 temas" style="font-size: 20.1471pt;">Programación PIC</a>
+<a href="http://www.micros-designs.com.ar/category/micros-pic/proyectos-pic/" class="tag-link-5" title="22 temas" style="font-size: 22pt;">Proyectos con PIC</a>
+<a href="http://www.micros-designs.com.ar/category/varios/" class="tag-link-21" title="7 temas" style="font-size: 17.2647pt;">Varios</a>
+<a href="http://www.micros-designs.com.ar/category/aplicaciones-pc/visual-c/" class="tag-link-23" title="6 temas" style="font-size: 16.75pt;">Visual C++</a></div>
+</li><li id="buy-me-a-beer" class="widget-container buymebeer_display_widget"><h3 class="widget-title">Donaciones!</h3>		<form name="buymebeer" action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post">
+		<input name="cmd" value="_xclick" type="hidden">
+		<input name="business" value="suky_msjs@live.com.ar" type="hidden">
+		<input name="return" value="" type="hidden">
+		<input name="item_name" value="Donaciones!" type="hidden">
+		<input name="currency_code" value="" type="hidden">
+		<input name="amount" value="" type="hidden">
+		<input src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/beer.gif" alt="Si el material que encontraste te ha sido útil, ayúdanos a mantenerlo y obtener recursos para más ejemplos." title="Si el material que encontraste te ha sido útil, ayúdanos a mantenerlo y obtener recursos para más ejemplos." align="left" type="image">		
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=suky_msjs@live.com.ar&amp;currency_code=USD&amp;amount=&amp;return=&amp;item_name=Donaciones%21" target="paypal"></a>		</form>
+		<div style="clear: both;"></div><br>
+		</li>		<li id="youtuberss_widget-3" class="widget-container widget_youtuberss_widget"><h3 class="widget-title">Últimos Videos</h3>			<ul class="db-yt-rss">
+										<li>
+							<a href="http://www.youtube.com/watch?v=cxNzGRVp-uM&amp;feature=youtube_gdata" class="thumb">
+								<img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/0_002.jpg" alt="SkP32 AVI.AVI" width="150">
+							</a>
+							<h4><a href="http://www.youtube.com/watch?v=cxNzGRVp-uM&amp;feature=youtube_gdata">SkP32 AVI.AVI</a></h4>
+						</li>
+										<li>
+							<a href="http://www.youtube.com/watch?v=LfoneJo_LW4&amp;feature=youtube_gdata" class="thumb">
+								<img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/0.jpg" alt="SkP32 Reproductor AVI.AVI" width="150">
+							</a>
+							<h4><a href="http://www.youtube.com/watch?v=LfoneJo_LW4&amp;feature=youtube_gdata">SkP32 Reproductor AVI.AVI</a></h4>
+						</li>
+							</ul>
+			<a href="http://www.youtube.com/user/VideosSuky" class="more">See more videos</a></li>		<li id="recent-posts-2" class="widget-container widget_recent_entries">		<h3 class="widget-title">Entradas recientes</h3>		<ul>
+				<li><a href="http://www.micros-designs.com.ar/reproductor-avi-con-pic32-skp32/" title="Reproductor AVI con PIC32 [SkP32]">Reproductor AVI con PIC32 [SkP32]</a></li>
+				<li><a href="http://www.micros-designs.com.ar/skp32-placa-de-desarrollo-development-board-pic32-ejemplos-en-c32/" title="SkP32 Placa de desarrollo [development board PIC32] Ejemplos en C32">SkP32 Placa de desarrollo [development board PIC32] Ejemplos en C32</a></li>
+				<li><a href="http://www.micros-designs.com.ar/comunicacion-dnp3-sobre-tcpip-capa-de-enlace/" title="Comunicación DNP3 sobre TCP/IP (Capa de enlace)">Comunicación DNP3 sobre TCP/IP (Capa de enlace)</a></li>
+				<li><a href="http://www.micros-designs.com.ar/c18-varias-temporizaciones-un-solo-timer/" title="[C18] Varias temporizaciones, un solo timer.">[C18] Varias temporizaciones, un solo timer.</a></li>
+				<li><a href="http://www.micros-designs.com.ar/fuente-digital-25v2-5a/" title="Fuente Digital 25V/2.5A">Fuente Digital 25V/2.5A</a></li>
+				<li><a href="http://www.micros-designs.com.ar/aplicaciones-avanzadas-en-c18/" title="Aplicaciones avanzadas en C18">Aplicaciones avanzadas en C18</a></li>
+				<li><a href="http://www.micros-designs.com.ar/freertos-en-lpc1114-plantilla/" title="FreeRTOS en LPC1114 [plantilla]">FreeRTOS en LPC1114 [plantilla]</a></li>
+				<li><a href="http://www.micros-designs.com.ar/freertos-en-c32-plantilla/" title="FreeRTOS en C32 [Plantilla]">FreeRTOS en C32 [Plantilla]</a></li>
+				</ul>
+		</li><li id="text-4" class="widget-container widget_text"><h3 class="widget-title">Contacto</h3>			<div class="textwidget"><p></p>
+<center><a href="mailto:inf.pic.suky@live.com.ar">Correo</a></center>
+<p></p>
+<center><p>inf.pic.suky[@]live.com.ar</p></center></div>
+		</li><li id="text-10" class="widget-container widget_text"><h3 class="widget-title">Licencia</h3>			<div class="textwidget"><center><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Licencia de Creative Commons" style="border-width: 0pt;" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/88x31.png"></a></center><center><br><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><b>micros-designs</b></span> by <a href="http://www.micros-designs.com.ar/" property="cc:attributionName" rel="cc:attributionURL">Suky</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Reconocimiento-NoComercial-CompartirIgual 3.0 Unported License</a>.</center></div>
+		</li><li id="text-3" class="widget-container widget_text"><h3 class="widget-title">Visitas</h3>			<div class="textwidget"><center><a href="http://contador-de-visitas.com/"><img style="border: 0px solid; display: inline;" alt="contador de visitas" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/hit.png"></a>
+</center></div>
+		</li><li id="linkcat-2" class="widget-container widget_links"><h3 class="widget-title">Sitios de interés</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://automatismos-mdq.com.ar/blog" rel="friend" target="_blank">Automatismos Mar del Plata</a></li>
+<li><a href="http://www.gerardodiez.megabyet.net/" rel="friend" target="_blank">El Rincón del Debug</a></li>
+<li><a href="http://slalen.ifastnet.com/" rel="friend" target="_blank">Electronic's Strange World</a></li>
+<li><a href="http://sergiols.blogspot.com/" rel="friend" target="_blank">Felixls</a></li>
+<li><a href="http://www.geglab.com.ar/blog/" rel="friend" target="_blank">Geb Lab</a></li>
+<li><a href="http://www.meteorologiafacil.com.ar/" rel="friend" target="_blank">Metereología Fácil</a></li>
+<li><a href="http://byborre.blogspot.com/" rel="colleague" target="_blank">Micros y Electrónica</a></li>
+<li><a href="http://www.migsantiago.com/" rel="friend colleague" target="_blank">MigSantiago.com</a></li>
+<li><a href="http://www.octoplusaz.com/" rel="friend" target="_blank">Octoplus</a></li>
+<li><a href="http://www.pickey.es/index.html" target="_blank">PICKEY Electrónica</a></li>
+<li><a href="http://picmania.garcia-cuervo.net/" rel="friend" target="_blank">PICMania</a></li>
+<li><a href="http://proteus.hubor.es/" target="_blank">Proteus-Hubor</a></li>
+<li><a href="http://www.todopic.com.ar/foros" rel="friend" title="El más grande foro sobre microcontroladores PIC en español" target="_blank">TodoPIC</a></li>
+<li><a href="http://www.ucontrol.com.ar/" rel="friend" title="Electrónica en general, PICs en particular" target="_blank">uControl</a></li>
+<li><a href="http://www.unpocodelectronica.netau.net/" rel="friend" target="_blank">Un Poco de Electrónica</a></li>
+
+	</ul>
+</li>
+<li id="text-7" class="widget-container widget_text">			<div class="textwidget"><center><script type="text/javascript"><!--
+google_ad_client = "pub-6398190701070314";
+/* AnuncioGoogleAdsense */
+google_ad_slot = "0094232791";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><ins id="aswift_1_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><iframe allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){i+='.call';setTimeout(h,0)}else if(h.match){i+='.nav';w.location.replace(h)}s.log&amp;&amp;s.log.push(i)}" vspace="0" id="aswift_1" name="aswift_1" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="600" scrolling="no" width="160"></iframe></ins></ins></center></div>
+		</li><li id="text-9" class="widget-container widget_text">			<div class="textwidget"><center>
+<script type="text/javascript"><!--
+google_ad_client = "pub-6398190701070314";
+/* AnuncioGoogleAdsense3 */
+google_ad_slot = "0851958036";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><ins id="aswift_2_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><iframe allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){i+='.call';setTimeout(h,0)}else if(h.match){i+='.nav';w.location.replace(h)}s.log&amp;&amp;s.log.push(i)}" vspace="0" id="aswift_2" name="aswift_2" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="600" scrolling="no" width="160"></iframe></ins></ins>
+</center></div>
+		</li><li id="text-13" class="widget-container widget_text">			<div class="textwidget"><center><img src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/argentina3.gif"></center></div>
+		</li>			</ul>
+		</div><!-- #secondary .widget-area -->
+
+	</div><!-- #main -->
+
+	<div id="footer" role="contentinfo">
+		<div id="colophon">
+
+
+
+			<div id="footer-widget-area" role="complementary">
+
+				<div id="first" class="widget-area">
+					<ul class="xoxo">
+						<li id="text-8" class="widget-container widget_text">			<div class="textwidget"><center><script type="text/javascript"><!--
+google_ad_client = "pub-6398190701070314";
+/* AnuncioGoogleAdsense2 */
+google_ad_slot = "2120142004";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="Control%20PID%20con%20anti-windup%20en%20PIC%20__dosyalar/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px"><ins id="aswift_3_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px"><iframe allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){i+='.call';setTimeout(h,0)}else if(h.match){i+='.nav';w.location.replace(h)}s.log&amp;&amp;s.log.push(i)}" vspace="0" id="aswift_3" name="aswift_3" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="728"></iframe></ins></ins></center></div>
+		</li>					</ul>
+				</div><!-- #first .widget-area -->
+
+
+
+
+			</div><!-- #footer-widget-area -->
+
+			<div id="site-info">
+				<a href="http://www.micros-designs.com.ar/" title="" rel="home">
+									</a>
+			</div><!-- #site-info -->
+
+			<div id="site-generator">
+								<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform" rel="generator">
+					Proudly powered by WordPress.				</a>
+			</div><!-- #site-generator -->
+
+		</div><!-- #colophon -->
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+
+
+
+
+</body></html>

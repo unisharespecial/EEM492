@@ -1,0 +1,84 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020     P3
+021     P6
+022     WA
+023     sensor_durum
+024     nem_deger
+025     sicaklik_deger
+026     eksi
+027-04E nem
+04F     @TRIS_C
+050     MAIN.degerler
+051     nem_oku.i
+051     MAIN.@SCRATCH1
+052     nem_oku.bit_time
+053     nem_oku.bit_temp
+054     nem_oku.lowda_bekle
+055     nem_oku.highda_bekle
+056     sensor_start.i
+056     nem_oku.@SCRATCH1
+057     sensor_start.@SCRATCH1
+057     nem_oku.@SCRATCH2
+058     @delay_ms2.P1
+058     nem_oku.@SCRATCH3
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+0004  @delay_ms2
+0018  NOPP
+002D  sensor_start
+0019  sensor_end
+002D  nem_oku
+0141  MAIN
+0141  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    C:\Users\AKIN\Desktop\eem491\Sadik_carsamba\
+
+Project Files:
+    den3.c
+    den3.h
+    16F877A.h
+
+Units:
+    C:\Users\AKIN\Desktop\eem491\Sadik_carsamba\den3 (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      den3.err
+    Ext Symbols: den3.esym
+    INHX8:       den3.hex
+    Symbols:     den3.sym
+    List:        den3.lst
+    Debug/COFF:  den3.cof
+    Project:     den3.PJT
+    Call Tree:   den3.tre
+    Statistics:  den3.sta

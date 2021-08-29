@@ -1,0 +1,21 @@
+*** Creating Trace Output File '.\bin\FromA-Z.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\bin\stm32f10x.o"'
+### List of Objects: adding '".\bin\stm32_init.o"'
+### List of Objects: adding '".\bin\main.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 ".\bin\stm32f10x.o" ".\bin\stm32_init.o" ".\bin\main.o" --strict --scatter ".\bin\FromA-Z.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\FromA-Z.map" -o ".\bin\FromA-Z.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\bin\FromA-Z.axf'
+### ADS-LD Command File: '.\bin\FromA-Z.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\bin\FromA-Z.lnp', Handle=0x0000022C
+### Writing '.lnp' file
+### ADS-LD Command file '.\bin\FromA-Z.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

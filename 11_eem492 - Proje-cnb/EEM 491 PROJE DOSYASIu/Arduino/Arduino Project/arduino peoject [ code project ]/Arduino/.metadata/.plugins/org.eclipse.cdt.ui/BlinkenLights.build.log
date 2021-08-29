@@ -1,0 +1,36 @@
+
+**** Build of configuration Release for project BlinkenLights ****
+
+make all 
+Building target: BlinkenLights.elf
+Invoking: AVR C++ Linker
+avr-g++ -Wl,-Map,BlinkenLights.map,--cref -Wl,--gc-sections -L"C:\Source\Eclipse\Arduino\Arduino\Release" -mmcu=atmega328p -o"BlinkenLights.elf"  ./Main.o   -lArduino
+Finished building target: BlinkenLights.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S BlinkenLights.elf  >"BlinkenLights.lss"
+Finished building: BlinkenLights.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex BlinkenLights.elf  "BlinkenLights.hex"
+Finished building: BlinkenLights.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex BlinkenLights.elf  "BlinkenLights.eep"
+Finished building: BlinkenLights.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p BlinkenLights.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:    2828 bytes (8.6% Full)
+(.text + .data + .bootloader)
+
+Data:        186 bytes (9.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 

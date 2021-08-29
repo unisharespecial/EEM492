@@ -1,0 +1,203 @@
+\t (00:00:32) allegro_free_viewer 16.6 S002 (v16-6-0A) Windows 32
+\t (00:00:32)     Journal start - Sat Jan 04 18:10:10 2014
+\t (00:00:32)         Host=AKIN-TSHB User=AKIN Pid=5520 CPUs=4
+\t (00:00:32) 
+\d (00:00:32) Database opened: D:/on/Yandex/baskent-paylaþým/bitirme-proje-sdk/yeni/LCD Proje/lcd12.brd
+\i (00:00:34) trapsize 30835
+\i (00:00:35) zoom out 1 
+\i (00:00:35) setwindow pcb
+\i (00:00:35) zoom out 2361.442 1667.628
+\i (00:00:35) trapsize 48501
+\i (00:00:35) zoom out 1 
+\i (00:00:35) setwindow pcb
+\i (00:00:35) zoom out 4000.882 2142.051
+\i (00:00:35) trapsize 48501
+\i (00:00:35) zoom out 1 
+\i (00:00:35) setwindow pcb
+\i (00:00:35) zoom out 4000.882 2142.051
+\i (00:00:35) trapsize 48501
+\i (00:00:35) zoom out 1 
+\i (00:00:35) setwindow pcb
+\i (00:00:35) zoom out 4000.882 2142.051
+\i (00:00:35) trapsize 48501
+\i (00:00:35) zoom out 1 
+\i (00:00:35) setwindow pcb
+\i (00:00:35) zoom out 2458.554 2122.651
+\i (00:00:35) trapsize 48501
+\i (00:00:35) zoom out 1 
+\i (00:00:35) setwindow pcb
+\i (00:00:35) zoom out 2458.554 2122.651
+\i (00:00:35) trapsize 48501
+\i (00:00:36) zoom out 1 
+\i (00:00:36) setwindow pcb
+\i (00:00:36) zoom out 2410.053 2209.953
+\i (00:00:36) trapsize 48501
+\i (00:00:36) zoom out 1 
+\i (00:00:36) setwindow pcb
+\i (00:00:36) zoom out 2390.653 2209.953
+\i (00:00:36) trapsize 48501
+\i (00:00:36) zoom out 1 
+\i (00:00:36) setwindow pcb
+\i (00:00:36) zoom out 2380.952 2209.953
+\i (00:00:36) trapsize 48501
+\i (00:00:36) zoom out 1 
+\i (00:00:36) setwindow pcb
+\i (00:00:36) zoom out 2371.252 2209.953
+\i (00:00:36) trapsize 48501
+\i (00:00:37) zoom in 
+\i (00:00:37) setwindow pcb
+\i (00:00:37) zoom in 5620.811 1957.748
+\i (00:00:37) trapsize 24250
+\i (00:00:39) zoom out 1 
+\i (00:00:39) setwindow pcb
+\i (00:00:39) zoom out 927.249 2462.157
+\i (00:00:39) trapsize 48501
+\i (00:00:40) zoom out 1 
+\i (00:00:40) setwindow pcb
+\i (00:00:40) zoom out -102.293 2200.252
+\i (00:00:40) trapsize 48501
+\i (00:00:40) zoom out 1 
+\i (00:00:40) setwindow pcb
+\i (00:00:40) zoom out -73.192 2142.051
+\i (00:00:40) trapsize 48501
+\i (00:00:40) zoom out 1 
+\i (00:00:40) setwindow pcb
+\i (00:00:40) zoom out -73.192 2142.051
+\i (00:00:40) trapsize 48501
+\i (00:00:41) zoom in 
+\i (00:00:41) setwindow pcb
+\i (00:00:41) zoom in 5620.811 1957.748
+\i (00:00:41) trapsize 24250
+\i (00:00:51) setwindow worldview
+\i (00:00:51) trapsize 18997
+\i (00:00:51) trapsize 5560
+\i (00:00:55) trapsize 10665
+\i (00:00:56) trapsize 5160
+\i (00:00:59) trapsize 16857
+\i (00:01:00) setwindow pcb
+\i (00:01:00) zoom out 1 
+\i (00:01:00) setwindow pcb
+\i (00:01:00) zoom out 1414.529 1608.770
+\i (00:01:00) trapsize 33715
+\i (00:01:00) zoom out 1 
+\i (00:01:00) setwindow pcb
+\i (00:01:00) zoom out 2938.927 1608.770
+\i (00:01:00) trapsize 48501
+\i (00:01:00) zoom out 1 
+\i (00:01:00) setwindow pcb
+\i (00:01:00) zoom out 4447.090 1220.535
+\i (00:01:00) trapsize 48501
+\i (00:01:00) zoom out 1 
+\i (00:01:00) setwindow pcb
+\i (00:01:00) zoom out 4447.090 1220.535
+\i (00:01:00) trapsize 48501
+\i (00:01:01) zoom out 1 
+\i (00:01:01) setwindow pcb
+\i (00:01:01) zoom out 1672.840 1298.136
+\i (00:01:01) trapsize 48501
+\i (00:01:01) zoom out 1 
+\i (00:01:01) setwindow pcb
+\i (00:01:01) zoom out 1672.840 1298.136
+\i (00:01:01) trapsize 48501
+\i (00:01:01) zoom out 1 
+\i (00:01:01) setwindow pcb
+\i (00:01:01) zoom out 1672.840 1298.136
+\i (00:01:01) trapsize 48501
+\i (00:01:02) zoom out 1 
+\i (00:01:02) setwindow pcb
+\i (00:01:02) zoom out 1643.739 1201.134
+\i (00:01:02) trapsize 48501
+\i (00:01:02) zoom out 1 
+\i (00:01:02) setwindow pcb
+\i (00:01:02) zoom out 1643.739 1201.134
+\i (00:01:02) trapsize 48501
+\i (00:01:02) zoom out 1 
+\i (00:01:02) setwindow pcb
+\i (00:01:02) zoom out 1537.037 1918.947
+\i (00:01:02) trapsize 48501
+\i (00:01:03) zoom in 
+\i (00:01:03) setwindow pcb
+\i (00:01:03) zoom in 5620.811 1957.748
+\i (00:01:03) trapsize 24250
+\i (00:01:09) zoom points 
+\t (00:01:09) Pick 1st corner of the new window.
+\i (00:01:10) drag_start 1266.755 2777.413
+\i (00:01:10) drag_stop 2566.579 2350.605
+\i (00:01:10) trapsize 5146
+\i (00:01:12) zoom fit 
+\i (00:01:12) trapsize 26758
+\i (00:01:14) zoom fit 
+\i (00:01:14) trapsize 26758
+\i (00:01:28) zoom out 1 
+\i (00:01:28) setwindow pcb
+\i (00:01:28) zoom out 1624.707 2419.213
+\i (00:01:29) trapsize 48501
+\i (00:01:29) zoom out 1 
+\i (00:01:29) setwindow pcb
+\i (00:01:29) zoom out 2914.462 3635.879
+\i (00:01:29) trapsize 48501
+\i (00:01:29) zoom out 1 
+\i (00:01:29) setwindow pcb
+\i (00:01:29) zoom out 2914.462 3635.879
+\i (00:01:29) trapsize 48501
+\i (00:01:29) zoom out 1 
+\i (00:01:29) setwindow pcb
+\i (00:01:29) zoom out 2914.462 3635.879
+\i (00:01:29) trapsize 48501
+\i (00:01:29) zoom out 1 
+\i (00:01:29) setwindow pcb
+\i (00:01:29) zoom out 2904.762 3655.279
+\i (00:01:29) trapsize 48501
+\i (00:01:29) zoom out 1 
+\i (00:01:29) setwindow pcb
+\i (00:01:29) zoom out 2836.861 3684.379
+\i (00:01:29) trapsize 48501
+\i (00:01:31) zoom fit 
+\i (00:01:31) trapsize 26758
+\i (00:01:36) unrats all 
+\i (00:01:38) rats all 
+\i (00:01:48) color192 
+\i (00:01:48) setwindow cvf.dialog
+\i (00:01:48) cvf layer_mode
+\i (00:01:50) cvf cancel
+\i (00:01:57) setwindow pcb
+\i (00:01:57) show measure 
+\i (00:01:58) show measure 
+\i (00:01:59) assign color 
+\i (00:02:00) pick grid 2299.007 2922.262
+\t (00:02:00) last pick:  2300.000  2900.000
+\t (00:02:00) Net "Gnd" assigned color.
+\i (00:02:01) pick grid 2299.007 2890.152
+\t (00:02:01) last pick:  2300.000  2900.000
+\t (00:02:01) Net "Gnd" assigned color.
+\i (00:02:01) pick grid dbl 2299.007 2890.152
+\t (00:02:01) last pick:  2300.000  2900.000
+\t (00:02:01) Net "Gnd" assigned color.
+\i (00:02:02) pick grid 2299.007 2890.152
+\t (00:02:02) last pick:  2300.000  2900.000
+\t (00:02:02) Net "Gnd" assigned color.
+\i (00:02:02) pick grid dbl 2299.007 2890.152
+\t (00:02:02) last pick:  2300.000  2900.000
+\t (00:02:02) Net "Gnd" assigned color.
+\i (00:02:02) pick grid 2299.007 2890.152
+\t (00:02:02) last pick:  2300.000  2900.000
+\t (00:02:02) Net "Gnd" assigned color.
+\i (00:02:03) pick grid 2331.116 2858.043
+\t (00:02:03) last pick:  2350.000  2850.000
+\t (00:02:03) Net "Gnd" assigned color.
+\i (00:02:03) pick grid dbl 2331.116 2858.043
+\t (00:02:03) last pick:  2350.000  2850.000
+\t (00:02:03) Net "Gnd" assigned color.
+\i (00:02:03) pick grid 2331.116 2858.043
+\t (00:02:03) last pick:  2350.000  2850.000
+\t (00:02:03) Net "Gnd" assigned color.
+\i (00:02:04) pick grid 2331.116 2858.043
+\t (00:02:04) last pick:  2350.000  2850.000
+\t (00:02:04) Net "Gnd" assigned color.
+\i (00:02:04) pick grid dbl 2331.116 2858.043
+\t (00:02:04) last pick:  2350.000  2850.000
+\t (00:02:04) Net "Gnd" assigned color.
+\i (00:02:08) pick grid 3717.177 2253.314
+\t (00:02:08) last pick:  3700.000  2250.000
+\i (00:02:11) exit 
+\t (00:02:11)     Journal end - Sat Jan 04 18:11:48 2014

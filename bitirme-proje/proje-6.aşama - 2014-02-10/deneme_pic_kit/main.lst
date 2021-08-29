@@ -1,0 +1,1328 @@
+CCS PCH C Compiler, Version 4.106, 18916               09-Þub-14 15:33
+
+               Filename: C:\Users\Akýn\Desktop\deneme_pic_kit\main.lst
+
+               ROM used: 3402 bytes (10%)
+                         Largest free fragment is 29366
+               RAM used: 20 (1%) at main() level
+                         80 (5%) worst case
+               Stack:    5 locations
+
+*
+0000:  GOTO   0964
+.................... #include <18F452.h> 
+.................... //////// Standard Header file for the PIC18F452 device //////////////// 
+.................... #device PIC18F452 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES WDT128                   //Watch Dog Timer uses 1:128 Postscale 
+.................... #FUSES XT                       //Crystal osc <= 4mhz for PCM/PCH , 3mhz to 10 mhz for PCD 
+.................... #FUSES NOPROTECT                //Code not protected from reading 
+.................... #FUSES NOOSCSEN                 //Oscillator switching is disabled, main oscillator is source 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES BORV20                   //Brownout reset at 2.0V 
+.................... #FUSES NOPUT                    //No Power Up Timer 
+.................... #FUSES NOSTVREN                 //Stack full/underflow will not cause reset 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NOWRTD                   //Data EEPROM not write protected 
+.................... #FUSES NOWRTB                   //Boot block not write protected 
+.................... #FUSES NOWRTC                   //configuration not registers write protected 
+.................... #FUSES NOCPD                    //No EE protection 
+.................... #FUSES NOCPB                    //No Boot Block code protection 
+.................... #FUSES NOEBTR                   //Memory not protected from table reads 
+.................... #FUSES NOEBTRB                  //Boot block not protected from table reads 
+....................  
+.................... #use delay(clock=4000000) 
+*
+0030:  CLRF   FEA
+0032:  MOVLW  22
+0034:  MOVWF  FE9
+0036:  MOVF   FEF,W
+0038:  BZ    0056
+003A:  MOVLW  01
+003C:  MOVWF  01
+003E:  CLRF   00
+0040:  DECFSZ 00,F
+0042:  BRA    0040
+0044:  DECFSZ 01,F
+0046:  BRA    003E
+0048:  MOVLW  4A
+004A:  MOVWF  00
+004C:  DECFSZ 00,F
+004E:  BRA    004C
+0050:  BRA    0052
+0052:  DECFSZ FEF,F
+0054:  BRA    003A
+0056:  RETLW  00
+....................  
+.................... #include "SHT11.c" 
+.................... /////////////////////////////////////////////////////////////////////////////// 
+.................... //                                                                           // 
+.................... // Driver file for SHT75 Temperature & Humidity Sensor                       // 
+.................... //                                                                           // 
+.................... // ***** To initialise SHT75 sensor upon power up *****                      // 
+.................... //                                                                           // 
+.................... // Function : sht_init()                                                     // 
+.................... // Return   : none                                                           // 
+.................... //                                                                           // 
+.................... //                                                                           // 
+.................... // ***** To measure and caluculate SHT75 temp & real RH *****                // 
+.................... //                                                                           // 
+.................... // Function : sht_rd (temp, truehumid)                                       // 
+.................... // Return   : temperature & true humidity in float values                    // 
+.................... //                                                                           // 
+.................... /////////////////////////////////////////////////////////////////////////////// 
+....................   
+.................... #define sht_data_pin   PIN_B7 
+.................... #define sht_clk_pin    PIN_B6 
+....................  
+.................... //***** Function to alert SHT75 ***** 
+....................   
+.................... void comstart (void) 
+.................... { 
+....................  output_float(sht_data_pin);  //data high 
+*
+0122:  BSF    F93.7
+....................  output_low(sht_clk_pin);  //clk low 
+0124:  BCF    F93.6
+0126:  BCF    F8A.6
+....................  delay_us(1); 
+0128:  NOP   
+....................  output_high(sht_clk_pin);  //clk high 
+012A:  BCF    F93.6
+012C:  BSF    F8A.6
+....................  delay_us(1); 
+012E:  NOP   
+....................  output_low(sht_data_pin); //data low 
+0130:  BCF    F93.7
+0132:  BCF    F8A.7
+....................  delay_us(1); 
+0134:  NOP   
+....................  output_low(sht_clk_pin);  //clk low 
+0136:  BCF    F93.6
+0138:  BCF    F8A.6
+....................  delay_us(2); 
+013A:  BRA    013C
+....................  output_high(sht_clk_pin);  //clk high 
+013C:  BCF    F93.6
+013E:  BSF    F8A.6
+....................  delay_us(1); 
+0140:  NOP   
+....................  output_float(sht_data_pin);  //data high 
+0142:  BSF    F93.7
+....................  delay_us(1); 
+0144:  NOP   
+....................  output_low(sht_clk_pin);  //clk low 
+0146:  BCF    F93.6
+0148:  BCF    F8A.6
+.................... } 
+014A:  RETLW  00
+....................   
+.................... //***** Function to write data to SHT75 ***** 
+....................   
+.................... int1 comwrite (int8 iobyte) 
+.................... { 
+*
+017E:  MOVLW  80
+0180:  MOVWF  29
+....................  int8 i, mask = 0x80; 
+....................  int1 ack; 
+....................   
+....................  //Shift out command 
+....................  delay_us(4); 
+0182:  BRA    0184
+0184:  BRA    0186
+....................  for(i=0; i<8; i++) 
+0186:  CLRF   28
+0188:  MOVF   28,W
+018A:  SUBLW  07
+018C:  BNC   01B0
+....................   { 
+....................    output_low(sht_clk_pin);                          //clk low 
+018E:  BCF    F93.6
+0190:  BCF    F8A.6
+....................    if((iobyte & mask) > 0) output_float(sht_data_pin);  //data high if MSB high 
+0192:  MOVF   27,W
+0194:  ANDWF  29,W
+0196:  BZ    019C
+0198:  BSF    F93.7
+....................    else output_low(sht_data_pin);                    //data low if MSB low 
+019A:  BRA    01A0
+019C:  BCF    F93.7
+019E:  BCF    F8A.7
+....................    delay_us(1); 
+01A0:  NOP   
+....................    output_high(sht_clk_pin);                          //clk high 
+01A2:  BCF    F93.6
+01A4:  BSF    F8A.6
+....................    delay_us(1); 
+01A6:  NOP   
+....................    mask = mask >> 1;                                    //shift to next bit 
+01A8:  BCF    FD8.0
+01AA:  RRCF   29,F
+....................   } 
+01AC:  INCF   28,F
+01AE:  BRA    0188
+....................   
+....................  //Shift in ack 
+....................  output_low(sht_clk_pin);  //clk low 
+01B0:  BCF    F93.6
+01B2:  BCF    F8A.6
+....................  delay_us(1); 
+01B4:  NOP   
+....................  ack = input(sht_data_pin);   //get ack bit 
+01B6:  BSF    F93.7
+01B8:  BCF    2A.0
+01BA:  BTFSC  F81.7
+01BC:  BSF    2A.0
+....................  output_high(sht_clk_pin);  //clk high 
+01BE:  BCF    F93.6
+01C0:  BSF    F8A.6
+....................  delay_us(1); 
+01C2:  NOP   
+....................  output_low(sht_clk_pin);  //clk low 
+01C4:  BCF    F93.6
+01C6:  BCF    F8A.6
+....................  return(ack); 
+01C8:  MOVLW  00
+01CA:  BTFSC  2A.0
+01CC:  MOVLW  01
+01CE:  MOVWF  01
+.................... } 
+01D0:  RETLW  00
+....................   
+.................... //***** Function to read data from SHT75 ***** 
+....................   
+.................... int16 comread (void) 
+.................... { 
+*
+0206:  CLRF   29
+0208:  CLRF   28
+....................  int8 i; 
+....................  int16 iobyte = 0; 
+....................  const int16 mask0 = 0x0000; 
+....................  const int16 mask1 = 0x0001; 
+....................   
+....................  //shift in MSB data 
+....................  for(i=0; i<8; i++) 
+020A:  CLRF   27
+020C:  MOVF   27,W
+020E:  SUBLW  07
+0210:  BNC   0232
+....................   { 
+....................    iobyte = iobyte << 1; 
+0212:  BCF    FD8.0
+0214:  RLCF   28,F
+0216:  RLCF   29,F
+....................    output_high(sht_clk_pin);                //clk high 
+0218:  BCF    F93.6
+021A:  BSF    F8A.6
+....................    delay_us(1); 
+021C:  NOP   
+....................    if (input(sht_data_pin)) iobyte |= mask1;  //shift in data bit 
+021E:  BSF    F93.7
+0220:  BTFSS  F81.7
+0222:  BRA    0228
+0224:  BSF    28.0
+....................    else iobyte |= mask0; 
+0226:  BRA    0228
+....................    output_low(sht_clk_pin);                //clk low 
+0228:  BCF    F93.6
+022A:  BCF    F8A.6
+....................    delay_us(1); 
+022C:  NOP   
+....................   } 
+022E:  INCF   27,F
+0230:  BRA    020C
+....................   
+....................  //send ack 0 bit 
+....................  output_low(sht_data_pin); //data low 
+0232:  BCF    F93.7
+0234:  BCF    F8A.7
+....................  delay_us(1); 
+0236:  NOP   
+....................  output_high(sht_clk_pin);  //clk high 
+0238:  BCF    F93.6
+023A:  BSF    F8A.6
+....................  delay_us(2); 
+023C:  BRA    023E
+....................  output_low(sht_clk_pin);  //clk low 
+023E:  BCF    F93.6
+0240:  BCF    F8A.6
+....................  delay_us(1); 
+0242:  NOP   
+....................  output_float(sht_data_pin);  //data high 
+0244:  BSF    F93.7
+....................   
+....................  //shift in LSB data 
+....................  for(i=0; i<8; i++) 
+0246:  CLRF   27
+0248:  MOVF   27,W
+024A:  SUBLW  07
+024C:  BNC   026E
+....................   { 
+....................    iobyte = iobyte << 1; 
+024E:  BCF    FD8.0
+0250:  RLCF   28,F
+0252:  RLCF   29,F
+....................    output_high(sht_clk_pin);                //clk high 
+0254:  BCF    F93.6
+0256:  BSF    F8A.6
+....................    delay_us(1); 
+0258:  NOP   
+....................    if (input(sht_data_pin)) iobyte |= mask1;  //shift in data bit 
+025A:  BSF    F93.7
+025C:  BTFSS  F81.7
+025E:  BRA    0264
+0260:  BSF    28.0
+....................    else iobyte |= mask0; 
+0262:  BRA    0264
+....................    output_low(sht_clk_pin);                //clk low 
+0264:  BCF    F93.6
+0266:  BCF    F8A.6
+....................    delay_us(1); 
+0268:  NOP   
+....................   } 
+026A:  INCF   27,F
+026C:  BRA    0248
+....................   
+....................  //send ack 1 bit 
+....................  output_float(sht_data_pin);  //data high 
+026E:  BSF    F93.7
+....................  delay_us(1); 
+0270:  NOP   
+....................  output_high(sht_clk_pin);  //clk high 
+0272:  BCF    F93.6
+0274:  BSF    F8A.6
+....................  delay_us(2); 
+0276:  BRA    0278
+....................  output_low(sht_clk_pin);  //clk low 
+0278:  BCF    F93.6
+027A:  BCF    F8A.6
+....................   
+....................  return(iobyte); 
+027C:  MOVFF  28,01
+0280:  MOVFF  29,02
+.................... } 
+0284:  RETLW  00
+....................   
+.................... //***** Function to wait for SHT75 reading ***** 
+....................   
+.................... void comwait (void) 
+.................... { 
+....................  int16 sht_delay; 
+....................   
+....................  output_float(sht_data_pin);                     //data high 
+*
+01D2:  BSF    F93.7
+....................  output_low(sht_clk_pin);                     //clk low 
+01D4:  BCF    F93.6
+01D6:  BCF    F8A.6
+....................  delay_us(1); 
+01D8:  NOP   
+....................  for(sht_delay=0; sht_delay<30000; sht_delay++)  // wait for max 300ms 
+01DA:  CLRF   28
+01DC:  CLRF   27
+01DE:  MOVF   28,W
+01E0:  SUBLW  75
+01E2:  BNC   0204
+01E4:  BNZ   01EC
+01E6:  MOVF   27,W
+01E8:  SUBLW  2F
+01EA:  BNC   0204
+....................   { 
+....................    if (!input(sht_data_pin)) break;              //if sht_data_pin low, SHT75 ready 
+01EC:  BSF    F93.7
+01EE:  BTFSC  F81.7
+01F0:  BRA    01F4
+01F2:  BRA    0204
+....................    delay_us(10); 
+01F4:  MOVLW  03
+01F6:  MOVWF  00
+01F8:  DECFSZ 00,F
+01FA:  BRA    01F8
+....................   } 
+01FC:  INCF   27,F
+01FE:  BTFSC  FD8.2
+0200:  INCF   28,F
+0202:  BRA    01DE
+.................... } 
+0204:  RETLW  00
+....................   
+.................... //***** Function to reset SHT75 communication ***** 
+....................   
+.................... void comreset (void) 
+.................... { 
+....................  int8 i; 
+....................   
+....................  output_float(sht_data_pin);    //data high 
+*
+014C:  BSF    F93.7
+....................  output_low(sht_clk_pin);    //clk low 
+014E:  BCF    F93.6
+0150:  BCF    F8A.6
+....................  delay_us(2); 
+0152:  BRA    0154
+....................  for(i=0; i<9; i++) 
+0154:  CLRF   14
+0156:  MOVF   14,W
+0158:  SUBLW  08
+015A:  BNC   016C
+....................   { 
+....................    output_high(sht_clk_pin);  //toggle clk 9 times 
+015C:  BCF    F93.6
+015E:  BSF    F8A.6
+....................    delay_us(2); 
+0160:  BRA    0162
+....................    output_low(sht_clk_pin); 
+0162:  BCF    F93.6
+0164:  BCF    F8A.6
+....................    delay_us(2); 
+0166:  BRA    0168
+....................  } 
+0168:  INCF   14,F
+016A:  BRA    0156
+....................  comstart(); 
+016C:  RCALL  0122
+.................... } 
+016E:  GOTO   0174 (RETURN)
+....................   
+.................... //***** Function to soft reset SHT75 ***** 
+....................   
+.................... void sht_soft_reset (void) 
+.................... { 
+....................  comreset();           //SHT75 communication reset 
+....................  comwrite(0x1e);       //send SHT75 reset command 
+....................  delay_ms(15);         //pause 15 ms 
+.................... } 
+....................   
+.................... //***** Function to measure SHT75 temperature ***** 
+....................   
+.................... int16 measuretemp (void) 
+.................... { 
+....................  int1 ack; 
+....................  int16 iobyte; 
+....................   
+....................  comstart();             //alert SHT75 
+*
+0286:  RCALL  0122
+....................  ack = comwrite(0x03);   //send measure temp command and read ack status 
+0288:  MOVLW  03
+028A:  MOVWF  27
+028C:  RCALL  017E
+028E:  BCF    24.0
+0290:  BTFSC  01.0
+0292:  BSF    24.0
+....................  if(ack == 1) return; 
+0294:  BTFSS  24.0
+0296:  BRA    029A
+0298:  BRA    02AE
+....................  comwait();              //wait for SHT75 measurement to complete 
+029A:  RCALL  01D2
+....................  iobyte = comread();     //read SHT75 temp data 
+029C:  RCALL  0206
+029E:  MOVFF  02,26
+02A2:  MOVFF  01,25
+....................  return(iobyte); 
+02A6:  MOVFF  25,01
+02AA:  MOVFF  26,02
+.................... } 
+02AE:  GOTO   09F2 (RETURN)
+....................   
+.................... //***** Function to measure SHT75 RH ***** 
+....................   
+.................... int16 measurehumid (void) 
+.................... { 
+....................  int1 ack; 
+....................  int16 iobyte; 
+....................   
+....................  comstart();            //alert SHT75 
+02B2:  RCALL  0122
+....................  ack = comwrite(0x05);  //send measure RH command and read ack status 
+02B4:  MOVLW  05
+02B6:  MOVWF  27
+02B8:  RCALL  017E
+02BA:  BCF    24.0
+02BC:  BTFSC  01.0
+02BE:  BSF    24.0
+....................  if(ack == 1) return; 
+02C0:  BTFSS  24.0
+02C2:  BRA    02C6
+02C4:  BRA    02DA
+....................  comwait();             //wait for SHT75 measurement to complete 
+02C6:  RCALL  01D2
+....................  iobyte = comread();    //read SHT75 temp data 
+02C8:  RCALL  0206
+02CA:  MOVFF  02,26
+02CE:  MOVFF  01,25
+....................  return(iobyte); 
+02D2:  MOVFF  25,01
+02D6:  MOVFF  26,02
+.................... } 
+02DA:  GOTO   09FC (RETURN)
+....................   
+.................... //***** Function to calculate SHT75 temp & RH ***** 
+....................   
+.................... void calculate_data (int16 temp, int16 humid, float & tc, float & rhlin, float & rhtrue) 
+.................... { 
+....................  float truehumid1, rh; 
+....................   
+....................  //calculate temperature reading 
+....................  tc = ((float) temp * 0.01) - 40.0; 
+*
+0A14:  MOVFF  25,3D
+0A18:  MOVFF  24,3C
+0A1C:  RCALL  02DE
+0A1E:  MOVFF  00,30
+0A22:  MOVFF  01,31
+0A26:  MOVFF  02,32
+0A2A:  MOVFF  03,33
+0A2E:  MOVFF  03,47
+0A32:  MOVFF  02,46
+0A36:  MOVFF  01,45
+0A3A:  MOVFF  00,44
+0A3E:  MOVLW  0A
+0A40:  MOVWF  4B
+0A42:  MOVLW  D7
+0A44:  MOVWF  4A
+0A46:  MOVLW  23
+0A48:  MOVWF  49
+0A4A:  MOVLW  78
+0A4C:  MOVWF  48
+0A4E:  RCALL  0314
+0A50:  MOVFF  00,30
+0A54:  MOVFF  01,31
+0A58:  MOVFF  02,32
+0A5C:  MOVFF  03,33
+0A60:  BSF    FD8.1
+0A62:  MOVFF  03,43
+0A66:  MOVFF  02,42
+0A6A:  MOVFF  01,41
+0A6E:  MOVFF  00,40
+0A72:  CLRF   47
+0A74:  CLRF   46
+0A76:  MOVLW  20
+0A78:  MOVWF  45
+0A7A:  MOVLW  84
+0A7C:  MOVWF  44
+0A7E:  RCALL  0406
+0A80:  MOVFF  03,07
+0A84:  MOVFF  02,06
+0A88:  MOVFF  01,05
+0A8C:  MOVFF  00,04
+....................   
+....................   
+....................  //calculate Real RH reading 
+....................  rh = (float) humid; 
+0A90:  MOVFF  27,3D
+0A94:  MOVFF  26,3C
+0A98:  RCALL  02DE
+0A9A:  MOVFF  03,2F
+0A9E:  MOVFF  02,2E
+0AA2:  MOVFF  01,2D
+0AA6:  MOVFF  00,2C
+....................   
+....................  rhlin = (rh * 0.0405) - (rh * rh * 0.0000028) - 4.0; 
+0AAA:  MOVFF  2F,47
+0AAE:  MOVFF  2E,46
+0AB2:  MOVFF  2D,45
+0AB6:  MOVFF  2C,44
+0ABA:  MOVLW  54
+0ABC:  MOVWF  4B
+0ABE:  MOVLW  E3
+0AC0:  MOVWF  4A
+0AC2:  MOVLW  25
+0AC4:  MOVWF  49
+0AC6:  MOVLW  7A
+0AC8:  MOVWF  48
+0ACA:  RCALL  0314
+0ACC:  MOVFF  00,30
+0AD0:  MOVFF  01,31
+0AD4:  MOVFF  02,32
+0AD8:  MOVFF  03,33
+0ADC:  MOVFF  2F,47
+0AE0:  MOVFF  2E,46
+0AE4:  MOVFF  2D,45
+0AE8:  MOVFF  2C,44
+0AEC:  MOVFF  2F,4B
+0AF0:  MOVFF  2E,4A
+0AF4:  MOVFF  2D,49
+0AF8:  MOVFF  2C,48
+0AFC:  RCALL  0314
+0AFE:  MOVFF  00,34
+0B02:  MOVFF  01,35
+0B06:  MOVFF  02,36
+0B0A:  MOVFF  03,37
+0B0E:  MOVFF  03,47
+0B12:  MOVFF  02,46
+0B16:  MOVFF  01,45
+0B1A:  MOVFF  00,44
+0B1E:  MOVLW  A2
+0B20:  MOVWF  4B
+0B22:  MOVLW  E7
+0B24:  MOVWF  4A
+0B26:  MOVLW  3B
+0B28:  MOVWF  49
+0B2A:  MOVLW  6C
+0B2C:  MOVWF  48
+0B2E:  CALL   0314
+0B32:  BSF    FD8.1
+0B34:  MOVFF  33,43
+0B38:  MOVFF  32,42
+0B3C:  MOVFF  31,41
+0B40:  MOVFF  30,40
+0B44:  MOVFF  03,47
+0B48:  MOVFF  02,46
+0B4C:  MOVFF  01,45
+0B50:  MOVFF  00,44
+0B54:  RCALL  0406
+0B56:  MOVFF  00,30
+0B5A:  MOVFF  01,31
+0B5E:  MOVFF  02,32
+0B62:  MOVFF  03,33
+0B66:  BSF    FD8.1
+0B68:  MOVFF  03,43
+0B6C:  MOVFF  02,42
+0B70:  MOVFF  01,41
+0B74:  MOVFF  00,40
+0B78:  CLRF   47
+0B7A:  CLRF   46
+0B7C:  CLRF   45
+0B7E:  MOVLW  81
+0B80:  MOVWF  44
+0B82:  RCALL  0406
+0B84:  MOVFF  03,1B
+0B88:  MOVFF  02,1A
+0B8C:  MOVFF  01,19
+0B90:  MOVFF  00,18
+....................   
+....................  //calculate True RH reading 
+....................  rhtrue = ((tc - 25.0) * (0.01 + (0.00008 * rh))) + rhlin; 
+0B94:  BSF    FD8.1
+0B96:  MOVFF  07,43
+0B9A:  MOVFF  06,42
+0B9E:  MOVFF  05,41
+0BA2:  MOVFF  04,40
+0BA6:  CLRF   47
+0BA8:  CLRF   46
+0BAA:  MOVLW  48
+0BAC:  MOVWF  45
+0BAE:  MOVLW  83
+0BB0:  MOVWF  44
+0BB2:  RCALL  0406
+0BB4:  MOVFF  00,30
+0BB8:  MOVFF  01,31
+0BBC:  MOVFF  02,32
+0BC0:  MOVFF  03,33
+0BC4:  MOVLW  AC
+0BC6:  MOVWF  47
+0BC8:  MOVLW  C5
+0BCA:  MOVWF  46
+0BCC:  MOVLW  27
+0BCE:  MOVWF  45
+0BD0:  MOVLW  71
+0BD2:  MOVWF  44
+0BD4:  MOVFF  2F,4B
+0BD8:  MOVFF  2E,4A
+0BDC:  MOVFF  2D,49
+0BE0:  MOVFF  2C,48
+0BE4:  CALL   0314
+0BE8:  BCF    FD8.1
+0BEA:  MOVLW  0A
+0BEC:  MOVWF  43
+0BEE:  MOVLW  D7
+0BF0:  MOVWF  42
+0BF2:  MOVLW  23
+0BF4:  MOVWF  41
+0BF6:  MOVLW  78
+0BF8:  MOVWF  40
+0BFA:  MOVFF  03,47
+0BFE:  MOVFF  02,46
+0C02:  MOVFF  01,45
+0C06:  MOVFF  00,44
+0C0A:  CALL   0406
+0C0E:  MOVFF  33,47
+0C12:  MOVFF  32,46
+0C16:  MOVFF  31,45
+0C1A:  MOVFF  30,44
+0C1E:  MOVFF  03,4B
+0C22:  MOVFF  02,4A
+0C26:  MOVFF  01,49
+0C2A:  MOVFF  00,48
+0C2E:  CALL   0314
+0C32:  MOVFF  00,30
+0C36:  MOVFF  01,31
+0C3A:  MOVFF  02,32
+0C3E:  MOVFF  03,33
+0C42:  BCF    FD8.1
+0C44:  MOVFF  03,43
+0C48:  MOVFF  02,42
+0C4C:  MOVFF  01,41
+0C50:  MOVFF  00,40
+0C54:  MOVFF  1B,47
+0C58:  MOVFF  1A,46
+0C5C:  MOVFF  19,45
+0C60:  MOVFF  18,44
+0C64:  CALL   0406
+0C68:  MOVFF  03,0B
+0C6C:  MOVFF  02,0A
+0C70:  MOVFF  01,09
+0C74:  MOVFF  00,08
+.................... } 
+....................   
+.................... //***** Function to measure & calculate SHT75 temp & RH ***** 
+....................   
+.................... void sht_rd (float & temp, float & truehumid) 
+.................... { 
+....................  int16 restemp, reshumid; 
+....................  float realhumid; 
+....................  restemp = 0; truehumid = 0; 
+*
+09E4:  CLRF   15
+09E6:  CLRF   14
+09E8:  CLRF   0B
+09EA:  CLRF   0A
+09EC:  CLRF   09
+09EE:  CLRF   08
+....................   
+....................  restemp = measuretemp();    //measure temp 
+09F0:  BRA    0286
+09F2:  MOVFF  02,15
+09F6:  MOVFF  01,14
+....................  reshumid = measurehumid();  //measure RH 
+09FA:  BRA    02B2
+09FC:  MOVFF  02,17
+0A00:  MOVFF  01,16
+.................... calculate_data (restemp, reshumid, temp, realhumid, truehumid);  //calculate temp & RH 
+0A04:  MOVFF  15,25
+0A08:  MOVFF  14,24
+0A0C:  MOVFF  17,27
+0A10:  MOVFF  16,26
+.................... } 
+....................   
+.................... //***** Function to initialise SHT75 on power-up ***** 
+....................   
+.................... void sht_init (void) 
+.................... { 
+....................  comreset();    //reset SHT75 
+*
+0172:  BRA    014C
+....................  delay_ms(20);  //delay for power-up 
+0174:  MOVLW  14
+0176:  MOVWF  22
+0178:  RCALL  0030
+.................... } 
+017A:  GOTO   09DC (RETURN)
+....................  
+....................  
+....................  
+.................... #include "new_lcd.c" 
+.................... // flex_lcd.c 
+....................  
+.................... // These pins are for the Microchip PicDem2-Plus board, 
+.................... // which is what I used to test the driver.  Change these 
+.................... // pins to fit your own board. 
+....................  
+.................... #define LCD_DB4   PIN_D4 
+.................... #define LCD_DB5   PIN_D5 
+.................... #define LCD_DB6   PIN_D6 
+.................... #define LCD_DB7   PIN_D7 
+....................  
+.................... #define LCD_E     PIN_D0 
+.................... #define LCD_RS    PIN_D1 
+.................... //#define LCD_RW    0 
+.................... // If you only want a 6-pin interface to your LCD, then 
+.................... // connect the R/W pin on the LCD to ground, and comment 
+.................... // out the following line. 
+....................  
+.................... //#define USE_LCD_RW   1 
+....................  
+.................... ////  lcd_putc(c)  Will display c on the next position of the LCD.     //// 
+.................... ////                     The following have special meaning:           //// 
+.................... ////                      \f  Clear display                            //// 
+.................... ////                      \n  Go to start of second line               //// 
+.................... ////                      \b  Move back one position                   //// 
+.................... ////                                                                   //// 
+.................... ////  lcd_gotoxy(x,y) Set write position on LCD (upper left is 1,1)    //// 
+.................... ////                                                                   //// 
+.................... ////  lcd_getc(x,y)   Returns character at position x,y on LCD         //// 
+.................... //======================================== 
+....................  
+.................... #define lcd_type 2        // 0=5x7, 1=5x10, 2=2 lines 
+.................... #define lcd_line_two 0x40 // LCD RAM address for the 2nd line 
+....................  
+....................  
+.................... int8 const LCD_INIT_STRING[4] = 
+.................... { 
+....................  0x20 | (lcd_type << 2), // Func set: 4-bit, 2 lines, 5x8 dots 
+....................  0x0C,//0xf,                    // Display on 
+....................  1,                      // Clear display 
+....................  6                       // Increment cursor 
+....................  }; 
+....................  
+.................... /* 
+.................... byte CONST LCD_INIT_STRING[4] = {0x20 | (lcd_type << 2), 0xC, 1,6}; 
+....................  
+.................... Value   Cursor  Blink 
+.................... 0x0C     Off      Off 
+.................... 0x0D     Off      On 
+.................... 0x0E     On       Off 
+.................... 0x0F     On       On 
+....................  
+.................... */ 
+....................  
+.................... //------------------------------------- 
+.................... void lcd_send_nibble(int8 nibble) 
+.................... { 
+.................... // Note:  !! converts an integer expression 
+.................... // to a boolean (1 or 0). 
+....................  output_bit(LCD_DB4, !!(nibble & 1)); 
+*
+0058:  BTFSC  29.0
+005A:  BRA    0060
+005C:  BCF    F8C.4
+005E:  BRA    0062
+0060:  BSF    F8C.4
+0062:  BCF    F95.4
+....................  output_bit(LCD_DB5, !!(nibble & 2)); 
+0064:  BTFSC  29.1
+0066:  BRA    006C
+0068:  BCF    F8C.5
+006A:  BRA    006E
+006C:  BSF    F8C.5
+006E:  BCF    F95.5
+....................  output_bit(LCD_DB6, !!(nibble & 4)); 
+0070:  BTFSC  29.2
+0072:  BRA    0078
+0074:  BCF    F8C.6
+0076:  BRA    007A
+0078:  BSF    F8C.6
+007A:  BCF    F95.6
+....................  output_bit(LCD_DB7, !!(nibble & 8)); 
+007C:  BTFSC  29.3
+007E:  BRA    0084
+0080:  BCF    F8C.7
+0082:  BRA    0086
+0084:  BSF    F8C.7
+0086:  BCF    F95.7
+....................  
+....................  delay_cycles(1); 
+0088:  NOP   
+....................  output_high(LCD_E); 
+008A:  BCF    F95.0
+008C:  BSF    F8C.0
+....................  delay_us(2); 
+008E:  BRA    0090
+....................  output_low(LCD_E); 
+0090:  BCF    F95.0
+0092:  BCF    F8C.0
+.................... } 
+0094:  RETLW  00
+....................  
+.................... //----------------------------------- 
+.................... // This sub-routine is only called by lcd_read_byte(). 
+.................... // It's not a stand-alone routine.  For example, the 
+.................... // R/W signal is set high by lcd_read_byte() before 
+.................... // this routine is called. 
+....................  
+.................... #ifdef USE_LCD_RW 
+.................... int8 lcd_read_nibble(void) 
+.................... { 
+.................... int8 retval; 
+.................... // Create bit variables so that we can easily set 
+.................... // individual bits in the retval variable. 
+.................... #bit retval_0 = retval.0 
+.................... #bit retval_1 = retval.1 
+.................... #bit retval_2 = retval.2 
+.................... #bit retval_3 = retval.3 
+....................  
+.................... retval = 0; 
+....................  
+.................... output_high(LCD_E); 
+.................... delay_cycles(1); 
+....................  
+.................... retval_0 = input(LCD_DB4); 
+.................... retval_1 = input(LCD_DB5); 
+.................... retval_2 = input(LCD_DB6); 
+.................... retval_3 = input(LCD_DB7); 
+....................  
+.................... output_low(LCD_E); 
+....................  
+.................... return(retval); 
+.................... } 
+.................... #endif 
+....................  
+.................... //--------------------------------------- 
+.................... // Read a byte from the LCD and return it. 
+....................  
+.................... #ifdef USE_LCD_RW 
+.................... int8 lcd_read_byte(void) 
+.................... { 
+.................... int8 low; 
+.................... int8 high; 
+....................  
+.................... output_high(LCD_RW); 
+.................... delay_cycles(1); 
+....................  
+.................... high = lcd_read_nibble(); 
+....................  
+.................... low = lcd_read_nibble(); 
+....................  
+.................... return( (high<<4) | low); 
+.................... } 
+.................... #endif 
+....................  
+.................... //---------------------------------------- 
+.................... // Send a byte to the LCD. 
+.................... void lcd_send_byte(int8 address, int8 n) 
+.................... { 
+.................... output_low(LCD_RS); 
+0096:  BCF    F95.1
+0098:  BCF    F8C.1
+....................  
+.................... #ifdef USE_LCD_RW 
+.................... while(bit_test(lcd_read_byte(),7)) ; 
+.................... #else 
+.................... delay_us(60); 
+009A:  MOVLW  13
+009C:  MOVWF  00
+009E:  DECFSZ 00,F
+00A0:  BRA    009E
+00A2:  BRA    00A4
+.................... #endif 
+....................  
+.................... if(address) 
+00A4:  MOVF   26,F
+00A6:  BZ    00AE
+....................    output_high(LCD_RS); 
+00A8:  BCF    F95.1
+00AA:  BSF    F8C.1
+.................... else 
+00AC:  BRA    00B2
+....................    output_low(LCD_RS); 
+00AE:  BCF    F95.1
+00B0:  BCF    F8C.1
+....................  
+....................  delay_cycles(1); 
+00B2:  NOP   
+....................  
+.................... #ifdef USE_LCD_RW 
+.................... output_low(LCD_RW); 
+.................... delay_cycles(1); 
+.................... #endif 
+....................  
+.................... output_low(LCD_E); 
+00B4:  BCF    F95.0
+00B6:  BCF    F8C.0
+....................  
+.................... lcd_send_nibble(n >> 4); 
+00B8:  SWAPF  27,W
+00BA:  MOVWF  28
+00BC:  MOVLW  0F
+00BE:  ANDWF  28,F
+00C0:  MOVFF  28,29
+00C4:  RCALL  0058
+.................... lcd_send_nibble(n & 0xf); 
+00C6:  MOVF   27,W
+00C8:  ANDLW  0F
+00CA:  MOVWF  28
+00CC:  MOVWF  29
+00CE:  RCALL  0058
+.................... } 
+00D0:  RETLW  00
+....................  
+.................... //---------------------------- 
+....................  
+....................  
+.................... void lcd_setcursor_vb(short visible, short blink) { 
+....................   lcd_send_byte(0, 0xC|(visible<<1)|blink); 
+.................... } 
+....................  
+....................  
+.................... void lcd_init(void) 
+.................... { 
+.................... int8 i; 
+....................  
+.................... output_low(LCD_RS); 
+00D2:  BCF    F95.1
+00D4:  BCF    F8C.1
+....................  
+.................... #ifdef USE_LCD_RW 
+.................... output_low(LCD_RW); 
+.................... #endif 
+....................  
+.................... output_low(LCD_E); 
+00D6:  BCF    F95.0
+00D8:  BCF    F8C.0
+....................  
+.................... delay_ms(15); 
+00DA:  MOVLW  0F
+00DC:  MOVWF  22
+00DE:  RCALL  0030
+....................  
+.................... for(i=0 ;i < 3; i++) 
+00E0:  CLRF   14
+00E2:  MOVF   14,W
+00E4:  SUBLW  02
+00E6:  BNC   00F8
+....................    { 
+....................     lcd_send_nibble(0x03); 
+00E8:  MOVLW  03
+00EA:  MOVWF  29
+00EC:  RCALL  0058
+....................     delay_ms(5); 
+00EE:  MOVLW  05
+00F0:  MOVWF  22
+00F2:  RCALL  0030
+....................    } 
+00F4:  INCF   14,F
+00F6:  BRA    00E2
+....................  
+.................... lcd_send_nibble(0x02); 
+00F8:  MOVLW  02
+00FA:  MOVWF  29
+00FC:  RCALL  0058
+....................  
+.................... for(i=0; i < sizeof(LCD_INIT_STRING); i++) 
+00FE:  CLRF   14
+0100:  MOVF   14,W
+0102:  SUBLW  03
+0104:  BNC   011E
+....................    { 
+....................     lcd_send_byte(0, LCD_INIT_STRING[i]); 
+0106:  CLRF   03
+0108:  MOVF   14,W
+010A:  RCALL  0004
+010C:  MOVWF  15
+010E:  CLRF   26
+0110:  MOVWF  27
+0112:  RCALL  0096
+....................  
+....................     // If the R/W signal is not used, then 
+....................     // the busy bit can't be polled.  One of 
+....................     // the init commands takes longer than 
+....................     // the hard-coded delay of 60 us, so in 
+....................     // that case, lets just do a 5 ms delay 
+....................     // after all four of them. 
+....................     #ifndef USE_LCD_RW 
+....................     delay_ms(5); 
+0114:  MOVLW  05
+0116:  MOVWF  22
+0118:  RCALL  0030
+....................     #endif 
+....................    } 
+011A:  INCF   14,F
+011C:  BRA    0100
+....................  
+.................... } 
+011E:  GOTO   09D0 (RETURN)
+....................  
+.................... //---------------------------- 
+....................  
+.................... void lcd_gotoxy(int8 x, int8 y) 
+.................... { 
+.................... int8 address; 
+....................  
+.................... if(y != 1) 
+*
+06A8:  DECFSZ 23,W
+06AA:  BRA    06AE
+06AC:  BRA    06B4
+....................    address = lcd_line_two; 
+06AE:  MOVLW  40
+06B0:  MOVWF  24
+.................... else 
+06B2:  BRA    06B6
+....................    address=0; 
+06B4:  CLRF   24
+....................  
+.................... address += x-1; 
+06B6:  MOVLW  01
+06B8:  SUBWF  22,W
+06BA:  ADDWF  24,F
+.................... lcd_send_byte(0, 0x80 | address); 
+06BC:  MOVF   24,W
+06BE:  IORLW  80
+06C0:  MOVWF  25
+06C2:  CLRF   26
+06C4:  MOVWF  27
+06C6:  RCALL  0096
+.................... } 
+06C8:  RETLW  00
+....................  
+....................  
+.................... //----------------------------- 
+.................... void lcd_putc(char c) 
+.................... { 
+....................  switch(c) 
+....................    { 
+06CA:  MOVF   21,W
+06CC:  XORLW  0C
+06CE:  BZ    06DA
+06D0:  XORLW  06
+06D2:  BZ    06EA
+06D4:  XORLW  02
+06D6:  BZ    06F6
+06D8:  BRA    0700
+....................     case '\f': 
+....................       lcd_send_byte(0,1); 
+06DA:  CLRF   26
+06DC:  MOVLW  01
+06DE:  MOVWF  27
+06E0:  RCALL  0096
+....................       delay_ms(2); 
+06E2:  MOVLW  02
+06E4:  MOVWF  22
+06E6:  RCALL  0030
+....................       break; 
+06E8:  BRA    070C
+....................  
+....................     case '\n': 
+....................        lcd_gotoxy(1,2); 
+06EA:  MOVLW  01
+06EC:  MOVWF  22
+06EE:  MOVLW  02
+06F0:  MOVWF  23
+06F2:  RCALL  06A8
+....................        break; 
+06F4:  BRA    070C
+....................  
+....................     case '\b': 
+....................        lcd_send_byte(0,0x10); 
+06F6:  CLRF   26
+06F8:  MOVLW  10
+06FA:  MOVWF  27
+06FC:  RCALL  0096
+....................        break; 
+06FE:  BRA    070C
+....................  
+....................     default: 
+....................        lcd_send_byte(1,c); 
+0700:  MOVLW  01
+0702:  MOVWF  26
+0704:  MOVFF  21,27
+0708:  RCALL  0096
+....................        break; 
+070A:  BRA    070C
+....................    } 
+.................... } 
+070C:  RETLW  00
+....................  
+.................... //------------------------------ 
+.................... #ifdef USE_LCD_RW 
+.................... char lcd_getc(int8 x, int8 y) 
+.................... { 
+.................... char value; 
+....................  
+.................... lcd_gotoxy(x,y); 
+....................  
+.................... // Wait until busy flag is low. 
+.................... while(bit_test(lcd_read_byte(),7)); 
+....................  
+.................... output_high(LCD_RS); 
+.................... value = lcd_read_byte(); 
+.................... output_low(lcd_RS); 
+....................  
+.................... return(value); 
+.................... } 
+.................... #endif 
+....................  
+....................  
+.................... #define sht_data_pin   PIN_b7//(Data pin veya input) 
+.................... #define sht_clk_pin    PIN_b6 
+....................  
+.................... float temp=0,humid=0,sicaklik=0,nem=0; 
+....................  
+....................  
+....................  
+.................... void main() 
+.................... { 
+*
+0964:  CLRF   FF8
+0966:  BCF    FD0.7
+0968:  CLRF   FEA
+096A:  CLRF   FE9
+096C:  CLRF   07
+096E:  CLRF   06
+0970:  CLRF   05
+0972:  CLRF   04
+0974:  CLRF   0B
+0976:  CLRF   0A
+0978:  CLRF   09
+097A:  CLRF   08
+097C:  CLRF   0F
+097E:  CLRF   0E
+0980:  CLRF   0D
+0982:  CLRF   0C
+0984:  CLRF   13
+0986:  CLRF   12
+0988:  CLRF   11
+098A:  CLRF   10
+098C:  BSF    FC1.0
+098E:  BSF    FC1.1
+0990:  BSF    FC1.2
+0992:  BCF    FC1.3
+....................  
+....................    setup_adc_ports(NO_ANALOGS); 
+0994:  BSF    FC1.0
+0996:  BSF    FC1.1
+0998:  BSF    FC1.2
+099A:  BCF    FC1.3
+....................    setup_adc(ADC_CLOCK_DIV_2); 
+099C:  BCF    FC1.6
+099E:  BCF    FC2.6
+09A0:  BCF    FC2.7
+09A2:  BCF    FC1.7
+09A4:  BSF    FC2.0
+....................    setup_psp(PSP_DISABLED); 
+09A6:  BCF    F96.4
+....................    setup_spi(SPI_SS_DISABLED); 
+09A8:  BCF    FC6.5
+09AA:  BCF    F94.5
+09AC:  BSF    F94.4
+09AE:  BCF    F94.3
+09B0:  MOVLW  01
+09B2:  MOVWF  FC6
+09B4:  MOVLW  00
+09B6:  MOVWF  FC7
+....................    setup_wdt(WDT_OFF); 
+09B8:  BCF    FD1.0
+....................    setup_timer_0(RTCC_INTERNAL); 
+09BA:  MOVLW  80
+09BC:  MOVWF  FD5
+....................    setup_timer_1(T1_DISABLED); 
+09BE:  CLRF   FCD
+....................    setup_timer_2(T2_DISABLED,0,1); 
+09C0:  MOVLW  00
+09C2:  MOVWF  FCA
+09C4:  MOVLW  00
+09C6:  MOVWF  FCB
+....................    setup_ccp1(CCP_OFF); 
+09C8:  BSF    F94.2
+09CA:  CLRF   FBD
+....................     
+....................  
+....................    lcd_init(); 
+09CC:  GOTO   00D2
+....................    delay_ms(100); 
+09D0:  MOVLW  64
+09D2:  MOVWF  22
+09D4:  CALL   0030
+....................    sht_init(); 
+09D8:  GOTO   0172
+....................    delay_ms(100); 
+09DC:  MOVLW  64
+09DE:  MOVWF  22
+09E0:  CALL   0030
+....................     
+....................     
+....................    while(1){ 
+....................       sht_rd (temp, humid); 
+....................       sicaklik=(unsigned int)temp; 
+*
+0C78:  MOVFF  07,17
+0C7C:  MOVFF  06,16
+0C80:  MOVFF  05,15
+0C84:  MOVFF  04,14
+0C88:  RCALL  0670
+0C8A:  CLRF   3D
+0C8C:  MOVFF  01,3C
+0C90:  CALL   02DE
+0C94:  MOVFF  03,0F
+0C98:  MOVFF  02,0E
+0C9C:  MOVFF  01,0D
+0CA0:  MOVFF  00,0C
+....................       nem=(unsigned int)humid; 
+0CA4:  MOVFF  0B,17
+0CA8:  MOVFF  0A,16
+0CAC:  MOVFF  09,15
+0CB0:  MOVFF  08,14
+0CB4:  RCALL  0670
+0CB6:  CLRF   3D
+0CB8:  MOVFF  01,3C
+0CBC:  CALL   02DE
+0CC0:  MOVFF  03,13
+0CC4:  MOVFF  02,12
+0CC8:  MOVFF  01,11
+0CCC:  MOVFF  00,10
+....................       lcd_gotoxy(1,1); 
+0CD0:  MOVLW  01
+0CD2:  MOVWF  22
+0CD4:  MOVWF  23
+0CD6:  RCALL  06A8
+....................       printf(lcd_putc,"SIC %1.3f ",sicaklik); 
+0CD8:  MOVLW  18
+0CDA:  MOVWF  FF6
+0CDC:  MOVLW  00
+0CDE:  MOVWF  FF7
+0CE0:  MOVLW  04
+0CE2:  MOVWF  14
+0CE4:  RCALL  070E
+0CE6:  MOVLW  89
+0CE8:  MOVWF  FE9
+0CEA:  MOVFF  0F,17
+0CEE:  MOVFF  0E,16
+0CF2:  MOVFF  0D,15
+0CF6:  MOVFF  0C,14
+0CFA:  MOVLW  03
+0CFC:  MOVWF  18
+0CFE:  RCALL  07E6
+0D00:  MOVLW  20
+0D02:  MOVWF  21
+0D04:  RCALL  06CA
+....................       lcd_gotoxy(1,2); 
+0D06:  MOVLW  01
+0D08:  MOVWF  22
+0D0A:  MOVLW  02
+0D0C:  MOVWF  23
+0D0E:  RCALL  06A8
+....................       printf(lcd_putc,"NEM %1.3f ",nem); 
+0D10:  MOVLW  24
+0D12:  MOVWF  FF6
+0D14:  MOVLW  00
+0D16:  MOVWF  FF7
+0D18:  MOVLW  04
+0D1A:  MOVWF  14
+0D1C:  RCALL  070E
+0D1E:  MOVLW  89
+0D20:  MOVWF  FE9
+0D22:  MOVFF  13,17
+0D26:  MOVFF  12,16
+0D2A:  MOVFF  11,15
+0D2E:  MOVFF  10,14
+0D32:  MOVLW  03
+0D34:  MOVWF  18
+0D36:  RCALL  07E6
+0D38:  MOVLW  20
+0D3A:  MOVWF  21
+0D3C:  RCALL  06CA
+....................       delay_ms(200); 
+0D3E:  MOVLW  C8
+0D40:  MOVWF  22
+0D42:  CALL   0030
+....................     
+....................        
+....................  
+....................        
+....................        
+....................    } 
+0D46:  BRA    09E4
+....................  
+.................... } 
+....................  
+....................  
+0D48:  SLEEP 
+
+Configuration Fuses:
+   Word  1: 2100   XT NOOSCSEN
+   Word  2: 0E0D   NOBROWNOUT WDT128 NOWDT BORV20 NOPUT
+   Word  3: 0100   CCP2C1
+   Word  4: 0080   NOSTVREN NODEBUG NOLVP
+   Word  5: C00F   NOPROTECT NOCPD NOCPB
+   Word  6: E00F   NOWRT NOWRTD NOWRTB NOWRTC
+   Word  7: 400F   NOEBTR NOEBTRB

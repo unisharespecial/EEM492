@@ -1,0 +1,24 @@
+[PROJECT]
+Target=C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.hex
+Development_Mode=
+Processor_Text=PIC16F877A
+ToolSuite=CCS
+[C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=C:\Users\AKIN\Desktop\bitirme\Sadik_carsamba\den1
+[Opened Files]
+1=den1.c
+2=den1.h
+3=

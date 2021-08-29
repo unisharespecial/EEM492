@@ -1,0 +1,71 @@
+<html>
+	</head>
+		<link type="text/css" href="/css/smoothness/jquery-ui-1.8.20.custom.css" rel="Stylesheet" />
+		
+		<script type="text/javascript" src="//localhost:8000/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.8.20.custom.min.js"></script>
+		<script type="text/javascript" src="/flot/jquery.flot.js"></script>
+		
+		<script>
+		$(document).ready(function(){
+			// Initialize Flot data points
+			var totalPoints = 300;
+			var res = [];
+			function getInitData() {
+				// zip the generated y values with the x values
+				for (var i = 0; i < totalPoints; ++i){
+					res.push([i, 0]);
+				}
+				return res;
+			}
+
+			// Options for Flot plot
+			var options = {
+				series: { shadowSize: 0 }, // drawing is faster without shadows
+				yaxis: { min: 0, max: 100 },
+				xaxis: { show: false }
+			};
+			var plot = $.plot($("#placeholder"), [ getInitData() ], options);
+			
+			// Update the JQuery UI Progress Bar
+			$( "#progressbar" ).progressbar({
+				value: 0
+			});
+
+			var socket = io.connect('http://localhost:8000');
+			socket.on('connect', function () {
+				socket.on('message', function (msg) {
+					// Convert value to integer
+					var val = ((parseInt(msg) / 1023)*100);
+					
+					// Put sensor value to the 'sensor_value' span
+					$('#sensor_value').html(val);
+					
+					// Push new value to Flot Plot
+					res.push([totalPoints, val]); // push on the end side
+					res.shift(); // remove first value to maintain 300 points
+					// reinitialize the x axis data points to 0 to 299.
+					for (i=0;i<totalPoints;i++) { res[i][0] = i; }
+					// Redraw the plot
+					plot.setData([ res ]);
+					plot.draw();
+					
+					// Update JQuery UI progress bar.
+					$( "#progressbar" ).progressbar({
+						value: val
+					});
+				});
+			});
+		});
+		</script>
+	</head>
+	<body>
+		<div role="main">
+			Potentiometer Value: <span id="sensor_value"></span><br/>
+			<div id="progressbar" style="width:600px;height:50px;"></div><br/>
+			Graph:<br/>
+			<div id="placeholder" style="width:600px;height:300px;"></div><br/>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+This is a simple Flask app that shows how to use the Dropbox Datastore
+API via the Python SDK.  It interoperates with the JavaScript, iOS and
+Android tutorial apps.
+
+(For Flask, see http://flask.pocoo.org/ .)
+
+How to use
+----------
+
+0. To create an app, go to https://www.dropbox.com/developers/apps
+
+1. Edit the configuration in the tasks.py file. You'll need to set the
+   DROPBOX_APP_KEY and DROPBOX_APP_SECRET to the app key and app
+   secret of your Dropbox app.  Make sure to add
+   http://localhost:5000/dropbox-auth-finish to the OAuth redirect
+   URLs in your Dropbox app configuration.
+
+2. Now you can run the tasks.py file with your python interpreter and
+   the application will greet you on http://localhost:5000/.  Be sure
+   to install the dropbox package, or set PYTHONPATH to include the
+   directory up two levels, for example:
+
+       PYTHONPATH=../.. python tasks.py

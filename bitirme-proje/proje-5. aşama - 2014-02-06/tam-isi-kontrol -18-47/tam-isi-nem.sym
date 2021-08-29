@@ -1,0 +1,210 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004-007 temp
+008-00B humid
+00C-00F sicaklik
+010-013 nem
+014     tus
+015     flag
+016     a
+017     b
+018     derece
+019     pres
+01A     MAIN.i
+01B     @PSTRINGCN_127.P1
+01B     comreset.i
+01B-01E @SFTOI.P1
+01B-01E @PRINTF_L32D_127FPFPF.P2
+01B     @PRINTF_D_127.P3
+01B-01C sht_rd.restemp
+01B     lcd_init.i
+01B     MAIN.@SCRATCH1
+01B     @PSTRINGC_127.@SCRATCH1
+01C     @PRINTF_D_127.P1
+01C     lcd_init.@SCRATCH1
+01C     MAIN.@SCRATCH2
+01C     @PSTRINGC_127.@SCRATCH2
+01C     @PSTRINGCN_127.@SCRATCH1
+01D-01E sht_rd.reshumid
+01D     MAIN.@SCRATCH3
+01D     @PRINTF_D_127.@SCRATCH1
+01D     @PSTRINGCN_127.@SCRATCH2
+01E     MAIN.@SCRATCH4
+01E     @PRINTF_D_127.@SCRATCH2
+01F     @PRINTF_L32D_127FPFPF.P1
+01F-022 sht_rd.realhumid
+01F     MAIN.@SCRATCH5
+01F     @PRINTF_D_127.@SCRATCH3
+020     MAIN.@SCRATCH6
+020     @PRINTF_D_127.@SCRATCH4
+020     @PRINTF_L32D_127FPFPF.@SCRATCH1
+021     @DIV88.P1
+021     MAIN.@SCRATCH7
+021     @PRINTF_L32D_127FPFPF.@SCRATCH2
+022     @DIV88.P1
+022     MAIN.@SCRATCH8
+022     @PRINTF_L32D_127FPFPF.@SCRATCH3
+023-026 @FLT.P1
+023     @DIV88.@SCRATCH1
+023     @PRINTF_L32D_127FPFPF.@SCRATCH4
+024     @PRINTF_L32D_127FPFPF.@SCRATCH5
+025     @PRINTF_L32D_127FPFPF.@SCRATCH6
+026     @PRINTF_L32D_127FPFPF.@SCRATCH7
+027-02A @FLT.P1
+027     @PRINTF_L32D_127FPFPF.@SCRATCH8
+028-02B @FTOSD.P1
+028-02B @DIV3232.P2
+028     lcd_putc.c
+029     @delay_ms1.P1
+029     lcd_gotoxy.x
+02A     lcd_gotoxy.y
+02B     lcd_gotoxy.address
+02B.0   measurehumid.ack
+02B-02C calculate_data.temp
+02B.0   measuretemp.ack
+02B     @FLT.@SCRATCH1
+02C-02F @DIV3232.P1
+02C-02D measuretemp.iobyte
+02C-02D measurehumid.iobyte
+02C     lcd_gotoxy.@SCRATCH1
+02C     @FTOSD.@SCRATCH1
+02C     @FLT.@SCRATCH2
+02D     lcd_send_byte.address
+02D-02E calculate_data.humid
+02E     comread.i
+02E     lcd_send_byte.n
+02E-02F comwait.sht_delay
+02E     comwrite.iobyte
+02E     measuretemp.@SCRATCH1
+02E     measurehumid.@SCRATCH1
+02F-032 calculate_data.truehumid1
+02F-030 comread.iobyte
+02F     comwrite.i
+02F     lcd_send_byte.@SCRATCH1
+030     comwrite.mask
+030     lcd_send_nibble.nibble
+030     @DIV3232.@SCRATCH1
+031.0   comwrite.ack
+031     @DIV3232.@SCRATCH2
+032     comwrite.@SCRATCH1
+032     @DIV3232.@SCRATCH3
+033-036 calculate_data.rh
+033     @DIV3232.@SCRATCH4
+034     @DIV3232.@SCRATCH5
+037     calculate_data.@SCRATCH1
+038     calculate_data.@SCRATCH2
+039     calculate_data.@SCRATCH3
+03A     calculate_data.@SCRATCH4
+03B     calculate_data.@SCRATCH5
+03C     calculate_data.@SCRATCH6
+03D     calculate_data.@SCRATCH7
+03E     calculate_data.@SCRATCH8
+043-044 @ITOF.P1
+047-04A @ADDFF.P1
+04B-04E @MULFF.P1
+04B-04E @ADDFF.P2
+04F-052 @MULFF.P1
+04F     @ADDFF.@SCRATCH1
+050     @ADDFF.@SCRATCH2
+051     @ADDFF.@SCRATCH3
+052     @ADDFF.@SCRATCH4
+053     @MULFF.@SCRATCH1
+053     @ADDFF.@SCRATCH5
+054     @MULFF.@SCRATCH2
+054     @ADDFF.@SCRATCH6
+055     @MULFF.@SCRATCH3
+055     @ADDFF.@SCRATCH7
+056     @ADDFF.@SCRATCH8
+F83     PSP_DATA
+FBB     CCP_2_LOW
+FBB     CCP_2
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @READ_PACKED_MEMORY.P1
+FE9-FEA @WRITE_PROGRAM_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P3
+FE9-FEA @READ_PROGRAM_MEMORY.P4
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+004E  @delay_ms1
+013E  comstart
+04B6  comwrite
+053E  comread
+050A  comwait
+0168  comreset
+05BE  measuretemp
+05EA  measurehumid
+0E40  calculate_data
+0616  @ITOF
+064C  @MULFF
+073E  @ADDFF
+0E0C  sht_rd
+018E  sht_init
+0004  LCD_INIT_STRING
+0076  lcd_send_nibble
+00B4  lcd_send_byte
+00F0  lcd_init
+0320  lcd_gotoxy
+0342  lcd_putc
+01BC  keypad_oku
+019A  allkeypadlow
+0C96  MAIN
+0018  @const147
+0386  @PSTRINGC_127
+03A8  @DIV88
+03D0  @PRINTF_D_127
+0020  @const156
+0498  @PSTRINGCN_127
+09A8  @SFTOI
+0036  @const161
+09E0  @FTOSD
+0A20  @DIV3232
+0A9A  @PRINTF_L32D_127FPFPF
+0042  @const170
+0C20  @FLT
+0C96  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    C:\Users\Akýn\Desktop\tam-isi-kontrol\
+
+Project Files:
+    tam-isi-nem.c
+    18F452.h
+    SHT11.c
+    new_lcd.c
+
+Units:
+    C:\Users\Akýn\Desktop\tam-isi-kontrol\tam-isi-nem (main)
+
+Compiler Settings:
+    Processor:      PIC18F452
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      tam-isi-nem.err
+    Ext Symbols: tam-isi-nem.esym
+    INHX32:      tam-isi-nem.hex
+    Symbols:     tam-isi-nem.sym
+    List:        tam-isi-nem.lst
+    Debug/COFF:  tam-isi-nem.cof
+    Project:     tam-isi-nem.PJT
+    Call Tree:   tam-isi-nem.tre
+    Statistics:  tam-isi-nem.sta

@@ -1,0 +1,4 @@
+>>> Warning 203 "dden6.c" Line 35(1,1): Condition always TRUE
+>>> Warning 202 "dden6.c" Line 23(17,19): Variable never used:   ar
+      Memory usage:   ROM=10%      RAM=2% - 19%
+      0 Errors,  2 Warnings.

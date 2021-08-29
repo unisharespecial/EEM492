@@ -1,0 +1,225 @@
+'*******************************************************************
+'*  Name    : incPID.PBP                                           *
+'*  Author  : Henrik Olsson                                        *
+'*  Notice  : Copyright (c) 2007 Henrik Olsson                     *  
+'*          : All Rights Reserved                                  *
+'*  Date    : 2007-03-08                                           *
+'*  Notes   : Simple PID Filter include file.                      * 
+'*            Adapted from Parallax Industrial Control App         *
+'*                                                                 *
+'*  Version : 1.3                                                  * 
+'*                                                                 *
+'*  Version history:                                               *
+'*                                                                 *
+'*  2007-03-08 v1.3 - Further streamlining reduced size by ~20%    *
+'*                    Fixed example so that it actually compiles   *
+'*                    A special THANK YOU goes to Darrel Taylor    *
+'*                    for his assistance on this version.          *
+'*                                                                 *
+'*  2007-03-03 v1.21- Updated documentaion and code comments       *
+'*                                                                 *
+'*  2006-10-17 v1.2 - Removed redundant sign check.                *
+'*                    Added pid_Status with aliases.               *
+'*                    Added flag for saturated output.             *
+'*                    Added flag for saturated I-drive.            *
+'*                                                                 *
+'*  2006-10-16 v1.1 - Added external variable pid_Out_Clamp        *
+'*                                                                 *
+'*  2006-10-04 v1.0 - Original version.                            *
+'*                                                                 *
+'******************************************************************* 
+'*******************************************************************
+'*                                                                 *
+'*  Usage:    The main application passes the error to the         *
+'*            filter via the pid_Error variable (16bits, two's     *
+'*            complement) then Gosubs PID.                         *
+'*                                                                 *
+'*            The filter responds with the calculated drive in     *
+'*            the pid_Out variable (16bits, two's complement)      *
+'*                                                                 *
+'*            The three gains are set from the main application    *
+'*            via pid_Kp, pid_Ki and pid_Kd. These are all 16bit   *
+'*            variables representing the gain of each term in      *
+'*            1/256 parts. One LSB is 0.00390625 so to set the     *
+'*            integral gain to 5.5 pid_Ki should be set to $0580.  *
+'*            ( 0580(hex) is 1408(dec), 1408 * 0.00390625 = 5.5 )  *
+'*                                                                 *
+'*            The integrator has a time constant that is set thru  *
+'*            the pid_Ti variable. The pid_Ti tells the PID-filter *
+'*            how often the I-term should be updated. If pid_Ti    *
+'*            is set to 10 the I-term is calculated every 10 times *
+'*            that the filter is called. This is sometimes refered *
+'*            to as 'reset-time'.                                  *
+'*                                                                 *
+'*            The pid_I_Clamp is a 16bit variable that is used to  *
+'*            prevent wind-up of the integrator. If a large error  *
+'*            is present for an extended time period the I-term    *
+'*            can grow too big. The pid_I_clamp clamps the I-term  *
+'*            to whatever value the variable is set to.            *
+'*                                                                 *
+'*            Finally there's the pid_Out_Clamp variable. This     *
+'*            16-bit variable is used to clamp the final output    *
+'*            of the PID-filter to a setable value.                *
+'*                                                                 *
+'*            The pid_Status is a byte size variable containing    *
+'*            various flags that the main application can read     *
+'*            and/or write. The flags are latched so once they     *
+'*            are set by the PID-sub the main application needs    *
+'*            to reset them if need be.                            *
+'*            The flags are:                                       *
+'*                                                                 *
+'*            pid_Status_Out_Sat (bit7) (OS)                       *
+'*            pid_Status_I_Sat (bit6) (IS)                         *
+'*                                                                 *
+'*     MSB                                               LSB       *
+'*    _______________________________________________________      *
+'*   |  OS  |  IS  |  XX  |  XX  |  XX  |  XX  |  XX  |  XX  |     *
+'*    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯      *
+'*                                                                 *
+'*                                                                 *
+'*  RAM     : 29 bytes.                                            *
+'*  SIZE    : 314 words for 12F629, 16F628, 16F870                 *
+'*            334 word for 16F88                                   *
+'*            343 words for 16F877                                 *
+'*            632 bytes for 18F452, 18F2431                        *
+'*                                                                 *
+'*                                                                 *
+'*  Exe time: v1.3 Worst case: ~190uS on 18F2431 @ 20Mhz.          *
+'*                                                                 *
+'*                                                                 *
+'*******************************************************************
+'************************** E X A M P L E **************************
+'*******************************************************************
+'*
+'*  ADValue VAR WORD                     '<---This is your variable.
+'*  Setpoint VAR WORD                    '<---This is your variable.
+'*  Direction var PortB.7                '<---Direction bit to motor driver 
+'*
+'*  INCLUDE "incPID.pbp"                 'Include the PID routine.
+'*
+'*    'These variables are declared by the incPID routine but
+'*    'the user needs to assign values to them.
+'*    pid_Kp = $0700                     'Set Kp to 7.0
+'*    pid_Ki = $0080                     'Set Ki to 0.5
+'*    pid_Kd = $0225                     'Set Kd to 2.14
+'*    pid_Ti = 8                         'Update I-term every 8th call to PID
+'*    pid_I_Clamp = 100                  'Clamp I-term to max ±100
+'*    pid_Out_Clamp = 511                'Clamp the final output to ±511
+'*     
+'*  Start:
+'*    Gosub GetAD                        'Get speed from tacho - NOT SHOWN HERE.
+'*                                     
+'*    pid_Error = Setpoint - ADValue     'Calculate the error
+'*    Gosub PID                          'Result returned in pid_Drive
+'*    Direction = pid_Out.15             'Set direction pin accordning to sign
+'*    pid_Out = ABS pid_Out              'Convert from two's comp. to absolute
+'*    HPWM 1, pid_Out, 10000             'Set PWM output
+'*    Pause 10                           'Wait....
+'*  Goto Start                           '...and do it again.
+'*                  
+'*******************************************************************************
+
+'***************** PID-Filter "external" variables *****************************
+'***** These are the variable that the main application uses.*******************
+'*******************************************************************************
+pid_Status var byte             	'Status of the PID-filter can be read here.
+
+pid_Status_Out_Sat var pid_Status.7     'Flag for saturated output
+pid_Status_I_Sat var pid_status.6       'Flag for saturated Integral drive.
+
+pid_Kp Var Word                 	'Proportional gain.                                     
+pid_Ki Var Word                 	'Integral gain.
+pid_Kd Var Word                 	'Derivative gain.
+
+pid_Error Var Word              	'PID Filter input. (setpoint - actual)
+pid_Out Var Word                	'PID Filter output (P + I + D)
+
+pid_Ti var BYTE                 	'Time constant for the integral time
+pid_I_Clamp var word            	'Clamp for the integrator windup.
+
+pid_Out_Clamp var word          	'Clamp the final output to value in this var.
+
+'*******************************************************************************
+'******************* PID-Filter "internal" variables ***************************
+'*******************************************************************************
+pid_P Var Word                  	'Proportional drive.
+pid_I VAR Word                  	'Integral drive.
+pid_D Var Word                  	'Derivative drive.
+
+pid_Sign Var BIT               	    'Keeps track of the sign of various values
+pid_LastError var word          	'Last error, used for calculating D drive
+pid_Ei Var Word                 	'Integral drive accumulator.
+pid_IntCount Var Byte           	'Counter for the integrator, matches against Ti
+
+'*******************************************************************************
+'******************** Initialise variables *************************************
+'*******************************************************************************
+pid_P = 0                           	'Reset P, I & D variables.
+pid_I = 0
+pid_D = 0
+
+Goto SkipPID                        	'Jump over the PID subroutine.
+
+PID:                                	'This is the entrypoint from the main app.
+'*******************************************************************************
+'***********************  P I D  F I L T E R  **********************************
+'*******************************************************************************
+'PortB.0 = 1
+'Calculate the proportional drive
+    
+pid_P = (ABS pid_Error) */ pid_Kp   	'Multiply by the P-gain
+If pid_Error.15 then pid_P = -pid_P     'Re-apply sign if pid_Error is neg
+
+'*******************************************************************************
+'*******************************************************************************
+'Calculate the Integral drive
+
+pid_Ei = pid_Ei + pid_Error             'Add error to acumulator.
+pid_IntCount = pid_IntCount + 1         'Increment the reset-time counter.
+If pid_IntCount >= pid_Ti then          'Is it time to update the I-term?
+    pid_Sign = pid_Ei.15                'Save Sign
+    pid_Ei = ABS pid_Ei                 'Work with positive numbers
+    pid_Ei = pid_Ei */ pid_Ki           'Multiply by Ki gain
+    pid_Ei = pid_Ei / pid_Ti            'Divide by the reset time
+    If pid_Sign then pid_Ei = -pid_Ei   'Re-apply sign
+    pid_I = pid_I + pid_Ei              'Update I drive
+
+    pid_Sign = pid_I.15                 'Save Sign
+    pid_I = ABS pid_I                   'Work with positive numbers
+    if pid_I >= pid_I_Clamp then        'I-term is saturated.... 
+        pid_Status_I_Sat = 1            'set pid_I_Clamp flag....
+        pid_I = pid_I_Clamp             'and clamp I-terms to what user have set.
+    Endif
+
+    If pid_Sign then pid_I = -pid_I     'Re-apply sign
+    pid_IntCount = 0                    'Reset the counter.
+    pid_Ei = 0                          'Reset the accumulator.
+Endif
+
+'*******************************************************************************
+'*******************************************************************************
+'Calculate the derivative drive       
+    pid_D = pid_Error - pid_LastError
+    pid_Sign = pid_D.15                 'Save Sign
+    pid_D = (ABS pid_D) */ pid_Kd       'Multiply by Kd gain
+    If pid_Sign then pid_D = -pid_D     'Re-apply sign.
+
+DerivDone:
+        pid_LastError = pid_Error       'Store error for next D calc.
+
+'*******************************************************************************
+'*******************************************************************************
+'Calculate the total drive.
+
+pid_Out = pid_P + pid_I + pid_D         'Calculate total drive....
+
+pid_Sign = pid_Out.15                   'Save Sign
+pid_Out = ABS pid_Out                   'Convert from two's comp. to abs.
+If pid_Out >= pid_Out_Clamp then        'Output is saturated...
+    pid_Status_Out_Sat = 1              'set status bit and...
+    pid_out = pid_Out_Clamp             'clamp output.
+Endif
+If pid_Sign then pid_out = -pid_out     'Re-apply sign.
+
+RETURN                                  'And return to sender.
+SkipPID:

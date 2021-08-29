@@ -1,0 +1,7 @@
+Devreyi Proteus benzetim programýnda denemek isterseniz tarama iþlemini tam olarak göremeyebilirsiniz. 
+Benzetim iþleminde tarama iþlemini görmek için display kontrol uçlarýný transistör ile deðil, direk baðlayýnýz. 
+Display seçme uçlarýný direkt baðlayacaðýnýz için programda display seçme bit’lerini terslemeyi unutmayýn 
+(Transistör baðlantýsý varken RB4 ve RB5 display seçme çýkýþlarý lojik-1 ise display seçilmiþ olur. 
+Direkt baðlamada display’i seçmek için bu çýkýþlar lojik-0 yapýlmalýdýr.).
+
+PROTEUS programýnda uygulamanýzý görmeniz için "Display uygulamasý-2_simülasyon.DSN" dosyasýný kullanabilirsiniz.

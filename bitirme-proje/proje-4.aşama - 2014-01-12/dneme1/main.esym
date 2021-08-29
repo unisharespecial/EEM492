@@ -1,0 +1,28 @@
+C L "comstart" 1 21 1 "FUNCTION"
+C G "" 1 41 1 "*"
+D G "__PCM__" 1 43 ""4.106""
+D G "__DEVICE__" 1 43 ""
+D G "__DATE__" 1 43 ""10-Oca-14""
+D G "__TIME__" 1 43 ""15:47:34"" "Driver file for SHT75 Temperature & Humidity Sensor                       //"
+C G "" 1 5 3 "*"
+D G "sht_data_pin" 1 18 "PIN_B7"
+D G "sht_clk_pin" 1 19 "PIN_B6"
+C L "comstart" 1 21 1 "*"
+F G "comstart" 1 23 "void()"
+C L "comstart" 1 21 1 "FUNCTION"
+C L "comstart" 1 21 1 "FUNCTION"
+C L "comstart" 1 21 1 "FUNCTION"
+C L "comstart" 1 21 1 "FUNCTION"
+C L "comstart" 1 21 1 "FUNCTION"
+C L "comstart" 1 21 1 "FUNCTION"
+C L "comstart" 1 21 1 "FUNCTION"
+F B "delay_ms" 1 0
+F B "delay_us" 1 0
+F B "delay_ms" 1 0
+F B "delay_us" 1 0
+F B "delay_ms" 1 0
+F B "delay_us" 1 0
+F B "delay_ms" 1 0
+F B "delay_us" 1 0
+F B "delay_ms" 1 0
+F B "delay_us" 1 0

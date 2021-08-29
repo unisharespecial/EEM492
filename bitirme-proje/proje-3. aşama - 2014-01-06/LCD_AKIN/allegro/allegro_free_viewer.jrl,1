@@ -1,0 +1,18 @@
+\t (00:00:00) allegro_free_viewer 16.6 S002 (v16-6-0A) Windows 32
+\t (00:00:00)     Journal start - Mon Jan 06 05:30:59 2014
+\t (00:00:00)         Host=AKIN-TSHB User=AKIN Pid=6652 CPUs=4
+\t (00:00:00) 
+\t (00:00:00) Starting new design...
+\i (00:00:00) trapsize 1064
+\i (00:00:00) trapsize 1032
+\i (00:00:00) trapsize 831
+\i (00:00:00) trapsize 1510
+\i (00:00:02) open 
+\i (00:00:03) fillin "LCD.brd"
+\t (00:00:03) Opening existing design...
+\i (00:00:03) trapsize 31595
+\d (00:00:03) Database opened: D:/on/Yandex/baskent-paylaþým/bitirme-proje-sdk/proje-3. aþama - 2014-01-06/LCD_AKIN/allegro/LCD.brd
+\i (00:00:06) zoom fit 
+\i (00:00:06) trapsize 26951
+\i (00:00:41) exit 
+\t (00:00:41)     Journal end - Mon Jan 06 05:31:40 2014

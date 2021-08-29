@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I "E:\LunchBreakStuff\keil\ARM\INC" -I "E:\LunchBreakStuff\keil\ARM\INC\ST\STM32F10x" -o ".\bin\main.o" --omf_browse ".\bin\main.crf" --depend ".\bin\main.d" "main.c"

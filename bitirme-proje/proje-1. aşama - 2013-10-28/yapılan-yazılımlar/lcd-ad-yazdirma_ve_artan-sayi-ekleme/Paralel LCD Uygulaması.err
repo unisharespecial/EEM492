@@ -1,0 +1,4 @@
+>>> Warning 203 "Paralel LCD Uygulamasý.c" Line 36(1,1): Condition always TRUE
+>>> Warning 203 "Paralel LCD Uygulamasý.c" Line 44(1,1): Condition always TRUE
+      Memory usage:   ROM=6%      RAM=2% - 7%
+      0 Errors,  2 Warnings.

@@ -1,0 +1,60 @@
+'****************************************************************
+'*  Name    : MALC_HARDWARE.PBP                                 *
+'*  Author  : Malcolm Crabbe                                    *
+'*  Notice  :                                                   *
+'*          : All Rights Reserved                               *
+'*  Date    : 14/12/2010                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+
+@   __config _HS_OSC & _WDT_ON & _LVP_OFF & _CP_OFF
+
+DEFINE  OSC 20
+CLEAR
+
+;----[LCD definitions]------------------------------------------------------
+DEFINE LCD_DREG  PORTB          ' LCD Data port
+DEFINE LCD_DBIT  0              ' starting Data bit (0 or 4)
+DEFINE LCD_EREG  PORTB          ' LCD Enable port
+DEFINE LCD_EBIT  5              '     Enable bit  (on EasyPIC 5 LCD)
+DEFINE LCD_RSREG PORTB          ' LCD Register Select port
+DEFINE LCD_RSBIT 4              '     Register Select bit   (on EasyPIC 5 LCD)
+DEFINE LCD_BITS  4              ' LCD bus size (4 or 8 bits)
+DEFINE LCD_LINES 2              ' number of lines on LCD
+DEFINE LCD_COMMANDUS 2000       ' Command delay time in us 
+DEFINE LCD_DATAUS 50            ' Data delay time in us 
+
+TempSensor1   VAR PORTD.0        ' Pin assigned to this Sensor (EasyPIC5)
+TempSensor2   VAR PORTD.1        ' Pin assigned to this Sensor
+TempSensor3   VAR PORTD.2        ' Pin assigned to this Sensor
+TempSensor4   VAR PORTD.3        ' Pin assigned to this Sensor
+
+HeaterOut1    VAR PORTD.4        ' Pin assigned to Heater 1
+HeaterOut2    VAR PORTD.5        ' Pin assigned to Heater 2
+HeaterOut3    VAR PORTD.6        ' Pin assigned to Heater 3
+HeaterOut4    VAR PORTD.7        ' Pin assigned to Heater 4
+
+Eprom1        var PORTB.6        ' pin 6 of 24c256
+Eprom2        var PORTB.7        ' pin 5 of 24c256
+
+RTC1          VAR PORTC.0        ' SCL on DS1307  - pin 4 on add on RTC module
+RTC2          Var PORTC.1        ' SDA on DS1307  - pin 5 on add on RTC module
+
+POT1          VAR PORTA.0        ' 10K pot on AN0 - EasyPIC 5 add on board
+POT2          VAR PORTA.1        ' 10K pot on AN1 - EasyPIC 5 add on board
+POT3          VAR PORTA.2        ' 10K pot on AN2 - EasyPIC 5 add on board
+POT4          VAR PORTA.3        ' 10K pot on AN3 - EasyPIC 5 add on board
+
+Switch1       Var PORTA.4        ' tactile switch on EasyPIC5 board
+Switch2       VAR PORTA.5        ' tactile switch on EasyPIC5 board
+Switch3       Var PORTE.0        ' tactile switch on EasyPIC5 board
+Switch4       VAR PORTE.1        ' tactile switch on EasyPIC5 board
+Switch5       VAR PORTE.2        ' tactile switch on EasyPIC5 board
+Switch6       VAR PORTC.2        ' tactile switch on EasyPIC5 board
+Switch7       VAR PORTC.6        ' tactile switch on EasyPIC5 board
+Switch8       VAR PORTC.7        ' tactile switch on EasyPIC5 board
+; note all switches pulled to VCC when made (ie +5v)
+
+

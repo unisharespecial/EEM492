@@ -1,0 +1,112 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004-007 temp
+008-00B humid
+00C-00F sicaklik
+010-013 nem
+014     i
+015     negatif
+016     flag
+017     derece
+018     tus
+019     pres
+01A     comreset.i
+01A     lcd_init.i
+01A     MAIN.@SCRATCH1
+01A     @PSTRINGC_127.@SCRATCH1
+01B     lcd_init.@SCRATCH1
+01B     @PSTRINGC_127.@SCRATCH2
+01C     lcd_putc.c
+01D     @delay_ms1.P1
+01D     lcd_gotoxy.x
+01E     lcd_gotoxy.y
+01F     lcd_gotoxy.address
+020     lcd_gotoxy.@SCRATCH1
+021     lcd_send_byte.address
+022     lcd_send_byte.n
+023     lcd_send_byte.@SCRATCH1
+024     lcd_send_nibble.nibble
+F83     PSP_DATA
+FBB     CCP_2_LOW
+FBB     CCP_2
+FBC     CCP_2_HIGH
+FBE     CCP_1
+FBE     CCP_1_LOW
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @READ_PACKED_MEMORY.P1
+FE9-FEA @WRITE_PACKED_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P3
+FE9-FEA @WRITE_PROGRAM_MEMORY.P4
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+0096  @delay_ms1
+0186  comstart
+01B2  comreset
+01D8  sht_init
+0004  LCD_INIT_STRING
+00BE  lcd_send_nibble
+00FC  lcd_send_byte
+0138  lcd_init
+036C  lcd_gotoxy
+0390  lcd_putc
+0206  keypad_oku
+01E4  allkeypadlow
+03F4  MAIN
+0018  @const145
+03D4  @PSTRINGC_127
+0020  @const147
+0026  @const148
+0030  @const149
+003A  @const150
+0044  @const151
+004E  @const152
+0058  @const153
+0062  @const154
+006C  @const155
+0076  @const156
+0080  @const157
+008A  @const159
+03F4  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    C:\Users\Akýn\Desktop\tus_deneme 2\
+
+Project Files:
+    tam-isi-nem.c
+    18F452.h
+    SHT11.c
+    new_lcd.c
+
+Units:
+    C:\Users\Akýn\Desktop\tus_deneme 2\tam-isi-nem (main)
+
+Compiler Settings:
+    Processor:      PIC18F452
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      tam-isi-nem.err
+    Ext Symbols: tam-isi-nem.esym
+    INHX32:      tam-isi-nem.hex
+    Symbols:     tam-isi-nem.sym
+    List:        tam-isi-nem.lst
+    Debug/COFF:  tam-isi-nem.cof
+    Project:     tam-isi-nem.PJT
+    Call Tree:   tam-isi-nem.tre
+    Statistics:  tam-isi-nem.sta

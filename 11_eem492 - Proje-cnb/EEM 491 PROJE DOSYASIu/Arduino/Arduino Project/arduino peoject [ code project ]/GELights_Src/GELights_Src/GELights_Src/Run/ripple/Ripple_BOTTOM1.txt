@@ -1,0 +1,22 @@
+// window 1
+rotatebulbs
+0
+19
+1
+100
+1
+1
+
+// window 2
+rotatebulbs
+20
+44
+1
+100
+1
+1
+
+
+donothing
+100
+

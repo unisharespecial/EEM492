@@ -1,0 +1,14 @@
+- RMS
+- Baþka ölçüm ve kesim yöntemleri
+- PIC??? 16F877
+- Sunum hazýrlama ppt.
+- Kontaktör seç (FEDERAL ELEKTRÝK LÝNKÝNE BAK)
+- yükselteç devresi bul
+- ölçüm % hata
+- display
+- RAPOR?
+
+-320 volt.com
+http://320volt.com/role-elektromanyetik-devre-elemani-hakkinda/
+
+http://320volt.com/akim-ve-gerilim-sensorleri-bilgiler-hesaplamalar/

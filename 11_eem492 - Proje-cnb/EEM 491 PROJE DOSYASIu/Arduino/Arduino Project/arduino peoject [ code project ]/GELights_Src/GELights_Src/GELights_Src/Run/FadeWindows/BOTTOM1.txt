@@ -1,0 +1,10 @@
+#fadewindows\fadewindows_bottom1.txt
+
+setcolour
+0
+44
+white
+bright
+
+donothing
+100
